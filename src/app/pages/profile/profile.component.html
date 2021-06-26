@@ -1,0 +1,215 @@
+<!-- Breadcrumb Area Start -->
+<div class="breadcrumb-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="breadcrumb-content">
+                    <ul class="nav">
+                        <li><a href="https://live.hasthemes.com/html/5/abelo-preview/abelo/index.html">Home</a></li>
+                        <li>Mi Perfil</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Breadcrumb Area End-->
+<!-- account area start -->
+<div class="checkout-area mtb-50px">
+    <div class="container">
+        <div class="row">
+            <div class="ml-auto mr-auto col-lg-9">
+                <div class="checkout-wrapper">
+                    <div id="faq" class="panel-group">
+                        <div class="panel panel-default single-my-account">
+                            <div class="panel-heading my-account-title">
+                                <h3 class="panel-title"><span>1 .</span> <a data-toggle="collapse" data-parent="#faq" href="#my-account-1">Edite la información de su cuenta </a></h3>
+                            </div>
+                            <div id="my-account-1" class="panel-collapse collapse show">
+                                <div class="panel-body">
+                                    <form autocomplete="off" [formGroup]="fdetalle_per" (ngSubmit)="guardar_ipersonal()" class="myaccount-info-wrapper">
+                                        <div class="account-info-wrapper">
+                                            <h4>Información de mi cuenta</h4>
+                                            <h5>Detalle personal</h5>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-lg-6 col-md-6">
+                                                <div class="billing-info">
+                                                    <label>RUC <small *ngIf="rucNoValido" class="form-text text-danger">Ingrese un ruc válido</small></label>
+                                                    <input [class.is-invalid]="rucNoValido" formControlName="ruc" name="ruc" type="text" />
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6 col-md-6">
+                                                <div class="billing-info">
+                                                    <label>Razón Social <small *ngIf="nombreNoValido" class="form-text text-danger">Ingrese una razón social</small></label>
+                                                    <input [class.is-invalid]="nombreNoValido" formControlName="nombre" name="nombre" type="text" />
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6 col-md-6">
+                                                <div class="billing-info">
+                                                    <label>Correo <small *ngIf="correoNoValido" class="form-text text-danger">Ingrese un correo válido</small></label>
+                                                    <input [class.is-invalid]="correoNoValido" formControlName="correo" name="correo" type="email" />
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6 col-md-6">
+                                                <div class="billing-info">
+                                                    <label>Celular <small *ngIf="telefono1NoValido" class="form-text text-danger">Ingrese un número de celular</small></label>
+                                                    <input [class.is-invalid]="telefono1NoValido" formControlName="telefono1" name="telefono1" type="text" />
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6 col-md-6">
+                                                <div class="billing-info">
+                                                    <label>Telefono1(opcional) <small *ngIf="telefono2NoValido" class="form-text text-danger">Ingrese un número telefónico</small></label>
+                                                    <input [class.is-invalid]="telefono2NoValido" formControlName="telefono2" name="telefono2" type="text" />
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6 col-md-6">
+                                                <div class="billing-info">
+                                                    <label>Telefono2(opcional) <small *ngIf="telefono3NoValido" class="form-text text-danger">Ingrese un número telefónico</small></label>
+                                                    <input [class.is-invalid]="telefono3NoValido" formControlName="telefono3" name="telefono3" type="text" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="billing-back-btn">
+                                            <div class="billing-back">
+                                                <a href="#"><i class="fa fa-arrow-up"></i> ocultar</a>
+                                            </div>
+                                            <div class="billing-btn">
+                                                <button type="submit">Guardar cambios</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel panel-default single-my-account">
+                            <div class="panel-heading my-account-title">
+                                <h3 class="panel-title"><span>2 .</span> <a data-toggle="collapse" data-parent="#faq" href="#my-account-2">Cambie su contraseña </a></h3>
+                            </div>
+                            <div id="my-account-2" class="panel-collapse collapse">
+                                <div class="panel-body">
+                                    <form autocomplete="off" [formGroup]="fcambio_pass" (ngSubmit)="guardar_cambio_pass()" class="myaccount-info-wrapper">
+                                        <div class="account-info-wrapper">
+                                            <h4>Cambiar Contraseña</h4>
+                                            <h5>Su contraseña</h5>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-lg-12 col-md-12">
+                                                <div class="billing-info">
+                                                    <label>Nuevo contraseña <small *ngIf="pass1NoValido" class="form-text text-danger">Ingrese una contraseña</small></label>
+                                                    <input [class.is-invalid]="pass1NoValido" formControlName="password" name="password" type="password" />
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-12 col-md-12">
+                                                <div class="billing-info">
+                                                    <label>Confirmar contraseña <small *ngIf="pass2NoValido" class="form-text text-danger">Valide su contraseña</small></label>
+                                                    <input [class.is-invalid]="pass2NoValido" formControlName="password2" name="password2" type="password" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="billing-back-btn">
+                                            <div class="billing-back">
+                                                <a href="#"><i class="fa fa-arrow-up"></i> ocultar</a>
+                                            </div>
+                                            <div class="billing-btn">
+                                                <button type="submit">Guardar cambios</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel panel-default single-my-account">
+                            <div class="panel-heading my-account-title">
+                                <h3 class="panel-title"><span>3 .</span> <a data-toggle="collapse" data-parent="#faq" href="#my-account-3">Modifique su dirección </a></h3>
+                            </div>
+                            <div id="my-account-3" class="panel-collapse collapse">
+                                <div class="panel-body">
+                                    <form autocomplete="off" [formGroup]="fcambio_ubigeo" (ngSubmit)="guardar_ubigeo()" class="myaccount-info-wrapper">
+                                        <div class="account-info-wrapper">
+                                            <h4>Modificar dirección</h4>
+                                            <h5>Su dirección</h5>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-lg-6 col-md-6">
+                                                <div class="billing-info">
+                                                    <label>Departamento</label>
+                                                    <select formControlName="departamento" name="departamento" class="form-control">
+                                                        <option value="0">(Seleccionar)</option>
+                                                        <option *ngFor="let departamento of departamentos" [value]="departamento.departamento"> {{ departamento.departamento }} </option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6 col-md-6">
+                                                <div class="billing-info">
+                                                    <label>Provincia</label>
+                                                    <select formControlName="provincia" name="provincia" class="form-control">
+                                                        <option value="0">(Seleccionar)</option>
+                                                        <option *ngFor="let provincia of provincias" [value]="provincia.provincia"> {{ provincia.provincia }} </option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6 col-md-6">
+                                                <div class="billing-info">
+                                                    <label>Distrito</label>
+                                                    <select formControlName="distrito" name="distrito" class="form-control">
+                                                        <option value="0">(Seleccionar)</option>
+                                                        <option *ngFor="let distrito of distritos" [value]="distrito.codigo"> {{ distrito.distrito }} </option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6 col-md-6">
+                                                <div class="billing-info">
+                                                    <label>Dirección</label>
+                                                    <input formControlName="direccion" name="direccion" type="text" />
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6 col-md-6">
+                                                <div class="billing-info">
+                                                    <label>Número</label>
+                                                    <input formControlName="numero" name="numero" type="text" />
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6 col-md-6">
+                                                <div class="billing-info">
+                                                    <label>Piso</label>
+                                                    <input formControlName="piso" name="piso" type="text" />
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-12 col-md-12">
+                                                <div class="billing-info">
+                                                    <label>Referencia</label>
+                                                    <input formControlName="referencia" name="referencia" type="text" />
+                                                </div>
+                                            </div>
+                                            <!-- <div class="col-lg-6 col-md-6">
+                                                <div class="billing-info">
+                                                    <label>Fax</label>
+                                                    <input type="text" />
+                                                </div>
+                                            </div> -->
+                                        </div>
+                                        <div class="billing-back-btn">
+                                            <div class="billing-back">
+                                                <a href="#"><i class="fa fa-arrow-up"></i> ocultar</a>
+                                            </div>
+                                            <div class="billing-btn">
+                                                <button type="submit">Guardar cambios</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- <div class="panel panel-default single-my-account">
+                            <div class="panel-heading my-account-title">
+                                <h3 class="panel-title"><span>4 .</span> <a href="https://live.hasthemes.com/html/5/abelo-preview/abelo/wishlist.html">Modify your wish list </a></h3>
+                            </div>
+                        </div> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- account area end -->

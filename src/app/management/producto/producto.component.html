@@ -1,0 +1,68 @@
+<!-- Breadcrumb Area Start -->
+<div class="breadcrumb-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="breadcrumb-content">
+                    <ul class="nav">
+                        <li><a href="/">Home</a></li>
+                        <li><a class="default-cursor" href="javascript:void(0)">Mantenimiento</a></li>
+                        <li class="default-cursor">Producto</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Breadcrumb Area End-->
+
+<div class="mantenimiento-area">
+    <div style="width: 80%; margin: auto; height: 69vh; padding: 50px;">
+        <a href="javascript:void(0)" (click)="nuevo_producto()">Agregar producto</a>
+        <div style="margin-top: 10px;" class="row">
+            <div class="col-md-12">
+                <div style="min-height: 500px;">
+                    <div *ngIf="productos.length === 0" class="text-center" style="width: 500px; margin: auto; padding-top: 50px;">
+                        <img src="assets/images/nodata.svg" width="100%">
+                        <hr>
+                        <h6>No se encontraron resultados</h6>
+                    </div>
+                    <table *ngIf="productos.length > 0" class="table table-striped" style="width: 100%; margin: auto;">
+                        <thead>
+                            <tr class="bg-primary" style="color: #fff;">
+                                <th>Sku</th>
+                                <th>Nombre Producto</th>
+                                <th>Descripción Producto</th>
+                                <th>Marca</th>
+                                <th>Categoría</th>
+                                <th>Subcategoría</th>
+                                <th>Precio</th>
+                                <th>Stock</th>
+                                <th colspan="2"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let producto of productos | paginate: { itemsPerPage: 10, currentPage: pagina_actual }">
+                                <td> {{ producto.sku }} </td>
+                                <td> {{ producto.nombre_producto }} </td>
+                                <td> {{ (producto.descripcion_producto .length>40)? (producto.descripcion_producto | slice:0:40)+'...':(producto.descripcion_producto ) }} </td>
+                                <td> {{ producto.nombre_marca }} </td>
+                                <td> {{ producto.nombre_categoria }} </td>
+                                <td> {{ producto.nombre_sub_categoria }} </td>
+                                <td> {{ producto.precio }} </td>
+                                <td> {{ producto.stock }} </td>
+                                <td><a href="javascript:void(0)" (click)="editar_producto(producto)">Modificar</a></td>
+                                <!-- <td><a href="javascript:void(0)">Eliminar</a></td> -->
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+                <div *ngIf="productos.length > 10" class="text-center">
+                    <pagination-controls previousLabel="Anterior" nextLabel="Siguiente" (pageChange)="pagina_actual = $event"></pagination-controls>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

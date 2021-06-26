@@ -1,0 +1,207 @@
+<ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff" type="ball-scale-ripple" [fullScreen]="true">
+    <p style="color: white"> cargando... </p>
+</ngx-spinner>
+<!-- Breadcrumb Area Start -->
+<div class="breadcrumb-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="breadcrumb-content">
+                    <ul class="nav">
+                        <li><a href="/">Home</a></li>
+                        <li><a class="default-cursor" href="javascript:void(0)">Mantenimiento</a></li>
+                        <li><a class="default-cursor" href="javascript:void(0)">Seguimiento del Pedido</a></li>
+                        <li class="default-cursor">Editar</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Breadcrumb Area End-->
+<div class="mantenimiento-area" *ngIf="orden">
+    <div style="width: 80%; margin: auto; height: 69vh; padding: 50px; padding-top: 20px;">
+
+        <form>
+            <!-- <div *ngIf="editar" class="btn-group btn-group-sm" role="group" style="margin-bottom: 20px;">
+                <button type="button" class="btn btn-outline-success">Activo</button>
+                <button type="button" class="btn btn-outline-danger">Inactivo</button>
+            </div> -->
+
+            <!-- <div *ngIf="producto" class="btn-group btn-group-sm" role="group" style="margin-bottom: 20px;">
+                <button type="button" class="btn" (click)="cambiar_estado_producto(true)" [class.btn-outline-success]="!estado_producto" [class.btn-success]="estado_producto">Activo</button>
+                <button type="button" class="btn" (click)="cambiar_estado_producto(false)" [class.btn-outline-danger]="estado_producto" [class.btn-danger]="!estado_producto">Inactivo</button>
+            </div> -->
+
+            <div class="row">
+                <div class="col-md-4">
+                    <h2>Cliente</h2>
+                    <div style="height: 20px;"></div>
+                    <div *ngIf="orden">
+                        <div style="width: 100%; margin-bottom: 20px; padding: 30px 25px; background: #f6f6f6;">
+                            <h6>RUC: {{ orden.usuario_entrega_obj.ruc }} </h6>
+                            <h4> {{ orden.usuario_entrega_obj.nombre }} </h4>
+                            <hr>
+                            <p><span class="lnr lnr-envelope"></span>&nbsp; {{ orden.usuario_entrega_obj.correo }} </p>
+                            <div style="height: 15px;"></div>
+                            <p><span class="lnr lnr-phone-handset"></span>&nbsp; {{ orden.usuario_entrega_obj.telefono1 }} </p>
+                            <div style="height: 15px;"></div>
+                            <p>
+                                <span class="lnr lnr-home"></span> &nbsp; {{ orden.direccion_entrega_obj.direccion }} {{ orden.direccion_entrega_obj.numero }}
+                            </p>
+                            <div style="height: 15px;"></div>
+                            <p>
+                                <span class="lnr lnr-map-marker"></span> &nbsp; {{ orden.direccion_entrega_obj.distrito }} - {{ orden.direccion_entrega_obj.provincia}}
+                            </p>
+                        </div>
+                    </div>
+                    <div *ngIf="orden">
+                        <h2>Pedido</h2>
+                        <div style="height: 20px;"></div>
+                        <p><span><strong>Estado:</strong></span> {{ orden.estado }}</p>
+                        <div style="height: 10px;"></div>
+                        <p><span><strong>Fecha:</strong></span> {{ orden.fecha_operacion | slice:0:10 }}</p>
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    <h2>Productos</h2>
+                    <div style="height: 20px;"></div>
+                    <div *ngIf="orden" style="width: 100%; margin-bottom: 20px; padding: 20px 25px; background: #f6f6f6;">
+                        <div style="background-color: #fff; height: auto;">
+                            <table *ngIf="orden.estado === 'Pendiente'" class="table table-sm">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Producto</th>
+                                        <th scope="col" class="text-center">Precio Uni.</th>
+                                        <th scope="col" class="text-center">Cantidad</th>
+                                        <th scope="col" class="text-center">Subtotal</th>
+                                        <th scope="col" class="text-center">Cantidad Aprobada</th>
+                                        <th scope="col" class="text-center">Subtotal Aprobado</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let prod of orden.detalles; index as i">
+                                        <td> {{ prod.nombre_producto }} </td>
+                                        <td class="text-center"> {{ prod.precio_unitario }} </td>
+                                        <td class="text-center"> {{ prod.cantidad_compra }} </td>
+                                        <td class="text-center"> {{ prod.subtotal | currency: 'PEN': 'symbol': '': 'es-PE' }} </td>
+                                        <td>
+                                            <input style="padding: 0rem .25rem; height: 20px; width: 50%; margin: auto; font-size: 15px;" type="number" class="form-control form-control-sm" [value]="prod.cantidad_aprobada" (change)="modificar_cantidad(i, $event.target.value)">
+                                        </td>
+                                        <td class="text-center"> {{ (prod.subtotal_aprobado) | currency: 'PEN': 'symbol': '': 'es-PE' }} </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <table *ngIf="orden.estado !== 'Pendiente'" class="table table-sm">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Producto</th>
+                                        <th scope="col" class="text-center">Precio Uni.</th>
+                                        <th scope="col" class="text-center">Cantidad</th>
+                                        <th scope="col" class="text-center">Subtotal</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let prod of orden.detalles; index as i">
+                                        <td> {{ prod.nombre_producto }} </td>
+                                        <td class="text-center"> {{ prod.precio_unitario }} </td>
+                                        <td class="text-center"> {{ prod.cantidad_aprobada }} </td>
+                                        <td class="text-center"> {{ (prod.subtotal_aprobado) | currency: 'PEN': 'symbol': '': 'es-PE' }} </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+
+                    <div *ngIf="orden">
+                        <div *ngIf="orden.estado === 'Pendiente'">
+                            <div *ngIf="parcial" class="form-check form-check-inline">
+                                <input value="2" class="form-check-input" type="radio" name="estado" id="inlineRadio1" (change)="obtener_estado($event.target.value)">
+                                <label class="form-check-label pointer" for="inlineRadio1">Aprobado Parcial</label>
+                            </div>
+                            <div *ngIf="!parcial" class="form-check form-check-inline">
+                                <input value="3" class="form-check-input" type="radio" name="estado" id="inlineRadio2" (change)="obtener_estado($event.target.value)">
+                                <label class="form-check-label pointer" for="inlineRadio2">Aprobado</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input value="4" class="form-check-input" type="radio" name="estado" id="inlineRadio3" (change)="obtener_estado($event.target.value)">
+                                <label class="form-check-label pointer" for="inlineRadio3">Rechazado</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6"></div>
+                        <div class="col-md-6">
+                            <div class="row" style="margin-top: 20px;">
+                                <div class="col md-6">
+                                    <div style="margin-top: 10px;">
+                                        <button (click)="retornar_lista()" type="button" class="btn btn-outline-primary btn-block">Regresar al listado</button>
+                                    </div>
+                                </div>
+                                <div class="col md-6" *ngIf="orden.estado === 'Pendiente'">
+                                    <div style="margin-top: 10px;">
+                                        <button (click)="guardar_cambios()" type="button" class="btn btn-primary btn-block">Guardar Cambios</button>
+                                    </div>
+                                </div>
+                                <div class="col md-6" *ngIf="orden.estado === 'Facturado'">
+                                    <div style="margin-top: 10px;">
+                                        <button type="button" class="btn btn-primary btn-block" data-toggle="modal" data-target="#mdl_despacho">Confirmar despacho</button>
+                                    </div>
+                                </div>
+                                <div class="col md-6" *ngIf="orden.estado === 'Despachado'">
+                                    <div style="margin-top: 10px;">
+                                        <button type="button" class="btn btn-primary btn-block" data-toggle="modal" data-target="#mdl_entrega">Confirmar entrega</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </form>
+
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="mdl_despacho" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">¿Desea confirmar que el pedido empezará a ser despachado?</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+        </button>
+            </div>
+            <!-- <div class="modal-body">
+                ¿Desea confirmar que el pedido empezará a ser despachado?
+            </div> -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">No, cerrar</button>
+                <button (click)="cambiar_estado(6)" type="button" class="btn btn-primary" data-dismiss="modal">Sí, confirmar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="mdl_entrega" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">¿Desea confirmar que el pedido ha sido entregado?</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+        </button>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">No, cerrar</button>
+                <button (click)="cambiar_estado(7)" type="button" class="btn btn-primary" data-dismiss="modal">Sí, confirmar</button>
+            </div>
+        </div>
+    </div>
+</div>

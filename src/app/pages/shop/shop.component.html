@@ -1,0 +1,304 @@
+<!-- Breadcrumb Area Start -->
+<div class="breadcrumb-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="breadcrumb-content">
+                    <ul class="nav">
+                        <li><a href="https://live.hasthemes.com/html/5/abelo-preview/abelo/index.html">Home</a></li>
+                        <li>Productos</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Breadcrumb Area End-->
+<!-- Shop Category Area End -->
+<div class="shop-category-area mt-30px">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-9 order-lg-last col-md-12 order-md-first">
+                <!-- Shop Top Area Start -->
+                <div class="shop-top-bar d-flex">
+                    <!-- Left Side start -->
+                    <div class="shop-tab nav d-flex">
+                        <a class="active" href="#shop-1" data-toggle="tab">
+                            <i class="fa fa-th"></i>
+                        </a>
+                        <a href="#shop-2" data-toggle="tab">
+                            <i class="fa fa-list"></i>
+                        </a>
+                        <p *ngIf="productos.length > 0">Hay {{ productos[0].total_registros }} productos en stock.</p>
+                        <p *ngIf="productos.length === 0">No hay productos en stock.</p>
+                    </div>
+                    <!-- Left Side End -->
+                    <!-- Right Side Start -->
+                    <div class="select-shoing-wrap d-flex">
+                        <div class="shot-product">
+                            <p>Ordenar&nbsp;por:</p>
+                        </div>
+                        <div class="shop-select">
+                            <select [(ngModel)]="orden_lista" (change)="enviar_filtros()">
+                                <option value="1">Mayor popularidad</option>
+                                <option value="2">Recién agregados</option>
+                                <option value="3">Menor precio</option>
+                                <option value="4">Mayor precio</option>                                    
+                            </select>
+                        </div>
+                    </div>
+                    <!-- Right Side End -->
+                </div>
+                <!-- Shop Top Area End -->
+
+                <!-- Shop Bottom Area Start -->
+                <div class="shop-bottom-area mt-35" style="min-height: 62vh;">
+                    <!-- Shop Tab Content Start -->
+                    <div class="tab-content jump">
+                        <!-- Tab One Start -->
+                        <div id="shop-1" class="tab-pane active">
+                            <div class="row m-0">
+                                <div *ngFor="let prod of productos" class="mb-30px col-md-4 col-sm-6  p-0">
+                                    <div class="slider-single-item">
+                                        <!-- Single Item -->
+                                        <article class="list-product p-0 text-center">
+                                            <div class="product-inner">
+                                                <div class="img-block">
+                                                    <a href="javascript:void(0)" (click)="ver_producto(prod)" class="thumbnail">
+                                                        <img class="first-img" [src]="obtener_imagen(prod.imagen_1)" alt="" />
+                                                        <img class="second-img" [src]="obtener_imagen(prod.imagen_2)" alt="" />
+                                                    </a>
+                                                    <div class="add-to-link">
+                                                        <ul>
+                                                            <li>
+                                                                <!-- class="quick_view" data-link-action="quickview" data-toggle="modal" data-target="#exampleModal" -->
+                                                                <a href="javascript:void(0)" title="Ver producto" (click)="ver_producto(prod)">
+                                                                    <i class="lnr lnr-magnifier"></i>
+                                                                </a>
+                                                            </li>
+                                                            <li>
+                                                                <a href="javascript:void(0)" title="Añadir a favoritos">
+                                                                    <i class="lnr lnr-heart"></i>
+                                                                </a>
+                                                            </li>
+                                                            <!-- <li>
+                                                                <a href="https://live.hasthemes.com/html/5/abelo-preview/abelo/compare.html" title="Add to compare"><i class="lnr lnr-sync"></i></a>
+                                                            </li> -->
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <ul *ngIf="prod.precio_original !== prod.precio" class="product-flag">
+                                                    <li class="new">- {{ prod.descuento * 100 }}%</li>
+                                                </ul>
+                                                <div class="product-decs">
+                                                    <a class="inner-link" style="cursor: default;" href="javascript:void(0)"><span> {{ prod.nombre_marca }} </span></a>
+                                                    <h2><a href="javascript:void(0)" (click)="ver_producto(prod)" class="product-link"> {{ prod.nombre_producto }} </a></h2>
+                                                    <div class="pricing-meta">
+                                                        <ul>
+                                                            <!-- <li class="old-price">$23.90</li> -->
+                                                            <li *ngIf="prod.precio_original !== prod.precio" class="old-price"> {{ prod.precio_original | currency: 'PEN': 'symbol': '': 'es-PE' }} </li>
+                                                            <li class="current-price">{{ prod.precio | currency: 'PEN': 'symbol': '': 'es-PE' }} </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <div class="cart-btn">
+                                                    <a href="javascript:void(0)" (click)="adicionar_carrito(prod)" class="add-to-curt" title="Add to cart">Añadir al carrito</a>
+                                                </div>
+                                            </div>
+                                        </article>
+                                        <!-- Single Item -->
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <!-- Tab One End -->
+                        <!-- Tab Two Start -->
+                        <div id="shop-2" class="tab-pane">
+                            <div *ngFor="let prod of productos" class="shop-list-wrap mb-30px scroll-zoom">
+                                <div class="slider-single-item">
+                                    <div class="row list-product m-0px">
+                                        <div class="col-md-12 padding-0px product-inner">
+                                            <div class="row">
+                                                <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 p-0">
+                                                    <div class="left-img">
+                                                        <div class="img-block">
+                                                            <a href="https://live.hasthemes.com/html/5/abelo-preview/abelo/single-product.html" class="thumbnail">
+                                                                <img class="first-img" [src]="obtener_imagen(prod.imagen_1)" alt="" />
+                                                                <img class="second-img" [src]="obtener_imagen(prod.imagen_2)" alt="" />
+                                                            </a>
+                                                            <ul *ngIf="prod.precio_original !== prod.precio" class="product-flag">
+                                                                <li class="new">- {{ prod.descuento * 100 }}%</li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 p-0">
+                                                    <div class="product-desc-wrap">
+                                                        <div class="product-decs">
+                                                            <h2><a href="https://live.hasthemes.com/html/5/abelo-preview/abelo/single-product.html" class="product-link"> {{ prod.nombre_producto }} </a></h2>
+                                                            <a class="inner-link" href="https://live.hasthemes.com/html/5/abelo-preview/abelo/shop-4-column.html"><span> {{ prod.nombre_marca }} </span></a>
+                                                            <!-- <div class="product-intro-info">
+                                                                <p>
+                                                                    {{ prod.descripcion_producto }}
+                                                                </p>
+                                                            </div> -->
+                                                        </div>
+                                                        <div class="box-inner d-flex">
+                                                            <div class="align-self-center">
+                                                                <div class="in-stock">Disponible: <span> {{ prod.stock }} en stock</span></div>
+                                                                <div class="pricing-meta">
+                                                                    <ul>
+                                                                        <li *ngIf="prod.precio_original !== prod.precio" class="old-price">{{ prod.precio_original | currency: 'PEN': 'symbol': '': 'es-PE' }}</li>
+                                                                        <li class="current-price">{{ prod.precio | currency: 'PEN': 'symbol': '': 'es-PE' }}</li>
+                                                                    </ul>
+                                                                </div>
+                                                                <div class="cart-btn">
+                                                                    <a href="javascript:void(0)" (click)="adicionar_carrito(prod)" class="add-to-curt">Añadir al carrito</a>
+                                                                </div>
+                                                                <div class="add-to-link">
+                                                                    <ul>
+                                                                        <li>
+                                                                            <a class="quick_view" href="javascript:void(0)" (click)="ver_producto(prod)">
+                                                                                <i class="lnr lnr-magnifier"></i>
+                                                                            </a>
+                                                                        </li>
+                                                                        <li>
+                                                                            <a href="javascript:void(0)" title="Añadir a favoritos"><i class="lnr lnr-heart"></i></a>
+                                                                        </li>
+                                                                        <!-- <li>
+                                                                            <a href="https://live.hasthemes.com/html/5/abelo-preview/abelo/compare.html" title="Add to compare"><i class="lnr lnr-sync"></i></a>
+                                                                        </li> -->
+                                                                    </ul>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Tab Two End -->
+                    </div>
+                    <!-- Shop Tab Content End -->
+                    <!--  Pagination Area Start -->
+                    <!--  <div class="pro-pagination-style text-center mtb-50px">
+                        <ul>
+                            <li>
+                                <a class="prev" href="javascript:void(0)"><i class="ion-ios-arrow-left"></i></a>
+                            </li>
+                            <li><a class="active" href="javascript:void(0)">1</a></li>
+                            <li><a href="javascript:void(0)">2</a></li>
+                            <li>
+                                <a class="next" href="javascript:void(0)"><i class="ion-ios-arrow-right"></i></a>
+                            </li>
+                        </ul>
+                    </div> -->
+                    <!--  Pagination Area End -->
+                </div>
+                <!-- Shop Bottom Area End -->
+            </div>
+            <!-- Sidebar Area Start -->
+            <div class="col-lg-3 order-lg-first col-md-12 order-md-last mb-md-60px mb-lm-60px">
+                <div class="shop-sidebar-wrap">
+                    <div class="sidebar-widget mb-30px">
+                        <div *ngIf="categorias_filtro.length !== 0" class="sidebar-widget tag mb-30px">
+                            <div class="main-heading">
+                                <h3 class="sidebar-title"><span>Tags</span></h3>
+                            </div>
+                            <div class="sidebar-widget-tag">
+                                <ul>
+                                    <li *ngFor="let cate of categorias_filtro"><a href="javascript:void(0)" (click)="quitar_filtro_categoria()"> {{ cate.nombre_categoria }} <span style="font-weight: bold;" class="lnr lnr-cross"></span></a></li>
+                                    <li *ngFor="let subcate of subcategorias_filtro"><a href="javascript:void(0)" (click)="quitar_filtro_subcategoria()"> {{ subcate.nombre_sub_categoria }} <span style="font-weight: bold;" class="lnr lnr-cross"></span></a></li>
+                                    <li *ngFor="let tipo of tipos_filtro; index as i"><a href="javascript:void(0)" (click)="quitar_filtro_tipo(tipo, i)"> {{ tipo.nombre_tipo }} <span style="font-weight: bold;" class="lnr lnr-cross"></span></a></li>
+                                </ul>
+
+                            </div>
+                            <br><br>
+                        </div>
+                    </div>
+                    <!-- Sidebar single item -->
+                    <div class="sidebar-widget-group mt-30">
+                        <h3 class="sidebar-title m-0"><span>Filtrar por</span></h3>
+                        <h4 *ngIf="categorias_filtro.length === 0" class="pro-sidebar-title">Categoría</h4>
+                        <div *ngIf="categorias_filtro.length === 0" class="accordion" id="accordion_categoria" style="margin-top: -20px;">
+                            <div class="card">
+                                <div class="card-header" id="headingOne">
+                                    <a href="javascript:void(0)" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne" class="collapsed">Seleccionar categoría</a>
+                                </div>
+                                <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion_categoria">
+                                    <div class="card-body">
+                                        <ul class="category-list">
+                                            <li *ngFor="let categoria of categorias"><a (click)="agregar_filtro_categoria(categoria)" href="javascript:void(0)"> {{ categoria.nombre_categoria }} </a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Seccion Subcategoria -->
+                        <h4 *ngIf="(subcategorias.length !== 0) && (tipos.length === 0)" class="pro-sidebar-title">Subcategoría</h4>
+                        <div *ngIf="(subcategorias.length !== 0) && (tipos.length === 0)" class="accordion" id="accordion_subcategoria" style="margin-top: -20px;">
+                            <div class="card">
+                                <div class="card-header" id="headingOne">
+                                    <a href="javascript:void(0)" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne" class="collapsed">Seleccionar subcategoría</a>
+                                </div>
+                                <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion_subcategoria">
+                                    <div class="card-body">
+                                        <ul class="category-list">
+                                            <li *ngFor="let subcate of subcategorias"><a (click)="agregar_filtro_subcategoria(subcate)" href="javascript:void(0)"> {{ subcate.nombre_sub_categoria }} </a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Seccion Tipo -->
+                        <div *ngIf="tipos.length !== 0" class="sidebar-widget mt-30">
+                            <h4 class="pro-sidebar-title">Tipo</h4>
+                            <div class="sidebar-widget-list" style="margin-top: -20px;">
+                                <ul>
+                                    <li *ngFor="let tipo of tipos; index as i">
+                                        <div class="sidebar-widget-list-left">
+                                            <input type="checkbox" (change)="agregar_filtro_tipo($event.target.checked, tipo, i)" [checked]="tipo.checked" />
+                                            <a href="javascript:void(0)"> 
+                                                {{ tipo.nombre_tipo }} 
+                                                <!-- <span>(3)</span> -->
+                                            </a>
+                                            <span class="checkmark"></span>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <!-- Seccion Precio -->
+                        <div class="sidebar-widget mt-20">
+                            <h4 class="pro-sidebar-title">Precio</h4>
+                            <div class="row" style="margin-top: -20px;">
+                                <div class="col-md-6" style="padding-right: 5px; padding-left: 5px;">
+                                    <input [(ngModel)]="precio_min" class="form-control form-control-sm" type="number" placeholder="min." />
+                                </div>
+                                <div class="col-md-6" style="padding-right: 5px; padding-left: 5px;">
+                                    <input [(ngModel)]="precio_max" class="form-control form-control-sm" type="number" placeholder="max." />
+                                </div>
+                                <div class="col-md-12" style="margin-top: 5px; padding: 5px;">
+                                    <button (click)="enviar_filtros()" class="btn btn-primary btn-sm btn-block">Filtrar por precio</button>
+                                </div>
+                            </div>
+                            <!-- <div class="price-filter mt-10">
+                                <div class="price-slider-amount">
+                                    <input type="text" id="amount" name="price" placeholder="Add Your Price" />
+                                </div>
+                                <div id="slider-range"></div>
+                            </div> -->
+                        </div>
+                    </div>
+
+                    <!-- Sidebar single item -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Shop Category Area End -->

@@ -1,0 +1,76 @@
+<!-- Breadcrumb Area Start -->
+<div class="breadcrumb-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="breadcrumb-content">
+                    <ul class="nav">
+                        <li><a href="/">Home</a></li>
+                        <li><a class="default-cursor" href="javascript:void(0)">Mantenimiento</a></li>
+                        <li class="default-cursor">Marca</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Breadcrumb Area End-->
+<div class="mantenimiento-area">
+    <div style="width: 80%; margin: auto; height: 69vh; padding: 50px;">
+
+        <div class="row">
+            <div class="col-md-8">
+                <div style="min-height: 500px;">
+                    <table class="table table-striped" style="width: 100%; margin: auto;">
+                        <thead>
+                            <tr class="bg-primary" style="color: #fff;">
+                                <th>Nombre marca</th>
+                                <th colspan="2"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let marca of marcas">
+                                <td> {{ marca.nombre_marca }} </td>
+                                <td><a href="javascript:void(0)" (click)="habilitar_edicion(marca)">Modificar</a></td>
+                                <td><a href="javascript:void(0)" (click)="eliminar_marca(subcategoria)">Eliminar</a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card" style="width: 18rem; margin: auto;">
+                    <div class="card-body">
+                        <h5 class="card-title">Editar Marca</h5>
+                        <a href="javascript:void(0)" (click)="habilitar_nuevo_registro()" class="card-link">Agregar marca</a>
+
+                        <form style="margin-top: 20px; margin-bottom: 20px;" autocomplete="off" [formGroup]="formulario">
+                            <div class="form-group ocultar">
+                                <label>Id:</label>
+                                <input formControlName="id" name="id" type="number" class="form-control" placeholder="Id...">
+                            </div>
+                            <div class="form-group">
+                                <label>Marca:</label>
+                                <input formControlName="nombre_marca" name="nombre_marca" type="text" class="form-control" placeholder="Ingrese nombre...">
+                                <!-- <small class="text-danger">Ingrese nombre de la categoría.</small> -->
+                            </div>
+                            <div class="form-group">
+                                <label>Adjuntar imagen:</label>
+                                <div (click)="pulsarCambio()" class="text-center pointer box-sm">
+                                    <img *ngIf="!imagenTemp" src="https://img.icons8.com/plasticine/2x/image.png" class="wh120 rounded-circle">
+                                    <img *ngIf="imagenTemp" [src]="imagenTemp" class="wh120 rounded-circle">
+                                </div>
+                                <input #btn_selecimg class="ocultar" (change)="seleccionImagen( $event.target.files )" type="file">
+                                <!-- <small class="text-danger">Ingrese nombre de la categoría.</small> -->
+                            </div>
+                            <button *ngIf="!editar" type="button" class="btn btn-primary btn-block" (click)="guardar_marca()">Agregar marca</button>
+                            <button *ngIf="editar" type="button" class="btn btn-primary btn-block" (click)="actualizar_marca()">Guardar cambios</button>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

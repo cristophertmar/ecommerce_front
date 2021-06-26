@@ -1,0 +1,40 @@
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { URL_SERVICIOS } from '../config/config';
+import { Categoria } from '../models/categoria.model';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class CategoriaService {
+
+  constructor(
+    public _http: HttpClient
+  ) { }
+
+  listar_categoria() {
+    const url = URL_SERVICIOS + 'api/categoria/listar';
+    return this._http.get(url);
+  }
+
+  listar_categoria_detallado() {
+    const url = URL_SERVICIOS + 'api/categoria/listar_detallado';
+    return this._http.get(url);
+  }
+
+  insertar_categoria(categoria: Categoria) {
+    const url = URL_SERVICIOS + 'api/categoria/guardar';
+    return this._http.post(url, categoria);
+  }
+
+  actualizar_categoria(categoria: Categoria) {
+    const url = URL_SERVICIOS + 'api/categoria/actualizar';
+    return this._http.put(url, categoria);
+  }
+
+  eliminar_categoria(id: number) {
+    const url = URL_SERVICIOS + 'api/categoria/eliminar?id=' + id;
+    return this._http.delete(url);
+  }
+
+}

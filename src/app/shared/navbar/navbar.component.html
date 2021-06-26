@@ -1,0 +1,486 @@
+<!-- Header Section Start From Here -->
+<header class="header-wrapper">
+    <div class="header-top bg-white ptb-30px d-lg-block d-none">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3 d-flex">
+                    <div class="logo align-self-center">
+                        <a href="/"><img class="img-responsive" src="https://live.hasthemes.com/html/5/abelo-preview/abelo/assets/images/logo/logo.jpg" alt="logo.jpg" /></a>
+                    </div>
+                </div>
+                <div class="col-md-9 align-self-center">
+                    <div class="header-right-element d-flex">
+                        <div class="search-element media-body mr-20px">
+                            <form class="d-flex" action="#">
+                                <div class="search-category">
+                                    <select (change)="obtener_categoria($event.target.value)">
+                                        <option value="0">Categorías</option>
+                                        <option *ngFor="let categoria of categorias" [value]="categoria.id"> {{ categoria.nombre_categoria }} </option>
+                                    </select>
+                                </div>
+                                <input type="text" placeholder="Ingrese su búsqueda... " />
+                                <button type="button" (click)="buscar_producto()">Buscar</button>
+                            </form>
+                        </div>
+                        <!--Cart info Start -->
+                        <div class="header-tools d-flex">
+                            <div class="cart-info d-flex align-self-center">
+                                <a id="items_favoritos" [attr.data-before]="0" href="#offcanvas-wishlist" class="heart offcanvas-toggle"><i class="lnr lnr-heart"></i><span>Favoritos</span></a>
+                                <a id="items_carrito" [attr.data-before]="_productoService.productos.length" href="#offcanvas-cart" class="bag offcanvas-toggle"><i class="lnr lnr-cart"></i><span>Carrito</span></a>
+                            </div>
+                        </div>
+                    </div>
+                    <!--Cart info End -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Header Nav End -->
+    <div class="header-menu bg-white sticky-nav d-lg-block d-none padding-0px">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3">
+                    <div class="header-menu-vertical">
+                        <h4 #btn_desplazar class="menu-title">Ver Categorías </h4>
+                        <ul class="menu-content display-none">
+                            <!-- <li class="menu-item"><a href="#">Televisions</a></li> -->
+                            <li class="menu-item" *ngFor="let categoria of categorias">
+                                <a href="javascript:void(0)" (click)="seleccionar_categoria(categoria)"> 
+                                    {{ categoria.nombre_categoria }} 
+                                    <i *ngIf="categoria.subcategorias.length !== 0" class="ion-ios-arrow-right"></i>
+                                </a>
+                                <ul *ngIf="categoria.subcategorias.length !== 0" class="sub-menu sub-menu-2">
+                                    <li>
+                                        <ul class="submenu-item">
+                                            <li *ngFor="let subcate of categoria.subcategorias"><a href="#"> {{ subcate.nombre_sub_categoria }} </a></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                        <!-- menu content -->
+                    </div>
+                    <!-- header menu vertical -->
+                </div>
+                <div class="col-lg-9">
+                    <div class="header-horizontal-menu">
+                        <ul class="menu-content">
+                            <li class="active menu-dropdown">
+                                <a href="javascript:void(0)">Páginas <i class="ion-ios-arrow-down"></i></a>
+                                <ul class="main-sub-menu">
+                                    <li><a href="javascript:void(0)" [routerLink]="['/']">Inicio</a></li>
+                                    <!-- <li><a href="javascript:void(0)" [routerLink]="['/nosotros']">Nosotros</a></li>
+                                    <li><a href="javascript:void(0)" [routerLink]="['/carrito-compras']">Carrito</a></li>
+                                    <li><a href="javascript:void(0)" [routerLink]="['/realizar-pago']">Checkout</a></li>
+                                    <li><a href="javascript:void(0)" [routerLink]="['/contactanos']">Contáctanos</a></li>
+                                    <li><a href="javascript:void(0)" [routerLink]="['/mi-perfil']">Mi Perfil</a></li> -->
+                                    <li><a href="javascript:void(0)" [routerLink]="['/productos']">Productos</a></li>
+                                    <!-- <li><a href="javascript:void(0)" [routerLink]="['/producto-detalle']">Producto Detalle</a></li> -->
+                                </ul>
+                            </li>
+                            <li *ngIf="_usuarioService.usuario && (_usuarioService.usuario.rol === 'ADMIN_ROL')" class="menu-dropdown">
+                                <a href="javascript:void(0)">Mantenimientos <i class="ion-ios-arrow-down"></i></a>
+                                <ul class="main-sub-menu">
+                                    <li><a href="javascript:void(0)" [routerLink]="['/mantenimiento/categoria']">Categoría</a></li>
+                                    <li><a href="javascript:void(0)" [routerLink]="['/mantenimiento/sub-categoria']">Sub Categoría</a></li>
+                                    <li><a href="javascript:void(0)" [routerLink]="['/mantenimiento/tipo']">Tipo de Producto</a></li>
+                                    <li><a href="javascript:void(0)" [routerLink]="['/mantenimiento/marca']">Marca</a></li>
+                                    <li><a href="javascript:void(0)" [routerLink]="['/mantenimiento/promocion']">Promoción</a></li>
+                                    <li><a href="javascript:void(0)" [routerLink]="['/mantenimiento/producto']">Producto</a></li>
+                                    <li><a href="javascript:void(0)" [routerLink]="['/mantenimiento/usuario']">Usuario</a></li>
+                                    <li><a href="javascript:void(0)" [routerLink]="['/mantenimiento/seguimiento-pedido']">Seguimiento Pedido</a></li>
+                                </ul>
+                            </li>
+                            <li *ngIf="_usuarioService.usuario" class="menu-dropdown">
+                                <a href="javascript:void(0)">Mi cuenta <i class="ion-ios-arrow-down"></i></a>
+                                <ul class="main-sub-menu">
+                                    <li><a href="javascript:void(0)" [routerLink]="['/mi-perfil']">Mi Perfil</a></li>
+                                    <li><a href="javascript:void(0)" (click)="_usuarioService.logout_usuario()">Cerrar Sesión</a></li>
+                                </ul>
+                            </li>
+                            <li *ngIf="!_usuarioService.usuario"><a href="javascript:void(0)" [routerLink]="['/inicia-ahora']">Login / Registro</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!-- row -->
+        </div>
+        <!-- container -->
+    </div>
+    <!-- header menu -->
+</header>
+<!-- Header Section End Here -->
+
+<!-- Mobile Header Section Start -->
+<div class="mobile-header d-lg-none sticky-nav bg-white ptb-20px">
+    <div class="container">
+        <div class="row align-items-center">
+
+            <!-- Header Logo Start -->
+            <div class="col">
+                <div class="header-logo">
+                    <a href="index.html"><img class="img-responsive" src="https://live.hasthemes.com/html/5/abelo-preview/abelo/assets/images/logo/logo.jpg" alt="logo.jpg" /></a>
+                </div>
+            </div>
+            <!-- Header Logo End -->
+
+            <!-- Header Tools Start -->
+            <div class="col-auto">
+                <div class="header-tools justify-content-end">
+                    <div class="cart-info d-flex align-self-center">
+                        <a href="#offcanvas-wishlist" class="heart offcanvas-toggle"><i class="lnr lnr-heart"></i><span>Wishlist</span></a>
+                        <a href="#offcanvas-cart" class="bag offcanvas-toggle"><i class="lnr lnr-cart"></i><span>My Cart</span></a>
+                    </div>
+                    <div class="mobile-menu-toggle">
+                        <a href="#offcanvas-mobile-menu" class="offcanvas-toggle">
+                            <svg viewBox="0 0 800 600">
+                                <path d="M300,220 C300,220 520,220 540,220 C740,220 640,540 520,420 C440,340 300,200 300,200" id="top"></path>
+                                <path d="M300,320 L540,320" id="middle"></path>
+                                <path d="M300,210 C300,210 520,210 540,210 C740,210 640,530 520,410 C440,330 300,190 300,190" id="bottom" transform="translate(480, 320) scale(1, -1) translate(-480, -318) "></path>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <!-- Header Tools End -->
+
+        </div>
+    </div>
+</div>
+<!-- Search Category Start -->
+<div class="mobile-search-area d-lg-none mb-15px">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="search-element media-body">
+                    <form class="d-flex" action="#">
+                        <div class="search-category">
+                            <select>
+                                <option value="0">Categorías</option>
+                                <option *ngFor="let categoria of categorias" value="12"> {{ categoria.nombre_categoria }} </option>
+                            </select>
+                        </div>
+                        <input type="text" placeholder="Enter your search key ... " />
+                        <button><i class="lnr lnr-magnifier"></i></button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Search Category End -->
+<div class="mobile-category-nav d-lg-none mb-15px">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+
+                <!--=======  category menu  =======-->
+                <div class="hero-side-category">
+                    <!-- Category Toggle Wrap -->
+                    <div class="category-toggle-wrap">
+                        <!-- Category Toggle -->
+                        <button class="category-toggle"><i class="fa fa-bars"></i> All Categories</button>
+                    </div>
+
+                    <!-- Category Menu -->
+                    <nav class="category-menu">
+                        <ul>
+                            <li><a href="#">Televisions</a></li>
+                            <li class="menu-item-has-children menu-item-has-children-1">
+                                <a href="#">Accessories & Parts<i class="ion-ios-arrow-down"></i></a>
+                                <!-- category submenu -->
+                                <ul class="category-mega-menu category-mega-menu-1">
+                                    <li><a href="#">Cables & Adapters</a></li>
+                                    <li><a href="#">Batteries</a></li>
+                                    <li><a href="#">Chargers</a></li>
+                                    <li><a href="#">Bags & Cases</a></li>
+                                    <li><a href="#">Electronic Cigarettes</a></li>
+                                </ul>
+                            </li>
+                            <li class="menu-item-has-children menu-item-has-children-2">
+                                <a href="#">Camera & Photo<i class="ion-ios-arrow-down"></i></a>
+                                <!-- category submenu -->
+                                <ul class="category-mega-menu category-mega-menu-2">
+                                    <li><a href="#">Digital Cameras</a></li>
+                                    <li><a href="#">Camcorders</a></li>
+                                    <li><a href="#">Camera Drones</a></li>
+                                    <li><a href="#">Action Cameras</a></li>
+                                    <li><a href="#">Photo Studio Supplies</a></li>
+                                </ul>
+                            </li>
+                            <li class="menu-item-has-children menu-item-has-children-3">
+                                <a href="#">Smart Electronics <i class="ion-ios-arrow-down"></i></a>
+                                <!-- category submenu -->
+                                <ul class="category-mega-menu category-mega-menu-3">
+                                    <li><a href="#">Wearable Devices</a></li>
+                                    <li><a href="#">Smart Home Appliances</a></li>
+                                    <li><a href="#">Smart Remote Controls</a></li>
+                                    <li><a href="#">Smart Watches</a></li>
+                                    <li><a href="#">Smart Wristbands</a></li>
+                                </ul>
+                            </li>
+                            <li class="menu-item-has-children menu-item-has-children-4">
+                                <a href="#">Audio & Video <i class="ion-ios-arrow-down"></i></a>
+                                <!-- category submenu -->
+                                <ul class="category-mega-menu category-mega-menu-4">
+                                    <li><a href="#">Televisions</a></li>
+                                    <li><a href="#">TV Receivers</a></li>
+                                    <li><a href="#">Projectors</a></li>
+                                    <li><a href="#">Audio Amplifier Boards</a></li>
+                                    <li><a href="#">TV Sticks</a></li>
+                                </ul>
+                            </li>
+                            <li class="menu-item-has-children menu-item-has-children-6">
+                                <a href="#">Video Game <i class="ion-ios-arrow-down"></i></a>
+                                <!-- category submenu -->
+                                <ul class="category-mega-menu category-mega-menu-6">
+                                    <li><a href="#">Handheld Game Players</a></li>
+                                    <li><a href="#">Game Controllers</a></li>
+                                    <li><a href="#">Joysticks</a></li>
+                                    <li><a href="#">Stickers</a></li>
+                                </ul>
+                            </li>
+                            <li class="menu-item"><a href="#">Digital Cameras</a></li>
+                            <li class="menu-item"><a href="#">Headphones</a></li>
+                            <li class="menu-item"><a href="#"> Wearable Devices</a></li>
+                            <li class="menu-item"><a href="#"> Smart Watches</a></li>
+                            <li class="menu-item"><a href="#"> Game Controllers</a></li>
+                            <li class="menu-item"><a href="#"> Smart Home Appliances</a></li>
+                            <li class="hidden"><a href="#">Projectors</a></li>
+                            <li>
+                                <a href="#" id="more-btn"><i class="ion-ios-plus-empty" aria-hidden="true"></i> More Categories</a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+
+                <!--=======  End of category menu =======-->
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Mobile Header Section End -->
+
+<!-- OffCanvas Wishlist Start -->
+<div id="offcanvas-wishlist" class="offcanvas offcanvas-wishlist">
+    <div class="inner">
+        <div class="head">
+            <span class="title">Wishlist</span>
+            <button class="offcanvas-close">×</button>
+        </div>
+        <div class="body customScroll">
+            <ul class="minicart-product-list">
+                <li>
+                    <a href="https://live.hasthemes.com/html/5/abelo-preview/abelo/single-product.html" class="image"><img src="https://live.hasthemes.com/html/5/abelo-preview/abelo/assets/images/product-image/1.jpg" alt="Cart product Image"></a>
+                    <div class="content">
+                        <a href="https://live.hasthemes.com/html/5/abelo-preview/abelo/single-product.html" class="title">Walnut Cutting Board</a>
+                        <span class="quantity-price">1 x <span class="amount">$100.00</span></span>
+                        <a href="#" class="remove">×</a>
+                    </div>
+                </li>
+                <li>
+                    <a href="https://live.hasthemes.com/html/5/abelo-preview/abelo/single-product.html" class="image"><img src="https://live.hasthemes.com/html/5/abelo-preview/abelo/assets/images/product-image/2.jpg" alt="Cart product Image"></a>
+                    <div class="content">
+                        <a href="https://live.hasthemes.com/html/5/abelo-preview/abelo/single-product.html" class="title">Lucky Wooden Elephant</a>
+                        <span class="quantity-price">1 x <span class="amount">$35.00</span></span>
+                        <a href="#" class="remove">×</a>
+                    </div>
+                </li>
+                <li>
+                    <a href="https://live.hasthemes.com/html/5/abelo-preview/abelo/single-product.html" class="image"><img src="https://live.hasthemes.com/html/5/abelo-preview/abelo/assets/images/product-image/3.jpg" alt="Cart product Image"></a>
+                    <div class="content">
+                        <a href="https://live.hasthemes.com/html/5/abelo-preview/abelo/single-product.html" class="title">Fish Cut Out Set</a>
+                        <span class="quantity-price">1 x <span class="amount">$9.00</span></span>
+                        <a href="#" class="remove">×</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="foot">
+            <div class="buttons">
+                <a href="https://live.hasthemes.com/html/5/abelo-preview/abelo/wishlist.html" class="btn btn-dark btn-hover-primary mt-30px">view wishlist</a>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- OffCanvas Wishlist End -->
+
+<!-- OffCanvas Cart Start -->
+<div id="offcanvas-cart" class="offcanvas offcanvas-cart">
+    <div class="inner">
+        <div class="head">
+            <span class="title">Carrito</span>
+            <button class="offcanvas-close">×</button>
+        </div>
+        <div *ngIf="_productoService.productos.length === 0" style="width: 250px; margin: auto; text-align: center;">
+            <img src="assets/images/carrito.svg" width="100%">
+            <h4>Su carrito está vacío</h4>
+        </div>
+        <div *ngIf="_productoService.productos.length > 0" class="body customScroll">
+            <ul class="minicart-product-list">
+                <li *ngFor="let prod of _productoService.productos; index as i">
+                    <a href="javacript:void(0)" class="image"><img [src]="obtener_imagen(prod.imagen_1)" alt="Cart product Image"></a>
+                    <div class="content">
+                        <a href="https://live.hasthemes.com/html/5/abelo-preview/abelo/single-product.html" class="title"> {{ prod.nombre_producto }} </a>
+                        <span class="quantity-price">{{ prod.cantidad_comprar }} x <span class="amount"> {{ prod.precio | currency: 'PEN': 'symbol': '': 'es-PE' }} </span></span>
+                        <a href="javascript:void(0)" (click)="eliminar_item(i)" class="remove">×</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div *ngIf="_productoService.productos.length > 0" class="foot">
+            <div class="sub-total">
+                <strong>Subtotal :</strong>
+                <span class="amount"> {{ _productoService.subtotal | currency: 'PEN': 'symbol': '': 'es-PE' }} </span>
+            </div>
+            <div class="buttons">
+                <a href="javascript:void(0)" [routerLink]="['/carrito-compras']" class="btn btn-dark btn-hover-primary mb-30px">Ver carrito</a>
+                <a href="javascript:void(0)" [routerLink]="['/realizar-pago']" class="btn btn-outline-dark current-btn">Ir a pagar</a>
+            </div>
+            <!-- <p class="minicart-message">Free Shipping on All Orders Over $100!</p> -->
+        </div>
+    </div>
+</div>
+<!-- OffCanvas Cart End -->
+
+<!-- OffCanvas Search Start -->
+<div id="offcanvas-mobile-menu" class="offcanvas offcanvas-mobile-menu">
+    <div class="inner customScroll">
+        <div class="head">
+            <span class="title">&nbsp;</span>
+            <button class="offcanvas-close">×</button>
+        </div>
+        <div class="offcanvas-menu-search-form">
+            <form action="#">
+                <input type="text" placeholder="Search...">
+                <button><i class="lnr lnr-magnifier"></i></button>
+            </form>
+        </div>
+        <div class="offcanvas-menu">
+            <ul>
+                <li><a href="#"><span class="menu-text">Páginas</span></a>
+                    <ul class="sub-menu">
+                        <li><a href="javascript:void(0)" [routerLink]="['/']"><span class="menu-text">Inicio</span></a></li>
+                        <li><a href="javascript:void(0)" [routerLink]="['/nosotros']"><span class="menu-text">Nosotros</span></a></li>
+                        <li><a href="javascript:void(0)" [routerLink]="['/carrito-compras']"><span class="menu-text">Carrito</span></a></li>
+                        <li><a href="javascript:void(0)" [routerLink]="['/realizar-pago']"><span class="menu-text">Checkout</span></a></li>
+                        <li><a href="javascript:void(0)" [routerLink]="['/contactanos']"><span class="menu-text">Contáctanos</span></a></li>
+                        <li><a href="javascript:void(0)" [routerLink]="['/mi-perfil']"><span class="menu-text">Mi Perfil</span></a></li>
+                        <li><a href="javascript:void(0)" [routerLink]="['/productos']"><span class="menu-text">Productos</span></a></li>
+                        <li><a href="javascript:void(0)" [routerLink]="['/producto-detalle']"><span class="menu-text">Producto Detalle</span></a></li>
+                        <li><a href="javascript:void(0)" [routerLink]="['/inicia-ahora']"><span class="menu-text">Account</span></a></li>
+                    </ul>
+                </li>
+                <li><a href="#"><span class="menu-text">Shop</span></a>
+                    <ul class="sub-menu">
+                        <li>
+                            <a href="#"><span class="menu-text">Shop Grid</span></a>
+                            <ul class="sub-menu">
+                                <li><a href="https://live.hasthemes.com/html/5/abelo-preview/abelo/shop-3-column.html">Shop Grid 3 Column</a></li>
+                                <li><a href="https://live.hasthemes.com/html/5/abelo-preview/abelo/shop-4-column.html">Shop Grid 4 Column</a></li>
+                                <li><a href="https://live.hasthemes.com/html/5/abelo-preview/abelo/shop-left-sidebar.html">Shop Grid Left Sidebar</a></li>
+                                <li><a href="https://live.hasthemes.com/html/5/abelo-preview/abelo/shop-right-sidebar.html">Shop Grid Right Sidebar</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#"><span class="menu-text">Shop List</span></a>
+                            <ul class="sub-menu">
+                                <li><a href="https://live.hasthemes.com/html/5/abelo-preview/abelo/shop-list.html">Shop List</a></li>
+                                <li><a href="https://live.hasthemes.com/html/5/abelo-preview/abelo/shop-list-left-sidebar.html">Shop List Left Sidebar</a></li>
+                                <li><a href="https://live.hasthemes.com/html/5/abelo-preview/abelo/shop-list-right-sidebar.html">Shop List Right Sidebar</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#"><span class="menu-text">Shop Single</span></a>
+                            <ul class="sub-menu">
+                                <li><a href="https://live.hasthemes.com/html/5/abelo-preview/abelo/single-product.html">Shop Single</a></li>
+                                <li><a href="https://live.hasthemes.com/html/5/abelo-preview/abelo/single-product-variable.html">Shop Variable</a></li>
+                                <li><a href="https://live.hasthemes.com/html/5/abelo-preview/abelo/single-product-affiliate.html">Shop Affiliate</a></li>
+                                <li><a href="https://live.hasthemes.com/html/5/abelo-preview/abelo/single-product-group.html">Shop Group</a></li>
+                                <li><a href="https://live.hasthemes.com/html/5/abelo-preview/abelo/single-product-tabstyle-2.html">Shop Tab 2</a></li>
+                                <li><a href="https://live.hasthemes.com/html/5/abelo-preview/abelo/single-product-tabstyle-3.html">Shop Tab 3</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#"><span class="menu-text">Shop Single</span></a>
+                            <ul class="sub-menu">
+                                <li><a href="https://live.hasthemes.com/html/5/abelo-preview/abelo/single-product-slider.html">Shop Slider</a></li>
+                                <li><a href="https://live.hasthemes.com/html/5/abelo-preview/abelo/single-product-gallery-left.html">Shop Gallery Left</a></li>
+                                <li><a href="https://live.hasthemes.com/html/5/abelo-preview/abelo/single-product-gallery-right.html">Shop Gallery Right</a></li>
+                                <li><a href="https://live.hasthemes.com/html/5/abelo-preview/abelo/single-product-sticky-left.html">Shop Sticky Left</a></li>
+                                <li><a href="https://live.hasthemes.com/html/5/abelo-preview/abelo/single-product-sticky-right.html">Shop Sticky Right</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li><a href="#"><span class="menu-text">Pages</span></a>
+                    <ul class="sub-menu">
+                        <li><a href="https://live.hasthemes.com/html/5/abelo-preview/abelo/about.html">About Page</a></li>
+                        <li><a href="https://live.hasthemes.com/html/5/abelo-preview/abelo/cart.html">Cart Page</a></li>
+                        <li><a href="https://live.hasthemes.com/html/5/abelo-preview/abelo/checkout.html">Checkout Page</a></li>
+                        <li><a href="https://live.hasthemes.com/html/5/abelo-preview/abelo/compare.html">Compare Page</a></li>
+                        <li><a href="https://live.hasthemes.com/html/5/abelo-preview/abelo/login.html">Login & Register Page</a></li>
+                        <li><a href="https://live.hasthemes.com/html/5/abelo-preview/abelo/my-account.html">Account Page</a></li>
+
+                        <li><a href="https://live.hasthemes.com/html/5/abelo-preview/abelo/empty-cart.html">Empty Cart Page</a></li>
+                        <li><a href="https://live.hasthemes.com/html/5/abelo-preview/abelo/404.html">404 Page</a></li>
+                        <li><a href="https://live.hasthemes.com/html/5/abelo-preview/abelo/wishlist.html">Wishlist Page</a></li>
+                    </ul>
+                </li>
+                <li><a href="#"><span class="menu-text">Blog</span></a>
+                    <ul class="sub-menu">
+                        <li><a href="#"><span class="menu-text">Blog Grid</span></a>
+                            <ul class="sub-menu">
+                                <li><a href="https://live.hasthemes.com/html/5/abelo-preview/abelo/blog-grid-left-sidebar.html">Blog Grid Left Sidebar</a></li>
+                                <li><a href="https://live.hasthemes.com/html/5/abelo-preview/abelo/blog-grid-right-sidebar.html">Blog Grid Right Sidebar</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="#"><span class="menu-text">Blog List</span></a>
+                            <ul class="sub-menu">
+                                <li><a href="https://live.hasthemes.com/html/5/abelo-preview/abelo/blog-list-left-sidebar.html">Blog List Left Sidebar</a></li>
+                                <li><a href="https://live.hasthemes.com/html/5/abelo-preview/abelo/blog-list-right-sidebar.html">Blog List Right Sidebar</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="#"><span class="menu-text">Blog Single</span></a>
+                            <ul class="sub-menu">
+                                <li><a href="https://live.hasthemes.com/html/5/abelo-preview/abelo/blog-single-left-sidebar.html">Blog Single Left Sidebar</a></li>
+                                <li><a href="https://live.hasthemes.com/html/5/abelo-preview/abelo/blog-single-right-sidebar.html">Blog Single Right Sidbar</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li><a href="#"><span class="menu-text">Custom Menu</span></a>
+                    <ul class="sub-menu">
+                        <li><a href="https://live.hasthemes.com/html/5/abelo-preview/abelo/shop-4-column.html">Women Is Clothes & Fashion</a></li>
+                        <li><a href="https://live.hasthemes.com/html/5/abelo-preview/abelo/shop-4-column.html">Simple Style</a></li>
+                        <li><a href="https://live.hasthemes.com/html/5/abelo-preview/abelo/shop-4-column.html">Easy Style</a></li>
+                    </ul>
+                </li>
+                <li><a href="https://live.hasthemes.com/html/5/abelo-preview/abelo/contact.html">Contact Us</a></li>
+            </ul>
+        </div>
+        <!-- OffCanvas Menu End -->
+        <div class="offcanvas-social mt-30px">
+            <ul>
+                <li>
+                    <a href="#"><i class="ion-social-facebook"></i></a>
+                </li>
+                <li>
+                    <a href="#"><i class="ion-social-twitter"></i></a>
+                </li>
+                <li>
+                    <a href="#"><i class="ion-social-google"></i></a>
+                </li>
+                <li>
+                    <a href="#"><i class="ion-social-youtube"></i></a>
+                </li>
+                <li>
+                    <a href="#"><i class="ion-social-instagram"></i></a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- OffCanvas Search End -->
+
+<div class="offcanvas-overlay"></div>

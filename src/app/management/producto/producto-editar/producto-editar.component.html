@@ -1,0 +1,263 @@
+<ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff" type="ball-scale-ripple" [fullScreen]="true">
+    <p style="color: white"> cargando... </p>
+</ngx-spinner>
+<!-- Breadcrumb Area Start -->
+<div class="breadcrumb-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="breadcrumb-content">
+                    <ul class="nav">
+                        <li><a href="/">Home</a></li>
+                        <li><a class="default-cursor" href="javascript:void(0)">Mantenimiento</a></li>
+                        <li><a class="default-cursor" href="javascript:void(0)">Producto</a></li>
+                        <li class="default-cursor">Nuevo</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Breadcrumb Area End-->
+<div class="mantenimiento-area">
+    <div style="width: 80%; margin: auto; height: 69vh; padding: 50px; padding-top: 20px;">
+
+        <form autocomplete="off" [formGroup]="formulario">
+            <!-- <div *ngIf="editar" class="btn-group btn-group-sm" role="group" style="margin-bottom: 20px;">
+                <button type="button" class="btn btn-outline-success">Activo</button>
+                <button type="button" class="btn btn-outline-danger">Inactivo</button>
+            </div> -->
+
+            <div *ngIf="producto" class="btn-group btn-group-sm" role="group" style="margin-bottom: 20px;">
+                <button type="button" class="btn" (click)="cambiar_estado_producto(true)" [class.btn-outline-success]="!estado_producto" [class.btn-success]="estado_producto">Activo</button>
+                <button type="button" class="btn" (click)="cambiar_estado_producto(false)" [class.btn-outline-danger]="estado_producto" [class.btn-danger]="!estado_producto">Inactivo</button>
+            </div>
+
+            <div style="height: 20px;" *ngIf="!editar"></div>
+            <div class="row">
+                <div class="col md-6">
+                    <div class="row">
+                        <div class="col-md-6 ocultar">
+                            <div class="form-group">
+                                <label>Id:</label>
+                                <input formControlName="id" name="id" type="text" class="form-control form-control-sm" placeholder="Ingrese Id...">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Código fabricante:</label>
+                                <input formControlName="codigo_fabricante" name="codigo_fabricante" type="text" class="form-control form-control-sm" placeholder="Ingrese código...">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Código sku:</label>
+                                <input formControlName="sku" name="sku" type="text" class="form-control form-control-sm" placeholder="Ingrese sku...">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Nombre producto:</label>
+                                <input formControlName="nombre_producto" name="nombre_producto" type="text" class="form-control form-control-sm" placeholder="Ingrese nombre...">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Promoción: (Opcional)</label>
+                                <select formControlName="id_promocion" name="id_promocion" class="form-control form-control-sm">
+                                    <option value="0">(Ninguna promoción)</option>
+                                    <option *ngFor="let promo of promociones" [value]="promo.id"> {{ promo.descripcion }} </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Categoría:</label>
+                                <select formControlName="id_categoria" name="id_categoria" class="form-control form-control-sm">
+                                    <option value="0">(Seleccionar)</option>
+                                    <option *ngFor="let cate of categorias" [value]="cate.id"> {{ cate.nombre_categoria }} </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Subcategoría:</label>
+                                <select formControlName="id_sub_categoria" name="id_sub_categoria" class="form-control form-control-sm">
+                                    <option value="0">(Seleccionar)</option>
+                                    <option *ngFor="let subcate of subcategorias" [value]="subcate.id"> {{ subcate.nombre_sub_categoria }} </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Tipo producto:</label>
+                                <select formControlName="id_tipo" name="id_tipo" class="form-control form-control-sm">
+                                    <option value="0">(Seleccionar)</option>
+                                    <option *ngFor="let tipo of tipos" [value]="tipo.id"> {{ tipo.nombre_tipo }} </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Marca:</label>
+                                <select formControlName="id_marca" name="id_marca" class="form-control form-control-sm">
+                                    <option value="0">(Seleccionar)</option>
+                                    <option *ngFor="let marca of marcas" [value]="marca.id"> {{ marca.nombre_marca }} </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label>Descripción:</label>
+                                <textarea formControlName="descripcion_producto" name="descripcion_producto" rows="5" class="form-control form-control-sm"></textarea>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Precio:</label>
+                                <input formControlName="precio" name="precio" type="number" class="form-control form-control-sm" placeholder="Ingrese precio...">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Stock:</label>
+                                <input formControlName="stock" name="stock" type="number" class="form-control form-control-sm" placeholder="Ingrese stock...">
+                            </div>
+                        </div>
+                        <div class="col-md-6" style="margin-top: 10px;">
+                            <button type="button" class="btn btn-outline-primary btn-block" (click)="retornar_lista()">Regresar al listado</button>
+                        </div>
+                        <div *ngIf="!editar" class="col-md-6" style="margin-top: 10px;">
+                            <button type="button" class="btn btn-primary btn-block" (click)="guardar_producto()">Agregar Producto</button>
+                        </div>
+                        <div *ngIf="editar" class="col-md-6" style="margin-top: 10px;">
+                            <button type="button" class="btn btn-primary btn-block" (click)="actualizar_producto()">Actualizar Producto</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col md-6">
+
+                    <div style="height: 300px; width: 100%; margin-bottom: 20px; padding: 20px 25px; background: #f6f6f6;">
+
+                        <div class="row">
+                            <div class="col-md-10" style="padding-left: 15px;">
+                                <input id="patron_busqueda" type="text" class="form-control form-control-sm" placeholder="Buscar producto por nombre o código...">
+                            </div>
+                            <div class="col-md-2" style="padding-left: 0px;">
+                                <button (click)="listar_producto()" type="button" class="btn btn-outline-primary btn-block btn-sm">Buscar</button>
+                            </div>
+                            <div class="col-md-6">
+                                <div style="background-color: #fff; height: 220px; border-radius: 5px; padding: 8px 10px; margin-top: 12px;">
+                                    <select class="custom-select" size="9">
+                                        <option selected>Seleccione para añadir relación</option>
+                                        <option *ngFor="let prod of productos" class="pointer" (click)="asociar_producto(prod)" > {{ prod.nombre_producto }} </option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div style="background-color: #fff; height: 220px; border-radius: 5px; padding: 8px 10px; margin-top: 12px;">
+                                    <table class="table table-striped table-sm">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">Producto</th>
+                                                <th scope="col" class="text-center">Eliminar</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngFor="let prod of productos_asocionados; index as i">
+                                                <td> {{ prod.nombre_producto }} </td>
+                                                <td class="text-center">
+                                                    <span class="pointer delete-icon" (click)="eliminar_asociacion_producto(i)">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" focusable="false" width="1em" height="1em" style="-ms-transform: rotate(360deg); -webkit-transform: rotate(360deg); transform: rotate(360deg);" preserveAspectRatio="xMidYMid meet"
+                                                        viewBox="0 0 512 512"><path d="M289.94 256l95-95A24 24 0 0 0 351 127l-95 95l-95-95a24 24 0 0 0-34 34l95 95l-95 95a24 24 0 1 0 34 34l95-95l95 95a24 24 0 0 0 34-34z" fill="#266CFB"/></svg>
+                                                    </span>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <a href="javascript:void(0)" (click)="pulsarCambio()">Agregar imágenes</a>
+                    <input #btn_selecimg class="ocultar" (change)="seleccionImagen( $event.target.files )" type="file" multiple>
+
+
+                    <!-- <section *ngIf="imagenes_temporal.length > 0" class="product-details-area" style="margin-top: 20px;">
+                        <div class="product-details-img product-details-tab">
+                            <div class="zoompro-wrap zoompro-2" style="display: none;">
+                                <div class="zoompro-border zoompro-span">
+                                    <img class="zoompro" src="https://live.hasthemes.com/html/5/abelo-preview/abelo/assets/images/product-image/8.jpg" data-zoom-image="assets/images/product-image/zoom/5.jpg" alt="" />
+                                </div>
+                                <div class="zoompro-border zoompro-span">
+                                    <img class="zoompro" src="https://live.hasthemes.com/html/5/abelo-preview/abelo/assets/images/product-image/6.jpg" data-zoom-image="assets/images/product-image/zoom/1.jpg" alt="" />
+                                </div>
+                                <div class="zoompro-border zoompro-span">
+                                    <img class="zoompro" src="https://live.hasthemes.com/html/5/abelo-preview/abelo/assets/images/product-image/9.jpg" data-zoom-image="assets/images/product-image/zoom/3.jpg" alt="" />
+                                </div>
+                                <div class="zoompro-border zoompro-span">
+                                    <img class="zoompro" src="https://live.hasthemes.com/html/5/abelo-preview/abelo/assets/images/product-image/15.jpg" data-zoom-image="assets/images/product-image/zoom/4.jpg" alt="" />
+                                </div>
+                                <div class="zoompro-border zoompro-span">
+                                    <img class="zoompro" src="https://live.hasthemes.com/html/5/abelo-preview/abelo/assets/images/product-image/7.jpg" data-zoom-image="assets/images/product-image/zoom/2.jpg" alt="" />
+                                </div>
+                            </div>
+                            <div id="gallery" class="product-dec-slider-2">
+                                <div *ngFor="let imagen of imagenes_temporal; index as i" class="single-slide-item text-center">
+                                    <img class="img-responsive" style="margin-bottom: 5px;" data-image="assets/images/product-image/8.jpg" data-zoom-image="assets/images/product-image/zoom/5.jpg" [src]="imagen" alt="" />
+                                    <a href="javascript:void(0)">Eliminar</a>
+                                </div>
+                                <div class="single-slide-item text-center">
+                                    <img class="img-responsive" style="margin-bottom: 5px;" data-image="assets/images/product-image/6.jpg" data-zoom-image="assets/images/product-image/zoom/1.jpg" src="https://live.hasthemes.com/html/5/abelo-preview/abelo/assets/images/product-image/6.jpg"
+                                        alt="" />
+                                    <a href="javascript:void(0)">Eliminar</a>
+                                </div>
+                                <div class="single-slide-item text-center">
+                                    <img class="img-responsive" style="margin-bottom: 5px;" data-image="assets/images/product-image/9.jpg" data-zoom-image="assets/images/product-image/zoom/3.jpg" src="https://live.hasthemes.com/html/5/abelo-preview/abelo/assets/images/product-image/9.jpg"
+                                        alt="" />
+                                    <a href="javascript:void(0)">Eliminar</a>
+                                </div>
+                                <div class="single-slide-item text-center">
+                                    <img class="img-responsive" style="margin-bottom: 5px;" data-image="assets/images/product-image/15.jpg" data-zoom-image="assets/images/product-image/zoom/4.jpg" src="https://live.hasthemes.com/html/5/abelo-preview/abelo/assets/images/product-image/15.jpg"
+                                        alt="" />
+                                    <a href="javascript:void(0)">Eliminar</a>
+                                </div>
+                                <div class="single-slide-item text-center">
+                                    <img class="img-responsive" style="margin-bottom: 5px;" data-image="assets/images/product-image/7.jpg" data-zoom-image="assets/images/product-image/zoom/2.jpg" src="https://live.hasthemes.com/html/5/abelo-preview/abelo/assets/images/product-image/7.jpg"
+                                        alt="" />
+                                    <a href="javascript:void(0)">Eliminar</a>
+                                </div>
+                            </div>
+                        </div>
+                    </section> -->
+
+
+                    <div class="text-center box-sm" style="margin-top: 10px;">
+                        <div *ngIf="(imagenes_temporal.length === 0) && !editar">
+                            <img src="https://img.icons8.com/plasticine/2x/image.png" class="wh120 rounded-circle">
+                        </div>
+                        <!-- <div *ngIf="editar" class="row">
+                            <div *ngFor="let imagen of galeria; index as i" class="col-md-3 text-center" style="padding: 10px;">
+                                <img style="margin-bottom: 7px;" [src]="obtener_imagen(imagen.ruta)" class="rounded-circle">
+                                <a href="javascript:void(0)" (click)="eliminar_imagen(i, imagen.id)"> Eliminar</a>
+                            </div>
+                        </div> -->
+                        <div class="row">
+                            <div *ngFor="let imagen of galeria; index as i" class="col-md-3 text-center" style="padding: 10px;">
+                                <img style="margin-bottom: 7px;" [src]="obtener_imagen(imagen.ruta)" class="rounded-circle">
+                                <a href="javascript:void(0)" (click)="eliminar_imagen(i, imagen.id)"> Eliminar</a>
+                            </div>
+                            <div *ngFor="let imagen of imagenes_temporal; index as i" class="col-md-3 text-center" style="padding: 10px;">
+                                <img style="margin-bottom: 7px;" [src]="imagen" class="rounded-circle">
+                                <a href="javascript:void(0)" (click)="quitar_imagen(i)"> Eliminar</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+    </div>
+</div>

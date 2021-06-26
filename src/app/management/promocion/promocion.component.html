@@ -1,0 +1,88 @@
+<ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff" type="ball-scale-ripple" [fullScreen]="true">
+    <p style="color: white"> cargando... </p>
+</ngx-spinner>
+<!-- Breadcrumb Area Start -->
+<div class="breadcrumb-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="breadcrumb-content">
+                    <ul class="nav">
+                        <li><a href="/">Home</a></li>
+                        <li><a class="default-cursor" href="javascript:void(0)">Mantenimiento</a></li>
+                        <li class="default-cursor">Promoción</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Breadcrumb Area End-->
+<div class="mantenimiento-area">
+    <div style="width: 80%; margin: auto; height: 69vh; padding: 50px;">
+
+        <div class="row">
+            <div class="col-md-8">
+                <div style="min-height: 500px;">
+                    <table class="table table-striped" style="width: 100%; margin: auto;">
+                        <thead>
+                            <tr class="bg-primary" style="color: #fff;">
+                                <th>Descripción</th>
+                                <th>Descuento</th>
+                                <th>Estado</th>
+                                <th colspan="2"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let promocion of promociones | paginate: { itemsPerPage: 10, currentPage: pagina_actual }">
+                                <td> {{ promocion.descripcion }} </td>
+                                <td> {{ obtener_procentaje(promocion.porcentaje) }}% </td>
+                                <td>
+                                    <span *ngIf="promocion.estado === true" class="badge badge-pill badge-success">Activo</span>
+                                    <span *ngIf="promocion.estado === false" class="badge badge-pill badge-danger">Inactivo</span>
+                                </td>
+                                <td><a href="javascript:void(0)" (click)="habilitar_edicion(promocion)">Modificar</a></td>
+                                <td><a href="javascript:void(0)" (click)="eliminar_promocion(promocion)">Eliminar</a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="text-center">
+                    <pagination-controls previousLabel="Anterior" nextLabel="Siguiente" (pageChange)="pagina_actual = $event"></pagination-controls>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card" style="width: 18rem; margin: auto;">
+                    <div class="card-body">
+                        <h5 class="card-title">Editar Promoción</h5>
+                        <a href="javascript:void(0)" (click)="habilitar_nuevo_registro()" class="card-link">Crear promoción</a>
+
+                        <form style="margin-top: 20px; margin-bottom: 20px;" autocomplete="off" [formGroup]="formulario">
+                            <div *ngIf="editar" class="btn-group btn-group-sm" role="group" style="margin-bottom: 20px;">
+                                <button type="button" class="btn" (click)="cambiar_estado_producto(true)" [class.btn-outline-success]="!estado_promocion" [class.btn-success]="estado_promocion">Activo</button>
+                                <button type="button" class="btn" (click)="cambiar_estado_producto(false)" [class.btn-outline-danger]="estado_promocion" [class.btn-danger]="!estado_promocion">Inactivo</button>
+                            </div>
+                            <div class="form-group ocultar">
+                                <label>Id:</label>
+                                <input formControlName="id" name="id" type="number" class="form-control" placeholder="Id...">
+                            </div>
+                            <div class="form-group">
+                                <label>Descripción:</label>
+                                <input formControlName="descripcion" name="descripcion" type="text" class="form-control" placeholder="Ingrese descripción...">
+                                <!-- <small class="text-danger">Ingrese nombre de la categoría.</small> -->
+                            </div>
+                            <div class="form-group">
+                                <label>Descuento(%):</label>
+                                <input formControlName="porcentaje" name="porcentaje" type="number" class="form-control" placeholder="Ingrese porcentaje...">
+                                <!-- <small class="text-danger">Ingrese nombre de la categoría.</small> -->
+                            </div>
+                            <button *ngIf="!editar" type="button" class="btn btn-primary btn-block" (click)="guardar_promocion()">Agregar promoción</button>
+                            <button *ngIf="editar" type="button" class="btn btn-primary btn-block" (click)="actualizar_promocion()">Guardar cambios</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

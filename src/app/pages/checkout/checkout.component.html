@@ -1,0 +1,286 @@
+<!-- Breadcrumb Area Start -->
+<div class="breadcrumb-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="breadcrumb-content">
+                    <ul class="nav">
+                        <li><a href="https://live.hasthemes.com/html/5/abelo-preview/abelo/index.html">Home</a></li>
+                        <li>Checkout</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Breadcrumb Area End-->
+<!-- checkout area start -->
+<div class="checkout-area mt-50px mb-40px">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-7">
+                <form autocomplete="off" [formGroup]="formulario" class="billing-info-wrap">
+                    <h3>Detalles de facturación</h3>
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6">
+                            <div class="billing-info mb-20px">
+                                <label>RUC</label>
+                                <input formControlName="ruc" name="ruc" type="text" />
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6">
+                            <div class="billing-info mb-20px">
+                                <label>Razón Social</label>
+                                <input formControlName="nombre" name="nombre" type="text" />
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6">
+                            <div class="billing-info mb-20px">
+                                <label>Correo</label>
+                                <input formControlName="correo" name="correo" type="email" />
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6">
+                            <div class="billing-info mb-20px">
+                                <label>Celular</label>
+                                <input formControlName="telefono1" name="telefono1" type="number" />
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6">
+                            <div class="billing-select mb-20px">
+                                <label>Departamento</label>
+                                <select formControlName="departamento" name="departamento">
+                                    <option value="0">(Seleccionar)</option>
+                                    <option *ngFor="let departamento of departamentos" [value]="departamento.departamento"> {{ departamento.departamento }} </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6">
+                            <div class="billing-select mb-20px">
+                                <label>Provincia</label>
+                                <select formControlName="provincia" name="provincia">
+                                    <option value="0">(Seleccionar)</option>
+                                    <option *ngFor="let provincia of provincias" [value]="provincia.provincia"> {{ provincia.provincia }} </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6">
+                            <div class="billing-select mb-20px">
+                                <label>Distrito</label>
+                                <select formControlName="distrito" name="distrito">
+                                    <option value="0">(Seleccionar)</option>
+                                    <option *ngFor="let distrito of distritos" [value]="distrito.distrito"> {{ distrito.distrito }} </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6">
+                            <div class="billing-info mb-20px">
+                                <label>Dirección</label>
+                                <input formControlName="direccion" name="direccion" type="text" />
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6">
+                            <div class="billing-info mb-20px">
+                                <label>Número</label>
+                                <input formControlName="numero" name="numero" type="text" />
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6">
+                            <div class="billing-info mb-20px">
+                                <label>Piso</label>
+                                <input formControlName="piso" name="piso" type="text" />
+                            </div>
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="billing-info mb-20px">
+                                <label>Referencia</label>
+                                <input formControlName="referencia" name="referencia" type="text" />
+                            </div>
+                        </div>
+                    </div>
+                    <!-- <div class="checkout-account mb-30px">
+                        <input class="checkout-toggle2" type="checkbox" />
+                        <label>Create an account?</label>
+                    </div>
+                    <div class="checkout-account-toggle open-toggle2 mb-30">
+                        <input placeholder="Email address" type="email" />
+                        <input placeholder="Password" type="password" />
+                        <button class="btn-hover checkout-btn" type="submit">register</button>
+                    </div> -->
+                    <!-- <div class="additional-info-wrap">
+                        <h4>Información Adicional</h4>
+                        <div class="additional-info">
+                            <label>Notas de pedido opcional</label>
+                            <textarea formControlName="adicional" name="adicional" placeholder="Notas sobre su pedido, p. Ej. notas especiales para la entrega. "></textarea>
+                        </div>
+                    </div> -->
+                    <!-- <div class="checkout-account mt-25">
+                        <input class="checkout-toggle" type="checkbox" />
+                        <label>Ship to a different address?</label>
+                    </div>
+                    <div class="different-address open-toggle mt-30px">
+                        <div class="row">
+                            <div class="col-lg-6 col-md-6">
+                                <div class="billing-info mb-20px">
+                                    <label>First Name</label>
+                                    <input type="text" />
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-6">
+                                <div class="billing-info mb-20px">
+                                    <label>Last Name</label>
+                                    <input type="text" />
+                                </div>
+                            </div>
+                            <div class="col-lg-12">
+                                <div class="billing-info mb-20px">
+                                    <label>Company Name</label>
+                                    <input type="text" />
+                                </div>
+                            </div>
+                            <div class="col-lg-12">
+                                <div class="billing-select mb-20px">
+                                    <label>Country</label>
+                                    <select>
+                                            <option>Select a country</option>
+                                            <option>Azerbaijan</option>
+                                            <option>Bahamas</option>
+                                            <option>Bahrain</option>
+                                            <option>Bangladesh</option>
+                                            <option>Barbados</option>
+                                        </select>
+                                </div>
+                            </div>
+                            <div class="col-lg-12">
+                                <div class="billing-info mb-20px">
+                                    <label>Street Address</label>
+                                    <input class="billing-address" placeholder="House number and street name" type="text" />
+                                    <input placeholder="Apartment, suite, unit etc." type="text" />
+                                </div>
+                            </div>
+                            <div class="col-lg-12">
+                                <div class="billing-info mb-20px">
+                                    <label>Town / City</label>
+                                    <input type="text" />
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-6">
+                                <div class="billing-info mb-20px">
+                                    <label>State / County</label>
+                                    <input type="text" />
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-6">
+                                <div class="billing-info mb-20px">
+                                    <label>Postcode / ZIP</label>
+                                    <input type="text" />
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-6">
+                                <div class="billing-info mb-20px">
+                                    <label>Phone</label>
+                                    <input type="text" />
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-6">
+                                <div class="billing-info mb-20px">
+                                    <label>Email Address</label>
+                                    <input type="text" />
+                                </div>
+                            </div>
+                        </div>
+                    </div> -->
+                </form>
+            </div>
+            <div class="col-lg-5 mt-md-30px mt-lm-30px ">
+                <div class="your-order-area">
+                    <h3>Su orden</h3>
+                    <div class="your-order-wrap gray-bg-4">
+                        <div class="your-order-product-info">
+                            <div class="your-order-top">
+                                <ul>
+                                    <li>Productos</li>
+                                    <li>Total</li>
+                                </ul>
+                            </div>
+                            <div class="your-order-middle">
+                                <ul>
+                                    <li *ngFor="let prod of _productoService.productos">
+                                        <span class="order-middle-left">{{ prod.nombre_producto }} X {{ prod.cantidad_comprar }}</span>
+                                        <span class="order-price">{{ prod.monto | currency: 'PEN': 'symbol': '': 'es-PE' }} </span>
+                                    </li>
+                                </ul>
+                            </div>
+                            <!-- <div class="your-order-bottom">
+                                <ul>
+                                    <li class="your-order-shipping">Shipping</li>
+                                    <li>Free shipping</li>
+                                </ul>
+                            </div> -->
+                            <div class="your-order-total">
+                                <ul>
+                                    <li class="order-total">Total</li>
+                                    <li>{{ _productoService.subtotal | currency: 'PEN': 'symbol': '': 'es-PE' }}</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="payment-method">
+                            <div class="payment-accordion element-mrg">
+                                <div class="panel-group" id="accordion">
+                                    <div class="panel payment-accordion">
+                                        <div class="panel-heading" id="method-one">
+                                            <h4 class="panel-title">
+                                                <a data-toggle="collapse" data-parent="#accordion" href="#method1">
+                                                    Pago directo a través de Pago Efectivo
+                                                </a>
+                                            </h4>
+                                        </div>
+                                        <div id="method1" class="panel-collapse collapse show">
+                                            <div class="panel-body">
+                                                <p>Genere su código de pago y realice la transacción a través del servicio de Pago Efectivo.</p>
+                                                <div style="width: 150px; margin: auto; padding-top: 20px;">
+                                                    <img width="100%" src="https://cdn.worldvectorlogo.com/logos/pago-efectivo-2020.svg" alt="" srcset="">
+                                                    <!-- <img width="100%" src="https://sites.pagoefectivo.pe/cybersanto/img/logo-pe.png" alt="" srcset=""> -->
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="panel payment-accordion">
+                                        <div class="panel-heading" id="method-two">
+                                            <h4 class="panel-title">
+                                                <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#method2">
+                                                    Pago en cuotas
+                                                </a>
+                                            </h4>
+                                        </div>
+                                        <div id="method2" class="panel-collapse collapse">
+                                            <div class="panel-body">
+                                                <p>Realiza la compra de tus productos a través de pagos parciales con previa evaluación.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr>
+                                <h6>Seleccionar forma de Pago:</h6>
+                                <br>
+                                <div class="form-check form-check-inline">
+                                    <input value="5" class="form-check-input" type="radio" name="estado" id="inlineRadio2" (change)="obtener_estado($event.target.value)">
+                                    <label class="form-check-label pointer" for="inlineRadio2">Pago directo</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input value="1" class="form-check-input" type="radio" name="estado" id="inlineRadio3" (change)="obtener_estado($event.target.value)">
+                                    <label class="form-check-label pointer" for="inlineRadio3">Pago en cuotas</label>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="Place-order mt-25">
+                        <a class="btn-hover" href="javascript:void(0)" (click)="generar_orden()">Realizar pedido</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- checkout area end -->

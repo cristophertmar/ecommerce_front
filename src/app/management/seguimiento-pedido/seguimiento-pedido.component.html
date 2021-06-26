@@ -1,0 +1,91 @@
+<!-- Breadcrumb Area Start -->
+<div class="breadcrumb-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="breadcrumb-content">
+                    <ul class="nav">
+                        <li><a href="/">Home</a></li>
+                        <li><a class="default-cursor" href="javascript:void(0)">Mantenimiento</a></li>
+                        <li class="default-cursor">Seguimiento del Pedido</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Breadcrumb Area End-->
+
+<div class="mantenimiento-area">
+    <div style="width: 80%; margin: auto; height: 69vh; padding: 20px 50px;">
+        <div style="margin-top: 10px;" class="row">
+            <div class="col-md-12">
+                <div style="min-height: 500px;">
+                    <form autocomplete="off" [formGroup]="form_busqueda" (ngSubmit)="listar_orden()" style="width: 100%; margin-bottom: 20px; padding: 20px 25px; background: #f6f6f6; border-radius: 5px;">
+                        <div class="row">
+                            <div class="col-md-2">
+                                <small>Estado</small>
+                                <select formControlName="estado" name="estado" class="form-control form-control-sm">
+                                    <option value=1>Pendientes</option>
+                                    <option value=2>Aprobados Parcial</option>
+                                    <option value=3>Aprobados</option>
+                                    <option value=4>Rechazados</option>
+                                    <option value=5>Facturado</option>
+                                    <option value=6>Despachado</option>
+                                    <option value=7>Entregado</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <small>Buscar:</small>
+                                <input formControlName="patron_busqueda" name="patron_busqueda" id="patron_busqueda" type="text" placeholder="Buscar por cliente o producto..." class="form-control form-control-sm">
+                            </div>
+                            <div class="col-md-2">
+                                <small>Fecha inicial:</small>
+                                <input formControlName="fecha_ini" name="fecha_ini" type="date" class="form-control form-control-sm">
+                            </div>
+                            <div class="col-md-2">
+                                <small>Fecha fin:</small>
+                                <input formControlName="fecha_fin" name="fecha_fin" type="date" class="form-control form-control-sm">
+                            </div>
+                            <div class="col-md-2">
+                                <small>&nbsp;</small>
+                                <button type="submit" class="btn btn-outline-primary btn-block btn-sm">Buscar</button>
+                            </div>
+                        </div>
+                    </form>
+                    <div *ngIf="ordenes.length === 0" class="text-center" style="width: 500px; margin: auto; padding-top: 50px;">
+                        <img src="assets/images/nodata.svg" width="100%">
+                        <hr>
+                        <h6>No se encontraron resultados</h6>
+                    </div>
+                    <table *ngIf="ordenes.length > 0" class="table table-striped" style="width: 100%; margin: auto;">
+                        <thead>
+                            <tr class="bg-primary" style="color: #fff;">
+                                <th>RUC</th>
+                                <th>Razón Social</th>
+                                <th>Monto</th>
+                                <th>Fecha</th>
+                                <th>Estado</th>
+                                <th colspan="2"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let orden of ordenes | paginate: { itemsPerPage: 10, currentPage: pagina_actual }">
+                                <td> {{ orden.usuario_entrega_obj.ruc }} </td>
+                                <td> {{ orden.usuario_entrega_obj.nombre }} </td>
+                                <td> {{ orden.monto | currency: 'PEN': 'symbol': '': 'es-PE' }} </td>
+                                <td> {{ orden.fecha_operacion | slice:0:10 }} </td>
+                                <td> {{ orden.estado }} </td>
+                                <td><a href="javascript:void(0)" (click)="editar_orden(orden)">Examinar</a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div *ngIf="ordenes.length > 10" class="text-center">
+                    <pagination-controls previousLabel="Anterior" nextLabel="Siguiente" (pageChange)="pagina_actual = $event"></pagination-controls>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

@@ -1,0 +1,84 @@
+/* You can add global styles to this file, and also import other style files */
+
+.default-cursor {
+    cursor: context-menu;
+}
+
+.mantenimiento-area {
+    width: 100%;
+    min-height: 69vh;
+    height: auto;
+    margin-bottom: 150px;
+}
+
+.pointer {
+    cursor: pointer;
+}
+
+.ocultar {
+    display: none;
+}
+
+.wh120 {
+    width: 120px;
+    height: 120px;
+}
+
+.box img,
+.box-sm img,
+.box-xs img {
+    width: 100%;
+    height: auto;
+}
+
+@supports(object-fit: cover) {
+    .box img {
+        height: 180px;
+        width: 180px;
+        object-fit: cover;
+        object-position: center center;
+    }
+    .box-sm img {
+        width: 120px;
+        height: 120px;
+        object-fit: cover;
+        object-position: center center;
+    }
+    .box-xs img {
+        width: 48px;
+        height: 48px;
+        object-fit: cover;
+        object-position: center center;
+    }
+}
+
+.delete-icon:hover {
+    color: blue !important;
+}
+
+.shop-category-area .shop-top-bar .select-shoing-wrap .shot-product {
+    width: 30%;
+}
+
+.shop-category-area .shop-top-bar .select-shoing-wrap .shop-select {
+    width: 70%;
+}
+
+.header-tools .cart-info #items_carrito:before {
+    content: attr(data-before);
+}
+
+.header-tools .cart-info #items_favoritos:before {
+    content: attr(data-before);
+}
+
+.your-order-area .your-order-wrap .your-order-product-info .your-order-middle {
+    border-bottom: 1px solid transparent;
+    border-top: 1px solid #dee0e4;
+    margin: 29px 0;
+    padding: 19px 0 18px;
+}
+
+.is-invalid {
+    border: 1px solid #DD4F42 !important;
+}
