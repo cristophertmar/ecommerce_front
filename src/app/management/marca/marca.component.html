@@ -21,6 +21,19 @@
         <div class="row">
             <div class="col-md-8">
                 <div style="min-height: 500px;">
+                    <form autocomplete="off" [formGroup]="form_busqueda" (ngSubmit)="listar_marca()" style="width: 100%; margin-bottom: 20px; padding: 20px 25px; background: #f6f6f6; border-radius: 5px;">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <input formControlName="patron_busqueda" name="patron_busqueda" id="patron_busqueda" type="text" placeholder="Buscar por nombre de la marca..." class="form-control form-control-sm">
+                            </div>
+                            <div class="col-md-2">
+                                <button type="button" (click)="limpiar()" class="btn btn-outline-primary btn-block btn-sm">Limpiar</button>
+                            </div>
+                            <div class="col-md-2">
+                                <button type="submit" class="btn btn-outline-primary btn-block btn-sm">Buscar</button>
+                            </div>
+                        </div>
+                    </form>
                     <table class="table table-striped" style="width: 100%; margin: auto;">
                         <thead>
                             <tr class="bg-primary" style="color: #fff;">
@@ -50,8 +63,8 @@
                                 <input formControlName="id" name="id" type="number" class="form-control" placeholder="Id...">
                             </div>
                             <div class="form-group">
-                                <label>Marca:</label>
-                                <input formControlName="nombre_marca" name="nombre_marca" type="text" class="form-control" placeholder="Ingrese nombre...">
+                                <label>Marca: <small *ngIf="marcaNoValida" class="form-text text-danger">Ingrese nombre de marca</small></label>
+                                <input [class.is-invalid]="marcaNoValida" formControlName="nombre_marca" name="nombre_marca" type="text" class="form-control" placeholder="Ingrese nombre...">
                                 <!-- <small class="text-danger">Ingrese nombre de la categoría.</small> -->
                             </div>
                             <div class="form-group">

@@ -13,8 +13,8 @@ export class PromocionService {
   ) { }
 
 
-  listar_promocion() {
-    const url = URL_SERVICIOS + 'api/promocion/listar';
+  listar_promocion(patron_busqueda: string = '') {
+    const url = URL_SERVICIOS + 'api/promocion/listar?patron_busqueda=' + patron_busqueda;
     return this._http.get(url);
   }
 

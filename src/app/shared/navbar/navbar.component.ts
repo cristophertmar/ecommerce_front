@@ -65,11 +65,14 @@ export class NavbarComponent implements OnInit {
   seleccionar_categoria(categoria: Categoria) {
     this.id_categoria = categoria.id;
     this.btn_desplazar.nativeElement.click();
-    this.buscar_producto();
+    this.buscar_producto(true);
   }
 
-  buscar_producto() {
+  buscar_producto(seleccion: boolean =  false) {
     this._productoService.guardar_categoria(this.id_categoria);
+
+    seleccion ? this._productoService.patron_busqueda = '' : this._productoService.patron_busqueda = ((document.getElementById('patron_busqueda') as HTMLInputElement).value)
+
     this._productoService.id_categoria$.emit(this.id_categoria);
     this._router.navigate(['/productos']);
     

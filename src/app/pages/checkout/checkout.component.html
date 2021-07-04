@@ -15,41 +15,41 @@
 </div>
 <!-- Breadcrumb Area End-->
 <!-- checkout area start -->
-<div class="checkout-area mt-50px mb-40px">
+<form autocomplete="off" [formGroup]="formulario" class="checkout-area mt-50px mb-40px">
     <div class="container">
         <div class="row">
             <div class="col-lg-7">
-                <form autocomplete="off" [formGroup]="formulario" class="billing-info-wrap">
+                <div class="billing-info-wrap">
                     <h3>Detalles de facturación</h3>
                     <div class="row">
                         <div class="col-lg-6 col-md-6">
                             <div class="billing-info mb-20px">
-                                <label>RUC</label>
-                                <input formControlName="ruc" name="ruc" type="text" />
+                                <label>RUC <small *ngIf="rucNoValida" class="form-text text-danger">Ingrese RUC</small></label>
+                                <input [class.is-invalid]="rucNoValida" formControlName="ruc" name="ruc" type="text" />
                             </div>
                         </div>
                         <div class="col-lg-6 col-md-6">
                             <div class="billing-info mb-20px">
-                                <label>Razón Social</label>
-                                <input formControlName="nombre" name="nombre" type="text" />
+                                <label>Razón Social <small *ngIf="nombreNoValida" class="form-text text-danger">Ingrese razón social</small></label>
+                                <input [class.is-invalid]="nombreNoValida" formControlName="nombre" name="nombre" type="text" />
                             </div>
                         </div>
                         <div class="col-lg-6 col-md-6">
                             <div class="billing-info mb-20px">
-                                <label>Correo</label>
-                                <input formControlName="correo" name="correo" type="email" />
+                                <label>Correo <small *ngIf="correoNoValida" class="form-text text-danger">Ingrese correo</small></label>
+                                <input [class.is-invalid]="correoNoValida" formControlName="correo" name="correo" type="email" />
                             </div>
                         </div>
                         <div class="col-lg-6 col-md-6">
                             <div class="billing-info mb-20px">
-                                <label>Celular</label>
-                                <input formControlName="telefono1" name="telefono1" type="number" />
+                                <label>Celular <small *ngIf="telefono1NoValida" class="form-text text-danger">Ingrese celular</small></label>
+                                <input [class.is-invalid]="telefono1NoValida" formControlName="telefono1" name="telefono1" type="number" />
                             </div>
                         </div>
                         <div class="col-lg-6 col-md-6">
                             <div class="billing-select mb-20px">
-                                <label>Departamento</label>
-                                <select formControlName="departamento" name="departamento">
+                                <label>Departamento <small *ngIf="departamentoNoValida" class="form-text text-danger">Seleccione departamento</small></label>
+                                <select [class.is-invalid]="departamentoNoValida" formControlName="departamento" name="departamento">
                                     <option value="0">(Seleccionar)</option>
                                     <option *ngFor="let departamento of departamentos" [value]="departamento.departamento"> {{ departamento.departamento }} </option>
                                 </select>
@@ -57,8 +57,8 @@
                         </div>
                         <div class="col-lg-6 col-md-6">
                             <div class="billing-select mb-20px">
-                                <label>Provincia</label>
-                                <select formControlName="provincia" name="provincia">
+                                <label>Provincia <small *ngIf="provinciaNoValida" class="form-text text-danger">Seleccione provincia</small></label>
+                                <select [class.is-invalid]="provinciaNoValida" formControlName="provincia" name="provincia">
                                     <option value="0">(Seleccionar)</option>
                                     <option *ngFor="let provincia of provincias" [value]="provincia.provincia"> {{ provincia.provincia }} </option>
                                 </select>
@@ -66,8 +66,8 @@
                         </div>
                         <div class="col-lg-6 col-md-6">
                             <div class="billing-select mb-20px">
-                                <label>Distrito</label>
-                                <select formControlName="distrito" name="distrito">
+                                <label>Distrito <small *ngIf="distritoNoValida" class="form-text text-danger">Seleccione distrito</small></label>
+                                <select [class.is-invalid]="distritoNoValida" formControlName="distrito" name="distrito">
                                     <option value="0">(Seleccionar)</option>
                                     <option *ngFor="let distrito of distritos" [value]="distrito.distrito"> {{ distrito.distrito }} </option>
                                 </select>
@@ -75,20 +75,20 @@
                         </div>
                         <div class="col-lg-6 col-md-6">
                             <div class="billing-info mb-20px">
-                                <label>Dirección</label>
-                                <input formControlName="direccion" name="direccion" type="text" />
+                                <label>Dirección <small *ngIf="direccionNoValida" class="form-text text-danger">Ingrese dirección</small></label>
+                                <input [class.is-invalid]="direccionNoValida" formControlName="direccion" name="direccion" type="text" />
                             </div>
                         </div>
                         <div class="col-lg-6 col-md-6">
                             <div class="billing-info mb-20px">
-                                <label>Número</label>
-                                <input formControlName="numero" name="numero" type="text" />
+                                <label>Número <small *ngIf="numeroNoValida" class="form-text text-danger">Ingrese número</small></label>
+                                <input [class.is-invalid]="numeroNoValida" formControlName="numero" name="numero" type="text" />
                             </div>
                         </div>
                         <div class="col-lg-6 col-md-6">
                             <div class="billing-info mb-20px">
-                                <label>Piso</label>
-                                <input formControlName="piso" name="piso" type="text" />
+                                <label>Piso <small *ngIf="pisoNoValida" class="form-text text-danger">Especifique piso</small></label>
+                                <input [class.is-invalid]="pisoNoValida" formControlName="piso" name="piso" type="text" />
                             </div>
                         </div>
                         <div class="col-lg-12">
@@ -190,7 +190,7 @@
                             </div>
                         </div>
                     </div> -->
-                </form>
+                </div>
             </div>
             <div class="col-lg-5 mt-md-30px mt-lm-30px ">
                 <div class="your-order-area">
@@ -276,11 +276,13 @@
                         </div>
                     </div>
                     <div class="Place-order mt-25">
-                        <a class="btn-hover" href="javascript:void(0)" (click)="generar_orden()">Realizar pedido</a>
+
+                        <a class="btn-hover btn-block" href="javascript:void(0)" (click)="generar_orden()"> Realizar pedido</a>
+
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
+</form>
 <!-- checkout area end -->

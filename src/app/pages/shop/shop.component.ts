@@ -32,7 +32,9 @@ export class ShopComponent implements OnInit, OnDestroy {
   precio_max = null;
   orden_lista = 1;
   pagina: number = 1;
-  cantxpagina: number = 10;
+  cantxpagina: number = 6;
+
+  pagina_final: number = 1;
 
 
   filtro_tienda: FiltroTienda;
@@ -62,29 +64,38 @@ export class ShopComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.listar_categoria();
-    this.enviar_filtros();
+    // this.enviar_filtros();
     this._productoService.id_categoria$
     .subscribe(id => {
       if(this.categorias.length > 0) {
-        this.quitar_filtro_categoria();
-        this.obtener_objeto_categoria();
-        this._productoService.guardar_categoria(0);
+        // this.quitar_filtro_categoria();
+        this.categorias_filtro = [];
+        this.subcategorias_filtro = [];
+        this.subcategorias = [];
+        this.tipos_filtro = [];
+        this.tipos = [];
+        this.enviar_filtros();
+        // this.obtener_objeto_categoria();
+        //this._productoService.guardar_categoria(0);
       }
     });
   }
 
   obtener_objeto_categoria() {
-    var newArray = this.categorias.filter(categoria => {       
-      return categoria.id === this._productoService.id_categoria;
-    });
 
-    if(newArray.length > 0) {
-      this.agregar_filtro_categoria(newArray[0]);
-    }
+  var newArray = this.categorias.filter(categoria => {       
+      return categoria.id === this._productoService.id_categoria;
+  });
+
+  if(newArray.length > 0) {
+    // this.agregar_filtro_categoria(newArray[0]);
+    this.categorias_filtro.push(newArray[0]);
+    this.listar_subcategoria(newArray[0].id);
+  }
+
   }
 
   agregar_filtro_categoria(categoria: Categoria) {
-    console.log(categoria);
     this.categorias_filtro.push(categoria);
     this.listar_subcategoria(categoria.id);
     this.enviar_filtros();
@@ -113,8 +124,8 @@ export class ShopComponent implements OnInit, OnDestroy {
     this.subcategorias = [];
     this.tipos_filtro = [];
     this.tipos = [];
-
-
+    this.pagina = 1;
+    this._productoService.guardar_categoria(0);
     this.enviar_filtros();
   }
 
@@ -122,12 +133,14 @@ export class ShopComponent implements OnInit, OnDestroy {
     this.subcategorias_filtro = [];
     this.tipos_filtro = [];
     this.tipos = [];
+    this.pagina = 1;
     this.enviar_filtros();
   }
 
   quitar_filtro_tipo(tipo: Tipo, i: number) {
     this.tipos[i].checked = false;
     this.tipos_filtro.splice(i, 1);
+    this.pagina = 1;
     this.enviar_filtros();
   }
 
@@ -135,7 +148,8 @@ export class ShopComponent implements OnInit, OnDestroy {
     this._categoriaService.listar_categoria()
     .subscribe((resp: any) => {
       this.categorias = resp.data;
-      this.obtener_objeto_categoria();
+      this.enviar_filtros();
+      // this.obtener_objeto_categoria();
     });
   }
 
@@ -156,7 +170,9 @@ export class ShopComponent implements OnInit, OnDestroy {
 
 
 
-  enviar_filtros() {
+  enviar_filtros(recargar: boolean = false) {
+
+    this.obtener_objeto_categoria();
 
     this.filtro_tienda = new FiltroTienda();
 
@@ -168,11 +184,25 @@ export class ShopComponent implements OnInit, OnDestroy {
     this.filtro_tienda.orden_lista = Number(this.orden_lista);
     this.filtro_tienda.pagina = this.pagina;
     this.filtro_tienda.cantxpagina = this.cantxpagina;
+
+    /* console.log(this.filtro_tienda); */
     
-    this._productoService.listar_producto_tienda(this.filtro_tienda)
+    this._productoService.listar_producto_tienda(this.filtro_tienda, this._productoService.patron_busqueda)
     .subscribe((resp: any) => {
-        this.productos = resp.data;
-        console.log(this.productos);
+
+      let cant_registros: number = 0;
+      const { isSuccess, message, data } = resp
+
+      if(recargar) {
+        this.productos = [...this.productos, ...data];            
+      } else {
+        this.productos = data;
+      }      
+
+      cant_registros = (this.productos.length > 0 ?  resp.data[0].total_registros : 0);    
+      this._productoService.patron_busqueda = '';
+      this.pagina_final = Math.ceil(cant_registros / this.cantxpagina);
+
     });
 
   }
@@ -226,6 +256,14 @@ export class ShopComponent implements OnInit, OnDestroy {
     this._productoService.guardar_carrito_local(carrito_temp);
     this._shared.alert_toast_success('Añadido al carrito');
     
+  }
+
+  onScrollDown() {
+    /* console.log('Down...'); */
+    if(this.pagina < this.pagina_final) {
+      this.pagina += 1;
+      this.enviar_filtros(true);
+    }
   }
 
 }

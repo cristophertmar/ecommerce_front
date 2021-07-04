@@ -88,9 +88,9 @@ export class CheckoutComponent implements OnInit {
       nombre: new FormControl(this._usuarioService.usuario.nombre, [Validators.required, Validators.minLength(3)]),
       correo: new FormControl(this._usuarioService.usuario.correo, [Validators.required, Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$')]),
       telefono1: new FormControl(this._usuarioService.usuario.telefono1, [Validators.required, Validators.minLength(9)]),
-      departamento: new FormControl(0, [Validators.required]),
-      provincia: new FormControl(0, [Validators.required]),
-      distrito: new FormControl(0, [Validators.required]),      
+      departamento: new FormControl(0, [Validators.required, Validators.pattern('^(?!0).*$')]),
+      provincia: new FormControl(0, [Validators.required, Validators.pattern('^(?!0).*$')]),
+      distrito: new FormControl(0, [Validators.required, Validators.pattern('^(?!0).*$')]),      
       direccion: new FormControl(this._usuarioService.usuario.direccion, [Validators.required, Validators.minLength(3)]),
       numero: new FormControl(this._usuarioService.usuario.numero, [Validators.required]),
       piso: new FormControl(this._usuarioService.usuario.piso, [Validators.required]),
@@ -98,15 +98,58 @@ export class CheckoutComponent implements OnInit {
     });
   }
 
+  get rucNoValida() {
+    return this.formulario.get('ruc').invalid && this.formulario.get('ruc').touched;
+  }
+
+  get nombreNoValida() {
+    return this.formulario.get('nombre').invalid && this.formulario.get('nombre').touched;
+  }
+
+  get correoNoValida() {
+    return this.formulario.get('correo').invalid && this.formulario.get('correo').touched;
+  }
+
+  get telefono1NoValida() {
+    return this.formulario.get('telefono1').invalid && this.formulario.get('telefono1').touched;
+  }
+
+  get departamentoNoValida() {
+    return this.formulario.get('departamento').invalid && this.formulario.get('departamento').touched;
+  }
+
+  get provinciaNoValida() {
+    return this.formulario.get('provincia').invalid && this.formulario.get('provincia').touched;
+  }
+
+  get distritoNoValida() {
+    return this.formulario.get('distrito').invalid && this.formulario.get('distrito').touched;
+  }
+
+  get direccionNoValida() {
+    return this.formulario.get('direccion').invalid && this.formulario.get('direccion').touched;
+  }
+
+  get numeroNoValida() {
+    return this.formulario.get('numero').invalid && this.formulario.get('numero').touched;
+  }
+
+  get pisoNoValida() {
+    return this.formulario.get('piso').invalid && this.formulario.get('piso').touched;
+  }
+
   setear_form() {
+
+    console.log(this._usuarioService.usuario);
+
     this.formulario.setValue ({
       ruc: this._usuarioService.usuario.ruc,
       nombre: this._usuarioService.usuario.nombre,
       correo: this._usuarioService.usuario.correo,
       telefono1: this._usuarioService.usuario.telefono1,
-      departamento: this._usuarioService.usuario.ubigeo.departamento,
-      provincia: this._usuarioService.usuario.ubigeo.provincia,
-      distrito: this._usuarioService.usuario.ubigeo.distrito,
+      departamento: this._usuarioService.usuario.ubigeo ? this._usuarioService.usuario.ubigeo.departamento : 0,
+      provincia: this._usuarioService.usuario.ubigeo ?  this._usuarioService.usuario.ubigeo.provincia : 0,
+      distrito: this._usuarioService.usuario.ubigeo ? this._usuarioService.usuario.ubigeo.distrito : 0,
       direccion: this._usuarioService.usuario.direccion,
       numero: this._usuarioService.usuario.numero,
       piso: this._usuarioService.usuario.piso,
@@ -117,8 +160,13 @@ export class CheckoutComponent implements OnInit {
 
   generar_orden() {
 
-    if(this.estado === 0) {
-      this._shared.alert_error('Debe seleccionar una forma de pago')
+    if ( this.formulario.invalid ) {
+      this._shared.alert_error('Debe llenar correctamente el fomulario');
+      return Object.values( this.formulario.controls).forEach( control => {
+        control.markAsTouched();
+      });
+    } else if(this.estado === 0) {
+      this._shared.alert_error('Debe seleccionar una forma de pago');
       return;
     }
 
@@ -160,7 +208,8 @@ export class CheckoutComponent implements OnInit {
 
     console.log('orden', orden);
     console.log('estado', this.estado);
-    
+    console.log('correo', this.formulario.value.correo);
+
     this._ordenService.generar_orden(orden, this.estado, this.formulario.value.correo)
     .subscribe((resp: any) => {
       this.limpiar_carrito();

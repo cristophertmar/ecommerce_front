@@ -12,8 +12,8 @@ export class MarcaService {
     private _http: HttpClient
   ) { }
 
-  listar_marca() {
-    const url = URL_SERVICIOS + 'api/marca/listar';
+  listar_marca(patron_busqueda: string = '') {
+    const url = URL_SERVICIOS + 'api/marca/listar?patron_busqueda=' + patron_busqueda;
     return this._http.get(url);
   }
 

@@ -14,6 +14,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 export class CategoriaComponent implements OnInit {
 
   formulario: FormGroup;
+  form_busqueda: FormGroup;
 
   pagina_actual: number = 1;
   categoria: Categoria;
@@ -34,9 +35,14 @@ export class CategoriaComponent implements OnInit {
     this.listar_categoria();
   }
 
+  limpiar() {
+    this.form_busqueda.reset();
+    this.listar_categoria();
+  }
+
   listar_categoria() {
     this._spinner.show();
-    this._categoriaService.listar_categoria()
+    this._categoriaService.listar_categoria(this.form_busqueda.value.patron_busqueda || '')
     .subscribe((resp: any) => {
       this.categorias = resp.data;
       this._spinner.hide();
@@ -102,6 +108,9 @@ export class CategoriaComponent implements OnInit {
 
     if(this.formulario.invalid){
       this._shared.alert_error('Llene correctamente el formulario');
+      Object.values( this.formulario.controls).forEach( control => {
+        control.markAsTouched();
+      });
       return false;
     }
 
@@ -115,6 +124,9 @@ export class CategoriaComponent implements OnInit {
         id: new FormControl(null),
         nombre_categoria: new FormControl(null, [Validators.required])
     });
+    this.form_busqueda = new FormGroup({
+      patron_busqueda: new FormControl('')
+    });
   }
 
   setear_formulario(id: number, nom: string) {
@@ -124,5 +136,8 @@ export class CategoriaComponent implements OnInit {
     })
   }
 
+  get categoriaNoValida() {
+    return this.formulario.get('nombre_categoria').invalid && this.formulario.get('nombre_categoria').touched;
+  }
 
 }

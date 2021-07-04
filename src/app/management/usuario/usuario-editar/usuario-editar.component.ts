@@ -35,29 +35,58 @@ export class UsuarioEditarComponent implements OnInit {
     this._usuarioService.listar_aprobar_usuario(0, ruc)
     .subscribe((resp: any) => {
       this.usuario = resp.data[0];
+      console.log(this.usuario);
     });
   }
 
   crearFormulario(){
     this.formulario = new FormGroup({
         credito: new FormControl(null, [Validators.required]),
-        tipo_credito: new FormControl(0, [Validators.required]),
+        tipo_credito: new FormControl(0, [Validators.required, Validators.pattern('^(?!0).*$')]),
         estado: new FormControl('2', [Validators.required])
     });
   }
 
-  enviar_aprobacion() {
-    
-    this.usuario.credito = Number(this.formulario.value.credito);
-    this.usuario.tipo_credito = Number(this.formulario.value.tipo_credito);
-    this.usuario.estado = Number(this.formulario.value.estado);
-    this._usuarioService.actualizar_aprobar_usuario(this.usuario)
-    .subscribe((resp: any) => {
-      console.log(resp);
-      this.shared.alert_success('Enviado Satisfactoriamente');
-    });
+  enviar_aprobacion() {    
+
+    if(this.pasar_validacion()) {
+
+      this.usuario.credito = Number(this.formulario.value.credito);
+      this.usuario.tipo_credito = Number(this.formulario.value.tipo_credito);
+      this.usuario.estado = Number(this.formulario.value.estado);
+      /* console.log(this.usuario); */
+      this._usuarioService.actualizar_aprobar_usuario(this.usuario)
+      .subscribe((resp: any) => {
+        this.shared.alert_success('Enviado Satisfactoriamente');
+        this.retornar_lista();
+      });
+    } 
 
   }
+
+  pasar_validacion(): boolean {
+    if(this.formulario.invalid){
+      Object.values( this.formulario.controls).forEach( control => {
+        control.markAsTouched();
+      });
+      return false;
+    }
+    return true;
+  }
+
+  get creditoNoValido() {
+    return this.formulario.get('credito').invalid && this.formulario.get('credito').touched;
+  }
+
+  get tipo_creditoValido() {
+    return this.formulario.get('tipo_credito').invalid && this.formulario.get('tipo_credito').touched;
+  }
+
+
+  retornar_lista() {
+    this._router.navigate(['/mantenimiento/usuario']);
+  }
+
 
 
 }

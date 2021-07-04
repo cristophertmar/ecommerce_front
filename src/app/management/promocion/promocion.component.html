@@ -24,6 +24,19 @@
         <div class="row">
             <div class="col-md-8">
                 <div style="min-height: 500px;">
+                    <form autocomplete="off" [formGroup]="form_busqueda" (ngSubmit)="listar_promocion()" style="width: 100%; margin-bottom: 20px; padding: 20px 25px; background: #f6f6f6; border-radius: 5px;">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <input formControlName="patron_busqueda" name="patron_busqueda" id="patron_busqueda" type="text" placeholder="Buscar por nombre de promoción..." class="form-control form-control-sm">
+                            </div>
+                            <div class="col-md-2">
+                                <button type="button" (click)="limpiar()" class="btn btn-outline-primary btn-block btn-sm">Limpiar</button>
+                            </div>
+                            <div class="col-md-2">
+                                <button type="submit" class="btn btn-outline-primary btn-block btn-sm">Buscar</button>
+                            </div>
+                        </div>
+                    </form>
                     <table class="table table-striped" style="width: 100%; margin: auto;">
                         <thead>
                             <tr class="bg-primary" style="color: #fff;">
@@ -67,13 +80,13 @@
                                 <input formControlName="id" name="id" type="number" class="form-control" placeholder="Id...">
                             </div>
                             <div class="form-group">
-                                <label>Descripción:</label>
-                                <input formControlName="descripcion" name="descripcion" type="text" class="form-control" placeholder="Ingrese descripción...">
+                                <label>Descripción: <small *ngIf="promocionNoValida" class="form-text text-danger">Ingrese una descripción</small></label>
+                                <input [class.is-invalid]="promocionNoValida" formControlName="descripcion" name="descripcion" type="text" class="form-control" placeholder="Ingrese descripción...">
                                 <!-- <small class="text-danger">Ingrese nombre de la categoría.</small> -->
                             </div>
                             <div class="form-group">
-                                <label>Descuento(%):</label>
-                                <input formControlName="porcentaje" name="porcentaje" type="number" class="form-control" placeholder="Ingrese porcentaje...">
+                                <label>Descuento(%): <small *ngIf="descuentoNoValido" class="form-text text-danger">Ingrese descuento</small></label>
+                                <input [class.is-invalid]="descuentoNoValido" formControlName="porcentaje" name="porcentaje" type="number" class="form-control" placeholder="Ingrese porcentaje...">
                                 <!-- <small class="text-danger">Ingrese nombre de la categoría.</small> -->
                             </div>
                             <button *ngIf="!editar" type="button" class="btn btn-primary btn-block" (click)="guardar_promocion()">Agregar promoción</button>

@@ -13,6 +13,7 @@ export class ProductoService {
   productos: Producto[];
   subtotal: number = 0;
   id_categoria: number = 0;
+  patron_busqueda: string = '';
 
   id_categoria$ = new EventEmitter<number>();
 
@@ -61,13 +62,16 @@ export class ProductoService {
     });
   }
 
-  listar_producto(patron_busqueda: string = '') {
-    const url = URL_SERVICIOS + 'api/producto/listar?patron_busqueda=' + patron_busqueda;
+  //***********************************************************/
+
+  listar_producto(patron_busqueda: string = '', id_categoria: number = 0, id_sub_categoria: number = 0, id_marca: number = 0) {
+    const url = URL_SERVICIOS + 'api/producto/listar?patron_busqueda=' + patron_busqueda + '&id_categoria=' 
+    + id_categoria + '&id_sub_categoria=' + id_sub_categoria + '&id_marca=' + id_marca;
     return this._http.get(url);
   }
 
-  listar_producto_tienda(filtro: FiltroTienda) {
-    const url = URL_SERVICIOS + 'api/producto/listar_tienda';
+  listar_producto_tienda(filtro: FiltroTienda, patron_busqueda: string = '') {
+    const url = URL_SERVICIOS + 'api/producto/listar_tienda?patron_busqueda=' + patron_busqueda;
     return this._http.post(url, filtro);
   }
 

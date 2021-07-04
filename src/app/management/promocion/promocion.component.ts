@@ -14,6 +14,7 @@ import { PromocionService } from '../../services/promocion.service';
 export class PromocionComponent implements OnInit {
 
   formulario: FormGroup;
+  form_busqueda: FormGroup;
 
   pagina_actual: number = 1;  
 
@@ -44,10 +45,15 @@ export class PromocionComponent implements OnInit {
   }
 
   listar_promocion() {
-    this._promocionService.listar_promocion()
+    this._promocionService.listar_promocion(this.form_busqueda.value.patron_busqueda || '')
     .subscribe((resp: any) => {
       this.promociones = resp.data;
     });
+  }
+
+  limpiar() {
+    this.form_busqueda.reset({patron_busqueda: ''});
+    this.listar_promocion();
   }
 
   guardar_promocion() {
@@ -115,6 +121,9 @@ export class PromocionComponent implements OnInit {
   pasar_validacion(): boolean {
     if(this.formulario.invalid){
       this._shared.alert_error('Llene correctamente el formulario');
+      Object.values( this.formulario.controls).forEach( control => {
+        control.markAsTouched();
+      });
       return false;
     }
     return true;
@@ -126,6 +135,9 @@ export class PromocionComponent implements OnInit {
         descripcion: new FormControl(null, [Validators.required]),
         porcentaje: new FormControl(null, [Validators.required])
     });
+    this.form_busqueda = new FormGroup({
+      patron_busqueda: new FormControl('')
+    });
   }
 
   setear_formulario(id: number, desc: string, porcent: number) {
@@ -134,6 +146,14 @@ export class PromocionComponent implements OnInit {
       descripcion: desc,
       porcentaje: this.obtener_procentaje(porcent)
     })
+  }
+
+  get promocionNoValida() {
+    return this.formulario.get('descripcion').invalid && this.formulario.get('descripcion').touched;
+  }
+
+  get descuentoNoValido() {
+    return this.formulario.get('porcentaje').invalid && this.formulario.get('porcentaje').touched;
   }
 
 }

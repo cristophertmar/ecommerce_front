@@ -77,9 +77,9 @@ export class ProfileComponent implements OnInit {
 
   setear_formulario_ubigeo() {
     this.fcambio_ubigeo.setValue ({
-      departamento: this.usuario.ubigeo.departamento,
-      provincia: this.usuario.ubigeo.provincia,
-      distrito: this.usuario.ubigeo.codigo,
+      departamento: this.usuario.ubigeo ? this.usuario.ubigeo.departamento : 0,
+      provincia: this.usuario.ubigeo ?  this.usuario.ubigeo.provincia : 0,
+      distrito: this.usuario.ubigeo ? this.usuario.ubigeo.codigo : 0,
       direccion: this.usuario.direccion,
       numero: this.usuario.numero,
       piso: this.usuario.piso,
@@ -152,6 +152,14 @@ export class ProfileComponent implements OnInit {
     this.usuario.piso = this.fcambio_ubigeo.value.piso;
     this.usuario.referencia = this.fcambio_ubigeo.value.referencia;
 
+    let ubigeo = new Ubigeo();
+    ubigeo.codigo =  this.fcambio_ubigeo.value.distrito;
+    ubigeo.departamento =  this.fcambio_ubigeo.value.departamento;
+    ubigeo.provincia =  this.fcambio_ubigeo.value.provincia;
+    ubigeo.distrito =  this.obtener_distrito(this.fcambio_ubigeo.value.distrito);
+
+    this.usuario.ubigeo = ubigeo;
+
 
     this._usuarioService.actualizar_usuario(this.usuario)
     .subscribe(resp => {
@@ -161,6 +169,13 @@ export class ProfileComponent implements OnInit {
 
   }
 
+  obtener_distrito(codigo) {
+      const newArray = this.distritos.filter( distrito => {
+          return distrito.codigo === codigo;
+      });    
+      return newArray[0].distrito;
+  }
+
   crear_form() {
     this.fdetalle_per = new FormGroup({
       ruc: new FormControl(this.usuario.ruc, [Validators.required, Validators.minLength(10)]),
@@ -168,7 +183,7 @@ export class ProfileComponent implements OnInit {
       correo: new FormControl(this.usuario.correo, [Validators.required, Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$')]),
       telefono1: new FormControl(this.usuario.telefono1, [Validators.required, Validators.minLength(9)]),
       telefono2: new FormControl(this.usuario.telefono2, [Validators.required, Validators.minLength(7)]),
-      telefono3: new FormControl(this.usuario.telefono3, [Validators.required, Validators.minLength(7)])
+      telefono3: new FormControl(this.usuario.telefono3)
     });
 
     this.fcambio_pass = new FormGroup({
@@ -177,9 +192,9 @@ export class ProfileComponent implements OnInit {
     }, { validators: this.sonIguales('password', 'password2')});
 
     this.fcambio_ubigeo = new FormGroup({
-      departamento: new FormControl(0, [Validators.required]),
-      provincia: new FormControl(0, [Validators.required]),
-      distrito: new FormControl(0, [Validators.required]),      
+      departamento: new FormControl('0', [Validators.required, Validators.pattern('^(?!0).*$')]),
+      provincia: new FormControl('0', [Validators.required, Validators.pattern('^(?!0).*$')]),
+      distrito: new FormControl('0', [Validators.required, Validators.minLength(6)]),      
       direccion: new FormControl(this.usuario.direccion, [Validators.required, Validators.minLength(3)]),
       numero: new FormControl(this.usuario.numero, [Validators.required]),
       piso: new FormControl(this.usuario.piso, [Validators.required]),
@@ -187,6 +202,7 @@ export class ProfileComponent implements OnInit {
     });
 
   }
+
 
   get rucNoValido() {
     return this.fdetalle_per.get('ruc').invalid && this.fdetalle_per.get('ruc').touched;
@@ -223,27 +239,27 @@ export class ProfileComponent implements OnInit {
 
 
   get departamentoNoValido() {
-    return this.fcambio_pass.get('password2').invalid && this.fcambio_pass.get('password2').touched;
+    return this.fcambio_ubigeo.get('departamento').invalid && this.fcambio_ubigeo.get('departamento').touched;
   }
 
   get provinciaNoValido() {
-    return this.fcambio_pass.get('password2').invalid && this.fcambio_pass.get('password2').touched;
+    return this.fcambio_ubigeo.get('provincia').invalid && this.fcambio_ubigeo.get('provincia').touched;
   }
 
   get distritoNoValido() {
-    return this.fcambio_pass.get('password2').invalid && this.fcambio_pass.get('password2').touched;
+    return this.fcambio_ubigeo.get('distrito').invalid && this.fcambio_ubigeo.get('distrito').touched;
   }
 
   get direccionNoValido() {
-    return this.fcambio_pass.get('password2').invalid && this.fcambio_pass.get('password2').touched;
+    return this.fcambio_ubigeo.get('direccion').invalid && this.fcambio_ubigeo.get('direccion').touched;
   }
 
   get numeroNoValido() {
-    return this.fcambio_pass.get('password2').invalid && this.fcambio_pass.get('password2').touched;
+    return this.fcambio_ubigeo.get('numero').invalid && this.fcambio_ubigeo.get('numero').touched;
   }
 
   get pisoNoValido() {
-    return this.fcambio_pass.get('password2').invalid && this.fcambio_pass.get('password2').touched;
+    return this.fcambio_ubigeo.get('piso').invalid && this.fcambio_ubigeo.get('piso').touched;
   }
 
   

@@ -183,6 +183,7 @@ export class ProductoEditarComponent implements OnInit {
     if(this.pasar_validacion()) {
       this.obtener_datos_formulario();
       /* this._spinner.show(); */
+      console.log(this.producto);
       this._productoService.insertar_producto(this.producto)
       .subscribe((resp: any) => {        
           this. guardar_imagenes(resp.id);
@@ -238,6 +239,9 @@ export class ProductoEditarComponent implements OnInit {
   pasar_validacion(): boolean {
     if(this.formulario.invalid){
       this._shared.alert_error('Llene correctamente el formulario');
+      Object.values( this.formulario.controls).forEach( control => {
+        control.markAsTouched();
+      });
       return false;
     }
 
@@ -254,16 +258,56 @@ export class ProductoEditarComponent implements OnInit {
         id: new FormControl(null),
         codigo_fabricante: new FormControl(null, [Validators.required]),
         sku: new FormControl(null, [Validators.required]),
-        id_categoria: new FormControl(0, [Validators.required]),
-        id_sub_categoria: new FormControl(0, [Validators.required]),
-        id_tipo: new FormControl(0, [Validators.required]),
-        id_marca: new FormControl(0, [Validators.required]),
+        id_categoria: new FormControl(0, [Validators.required, Validators.pattern('^(?!0).*$')]),
+        id_sub_categoria: new FormControl(0, [Validators.required, Validators.pattern('^(?!0).*$')]),
+        id_tipo: new FormControl(0, [Validators.required, Validators.pattern('^(?!0).*$')]),
+        id_marca: new FormControl(0, [Validators.required, Validators.pattern('^(?!0).*$')]),
         nombre_producto: new FormControl(null, [Validators.required]),
         id_promocion: new FormControl(0, [Validators.required]),
         descripcion_producto: new FormControl(null, [Validators.required]),
         precio: new FormControl(null, [Validators.required]),
         stock: new FormControl(null, [Validators.required])
     });
+  }
+
+  get codigo_fabricanteNoValido() {
+    return this.formulario.get('codigo_fabricante').invalid && this.formulario.get('codigo_fabricante').touched;
+  }
+
+  get skuNoValido() {
+    return this.formulario.get('sku').invalid && this.formulario.get('sku').touched;
+  }
+
+  get id_categoriaNoValido() {
+    return this.formulario.get('id_categoria').invalid && this.formulario.get('id_categoria').touched;
+  }
+
+  get id_sub_categoriaNoValido() {
+    return this.formulario.get('id_sub_categoria').invalid && this.formulario.get('id_sub_categoria').touched;
+  }
+
+  get id_marcaNoValido() {
+    return this.formulario.get('id_marca').invalid && this.formulario.get('id_marca').touched;
+  }
+
+  get id_tipoNoValido() {
+    return this.formulario.get('id_tipo').invalid && this.formulario.get('id_tipo').touched;
+  }
+
+  get nombre_productoNoValido() {
+    return this.formulario.get('nombre_producto').invalid && this.formulario.get('nombre_producto').touched;
+  }
+
+  get descripcion_productoNoValido() {
+    return this.formulario.get('descripcion_producto').invalid && this.formulario.get('descripcion_producto').touched;
+  }
+
+  get precioNoValido() {
+    return this.formulario.get('precio').invalid && this.formulario.get('precio').touched;
+  }
+
+  get stockNoValido() {
+    return this.formulario.get('stock').invalid && this.formulario.get('stock').touched;
   }
 
   setearFormulario() {

@@ -16,6 +16,7 @@ import { URL_SERVICIOS } from 'src/app/config/config';
 export class MarcaComponent implements OnInit {
 
   formulario: FormGroup;
+  form_busqueda: FormGroup;
 
   pagina_actual: number = 1;
   marca: Marca;
@@ -44,10 +45,19 @@ export class MarcaComponent implements OnInit {
   }
 
   listar_marca() {
-    this._marcaService.listar_marca()
+    this._marcaService.listar_marca(this.form_busqueda.value.patron_busqueda || '')
     .subscribe((resp: any) => {
       this.marcas = resp.data;
     });
+  }
+
+  limpiar() {
+    this.form_busqueda.reset(
+      {
+        patron_busqueda: ''
+      }
+    );
+    this.listar_marca();
   }
 
   guardar_marca() {
@@ -113,6 +123,9 @@ export class MarcaComponent implements OnInit {
   pasar_validacion(): boolean {
     if(this.formulario.invalid){
       this._shared.alert_error('Llene correctamente el formulario');
+      Object.values( this.formulario.controls).forEach( control => {
+        control.markAsTouched();
+      });
       return false;
     }
     if(!this.imagenTemp) {
@@ -164,6 +177,9 @@ export class MarcaComponent implements OnInit {
         id: new FormControl(null),
         nombre_marca: new FormControl(null, [Validators.required])
     });
+    this.form_busqueda = new FormGroup({
+      patron_busqueda: new FormControl('')
+    });
   }
 
   setear_formulario(id: number, nom: string) {
@@ -173,6 +189,9 @@ export class MarcaComponent implements OnInit {
     })
   }
 
+  get marcaNoValida() {
+    return this.formulario.get('nombre_marca').invalid && this.formulario.get('nombre_marca').touched;
+  }
 
 
 }

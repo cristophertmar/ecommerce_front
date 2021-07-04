@@ -24,6 +24,36 @@
         <div class="row">
             <div class="col-md-8">
                 <div style="min-height: 500px;">
+                    <form autocomplete="off" [formGroup]="form_busqueda" (ngSubmit)="listar_tipo()" style="width: 100%; margin-bottom: 20px; padding: 20px 25px; background: #f6f6f6; border-radius: 5px;">
+                        <div class="row">
+                            <div class="col-md-2">
+                                <select formControlName="categoria" name="categoria" class="form-control form-control-sm">
+                                    <option value="0">(Categoría)</option>
+                                    <option *ngFor="let cate of categorias" [value]="cate.id">{{ cate.nombre_categoria }}</option>
+                                </select>
+                            </div>
+                            <div class="col-md-2">
+                                <select formControlName="subcategoria" name="subcategoria" class="form-control form-control-sm">
+                                    <option value="0">(Subcategoría)</option>
+                                    <option *ngFor="let subcate of subcategorias_filtro" [value]="subcate.id">{{ subcate.nombre_sub_categoria }}</option>
+                                </select>
+                            </div>
+                            <div class="col-md-5">
+                                <input formControlName="patron_busqueda" name="patron_busqueda" id="patron_busqueda" type="text" placeholder="Buscar por sku o nombre del producto..." class="form-control form-control-sm">
+                            </div>
+                            <div class="col-md-3">
+                                <div class="row">
+                                    <div class="col">
+                                        <button type="button" (click)="limpiar()" class="btn btn-outline-primary btn-block btn-sm">Limpiar</button>
+                                    </div>
+                                    <div class="col">
+                                        <button type="submit" class="btn btn-outline-primary btn-block btn-sm">Buscar</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </form>
                     <table class="table table-striped" style="width: 100%; margin: auto;">
                         <thead>
                             <tr class="bg-primary" style="color: #fff;">
@@ -60,23 +90,24 @@
                                 <input formControlName="id" name="id" type="number" class="form-control" placeholder="Id...">
                             </div>
                             <div class="form-group">
-                                <label>Categoría:</label>
-                                <select formControlName="id_categoria" name="id_categoria" class="form-control">
+                                <label>Categoría: <small *ngIf="categoriaNoValida" class="form-text text-danger">Seleccione una categoría</small></label>
+                                <select [class.is-invalid]="categoriaNoValida" formControlName="id_categoria" name="id_categoria" class="form-control">
+                                    <option value="0">(Seleccionar)</option>
                                     <option *ngFor="let cate of categorias" [value]="cate.id"> {{ cate.nombre_categoria }} </option>
                                 </select>
                                 <!-- <small class="text-danger">Ingrese nombre de la categoría.</small> -->
                             </div>
                             <div class="form-group">
-                                <label>Subcategoría:</label>
-                                <select formControlName="id_subcategoria" name="id_subcategoria" class="form-control">
+                                <label>Subcategoría: <small *ngIf="subcategoriaNoValida" class="form-text text-danger">Seleccione una subcategoría</small></label>
+                                <select [class.is-invalid]="subcategoriaNoValida" formControlName="id_subcategoria" name="id_subcategoria" class="form-control">
                                     <option value="0">(Seleccionar)</option>
                                     <option *ngFor="let subcate of subcategorias" [value]="subcate.id"> {{ subcate.nombre_sub_categoria }} </option>
                                 </select>
                                 <!-- <small class="text-danger">Ingrese nombre de la categoría.</small> -->
                             </div>
                             <div class="form-group">
-                                <label>Nombre tipo:</label>
-                                <input formControlName="nombre_tipo" name="nombre_tipo" type="text" class="form-control" placeholder="Ingrese nombre...">
+                                <label>Nombre tipo: <small *ngIf="tipoNoValido" class="form-text text-danger">Ingrese nombre tipo</small></label>
+                                <input [class.is-invalid]="tipoNoValido" formControlName="nombre_tipo" name="nombre_tipo" type="text" class="form-control" placeholder="Ingrese nombre...">
                                 <!-- <small class="text-danger">Ingrese nombre de la categoría.</small> -->
                             </div>
                             <button *ngIf="!editar" type="button" class="btn btn-primary btn-block" (click)="guardar_tipo()">Agregar tipo</button>

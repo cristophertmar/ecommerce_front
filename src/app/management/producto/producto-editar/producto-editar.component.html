@@ -45,25 +45,25 @@
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label>Código fabricante:</label>
-                                <input formControlName="codigo_fabricante" name="codigo_fabricante" type="text" class="form-control form-control-sm" placeholder="Ingrese código...">
+                                <label>Código fabricante: <small *ngIf="codigo_fabricanteNoValido" class="form-text text-danger">Ingrese código fabricante</small></label>
+                                <input [class.is-invalid]="codigo_fabricanteNoValido" formControlName="codigo_fabricante" name="codigo_fabricante" type="text" class="form-control form-control-sm" placeholder="Ingrese código...">
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label>Código sku:</label>
-                                <input formControlName="sku" name="sku" type="text" class="form-control form-control-sm" placeholder="Ingrese sku...">
+                                <label>Código sku: <small *ngIf="skuNoValido" class="form-text text-danger">Ingrese código sku</small></label>
+                                <input [class.is-invalid]="skuNoValido" formControlName="sku" name="sku" type="text" class="form-control form-control-sm" placeholder="Ingrese sku...">
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label>Nombre producto:</label>
-                                <input formControlName="nombre_producto" name="nombre_producto" type="text" class="form-control form-control-sm" placeholder="Ingrese nombre...">
+                                <label>Nombre producto: <small *ngIf="nombre_productoNoValido" class="form-text text-danger">Ingrese nombre de producto</small></label>
+                                <input [class.is-invalid]="nombre_productoNoValido" formControlName="nombre_producto" name="nombre_producto" type="text" class="form-control form-control-sm" placeholder="Ingrese nombre...">
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label>Promoción: (Opcional)</label>
+                                <label>Promoción: (Opcional) <small *ngIf="nombre_productoNoValido" class="form-text text-danger">&nbsp;&nbsp;&nbsp;</small></label>
                                 <select formControlName="id_promocion" name="id_promocion" class="form-control form-control-sm">
                                     <option value="0">(Ninguna promoción)</option>
                                     <option *ngFor="let promo of promociones" [value]="promo.id"> {{ promo.descripcion }} </option>
@@ -72,8 +72,8 @@
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label>Categoría:</label>
-                                <select formControlName="id_categoria" name="id_categoria" class="form-control form-control-sm">
+                                <label>Categoría: <small *ngIf="id_categoriaNoValido" class="form-text text-danger">Seleccione una categoría</small></label>
+                                <select [class.is-invalid]="id_categoriaNoValido" formControlName="id_categoria" name="id_categoria" class="form-control form-control-sm">
                                     <option value="0">(Seleccionar)</option>
                                     <option *ngFor="let cate of categorias" [value]="cate.id"> {{ cate.nombre_categoria }} </option>
                                 </select>
@@ -81,8 +81,8 @@
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label>Subcategoría:</label>
-                                <select formControlName="id_sub_categoria" name="id_sub_categoria" class="form-control form-control-sm">
+                                <label>Subcategoría: <small *ngIf="id_sub_categoriaNoValido" class="form-text text-danger">Seleccione una subcategoría</small></label>
+                                <select [class.is-invalid]="id_sub_categoriaNoValido" formControlName="id_sub_categoria" name="id_sub_categoria" class="form-control form-control-sm">
                                     <option value="0">(Seleccionar)</option>
                                     <option *ngFor="let subcate of subcategorias" [value]="subcate.id"> {{ subcate.nombre_sub_categoria }} </option>
                                 </select>
@@ -90,8 +90,8 @@
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label>Tipo producto:</label>
-                                <select formControlName="id_tipo" name="id_tipo" class="form-control form-control-sm">
+                                <label>Tipo producto: <small *ngIf="id_tipoNoValido" class="form-text text-danger">Seleccione un tipo</small></label>
+                                <select [class.is-invalid]="id_tipoNoValido" formControlName="id_tipo" name="id_tipo" class="form-control form-control-sm">
                                     <option value="0">(Seleccionar)</option>
                                     <option *ngFor="let tipo of tipos" [value]="tipo.id"> {{ tipo.nombre_tipo }} </option>
                                 </select>
@@ -99,8 +99,8 @@
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label>Marca:</label>
-                                <select formControlName="id_marca" name="id_marca" class="form-control form-control-sm">
+                                <label>Marca: <small *ngIf="id_marcaNoValido" class="form-text text-danger">Seleccione una marca</small></label>
+                                <select [class.is-invalid]="id_marcaNoValido" formControlName="id_marca" name="id_marca" class="form-control form-control-sm">
                                     <option value="0">(Seleccionar)</option>
                                     <option *ngFor="let marca of marcas" [value]="marca.id"> {{ marca.nombre_marca }} </option>
                                 </select>
@@ -108,20 +108,20 @@
                         </div>
                         <div class="col-md-12">
                             <div class="form-group">
-                                <label>Descripción:</label>
-                                <textarea formControlName="descripcion_producto" name="descripcion_producto" rows="5" class="form-control form-control-sm"></textarea>
+                                <label>Descripción: <small *ngIf="descripcion_productoNoValido" class="form-text text-danger">Ingrese una descripción</small></label>
+                                <textarea [class.is-invalid]="descripcion_productoNoValido" formControlName="descripcion_producto" name="descripcion_producto" rows="5" class="form-control form-control-sm"></textarea>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label>Precio:</label>
-                                <input formControlName="precio" name="precio" type="number" class="form-control form-control-sm" placeholder="Ingrese precio...">
+                                <label>Precio: <small *ngIf="precioNoValido" class="form-text text-danger">Ingrese un precio</small></label>
+                                <input [class.is-invalid]="precioNoValido" formControlName="precio" name="precio" type="number" class="form-control form-control-sm" placeholder="Ingrese precio...">
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label>Stock:</label>
-                                <input formControlName="stock" name="stock" type="number" class="form-control form-control-sm" placeholder="Ingrese stock...">
+                                <label>Stock: <small *ngIf="stockNoValido" class="form-text text-danger">Ingrese un stock</small></label>
+                                <input [class.is-invalid]="stockNoValido" formControlName="stock" name="stock" type="number" class="form-control form-control-sm" placeholder="Ingrese stock...">
                             </div>
                         </div>
                         <div class="col-md-6" style="margin-top: 10px;">

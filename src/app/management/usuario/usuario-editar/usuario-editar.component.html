@@ -37,14 +37,14 @@
 
                         </div>
                         <div class="form-group">
-                            <label>Crédito:</label>
-                            <input formControlName="credito" name="credito" type="number" class="form-control form-control-sm" placeholder="Ingrese monto...">
+                            <label>Crédito: <small *ngIf="creditoNoValido" class="form-text text-danger">Ingrese monto</small></label>
+                            <input [class.is-invalid]="creditoNoValido" formControlName="credito" name="credito" type="number" class="form-control form-control-sm" placeholder="Ingrese monto...">
                         </div>
                     </div>
                     <div>
                         <div class="form-group">
-                            <label>Tipo de crédito:</label>
-                            <select formControlName="tipo_credito" name="tipo_credito" class="form-control form-control-sm">
+                            <label>Tipo de crédito: <small *ngIf="tipo_creditoValido" class="form-text text-danger">Seleccione un tipo de crédito</small></label>
+                            <select [class.is-invalid]="tipo_creditoValido" formControlName="tipo_credito" name="tipo_credito" class="form-control form-control-sm">
                                 <option value="0">(Seleccionar)</option>
                                 <option value="1">Crédito a 6 meses</option>
                                 <option value="2">Crédito a 1 año</option>
@@ -62,7 +62,7 @@
                     <div class="row" style="margin-top: 20px;">
                         <div class="col md-6">
                             <div style="margin-top: 10px;">
-                                <button type="button" class="btn btn-outline-primary btn-block">Regresar al listado</button>
+                                <button (click)="retornar_lista()" type="button" class="btn btn-outline-primary btn-block">Regresar al listado</button>
                             </div>
                         </div>
                         <div class="col md-6">

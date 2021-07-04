@@ -18,7 +18,7 @@
                                         <option *ngFor="let categoria of categorias" [value]="categoria.id"> {{ categoria.nombre_categoria }} </option>
                                     </select>
                                 </div>
-                                <input type="text" placeholder="Ingrese su búsqueda... " />
+                                <input id="patron_busqueda" type="text" placeholder="Ingrese su búsqueda... " />
                                 <button type="button" (click)="buscar_producto()">Buscar</button>
                             </form>
                         </div>
@@ -47,15 +47,15 @@
                             <li class="menu-item" *ngFor="let categoria of categorias">
                                 <a href="javascript:void(0)" (click)="seleccionar_categoria(categoria)"> 
                                     {{ categoria.nombre_categoria }} 
-                                    <i *ngIf="categoria.subcategorias.length !== 0" class="ion-ios-arrow-right"></i>
+                                   <!--  <i *ngIf="categoria.subcategorias.length !== 0" class="ion-ios-arrow-right"></i> -->
                                 </a>
-                                <ul *ngIf="categoria.subcategorias.length !== 0" class="sub-menu sub-menu-2">
+                                <!-- <ul *ngIf="categoria.subcategorias.length !== 0" class="sub-menu sub-menu-2">
                                     <li>
                                         <ul class="submenu-item">
                                             <li *ngFor="let subcate of categoria.subcategorias"><a href="#"> {{ subcate.nombre_sub_categoria }} </a></li>
                                         </ul>
                                     </li>
-                                </ul>
+                                </ul> -->
                             </li>
                         </ul>
                         <!-- menu content -->

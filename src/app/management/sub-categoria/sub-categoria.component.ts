@@ -16,6 +16,7 @@ import { SubCategoriaService } from '../../services/sub-categoria.service';
 export class SubCategoriaComponent implements OnInit {
 
   formulario: FormGroup;
+  form_busqueda: FormGroup;
 
   pagina_actual: number = 1;
   subcategoria: Subcategoria;
@@ -45,13 +46,16 @@ export class SubCategoriaComponent implements OnInit {
       this.categorias = resp.data;
       this.categorias.unshift({
         id: 0,
-        nombre_categoria: '(Seleccionar)'
+        nombre_categoria: '(Categoría)'
       });
     });
   }
 
   listar_subcategoria() {
-    this._subcategoriaService.listar_subcategoria()
+    const categoria: number = Number(this.form_busqueda.value.categoria || 0);
+    const patron_busqueda: string = this.form_busqueda.value.patron_busqueda || '';
+
+    this._subcategoriaService.listar_subcategoria(categoria, patron_busqueda)
     .subscribe((resp: any) => {
       this.subcategorias = resp.data;
     });
@@ -117,6 +121,9 @@ export class SubCategoriaComponent implements OnInit {
   pasar_validacion(): boolean {
     if(this.formulario.invalid){
       this._shared.alert_error('Llene correctamente el formulario');
+      Object.values( this.formulario.controls).forEach( control => {
+        control.markAsTouched();
+      });
       return false;
     }
     return true;
@@ -125,9 +132,20 @@ export class SubCategoriaComponent implements OnInit {
   crearFormulario(){
     this.formulario = new FormGroup({
         id: new FormControl(null),
-        id_categoria: new FormControl(0, [Validators.required]),
+        id_categoria: new FormControl('0', [Validators.required, Validators.pattern('^(?!0).*$')]),
         nombre_subcategoria: new FormControl(null, [Validators.required])
     });
+    this.form_busqueda = new FormGroup({
+      categoria: new FormControl(0, [Validators.required]),
+      patron_busqueda: new FormControl('')
+    });
+  }
+
+  limpiar() {
+    this.form_busqueda.reset(
+      {categoria: 0}
+    );
+    this.listar_subcategoria();
   }
 
   setear_formulario(id: number, id_cate: number, nom: string) {
@@ -137,5 +155,14 @@ export class SubCategoriaComponent implements OnInit {
       nombre_subcategoria: nom
     })
   }
+
+  get categoriaNoValida() {
+    return this.formulario.get('id_categoria').invalid && this.formulario.get('id_categoria').touched;
+  }
+
+  get subcategoriaNoValida() {
+    return this.formulario.get('nombre_subcategoria').invalid && this.formulario.get('nombre_subcategoria').touched;
+  }
+
 
 }

@@ -59,14 +59,14 @@
                                             </div>
                                             <div class="col-lg-6 col-md-6">
                                                 <div class="billing-info">
-                                                    <label>Telefono1(opcional) <small *ngIf="telefono2NoValido" class="form-text text-danger">Ingrese un número telefónico</small></label>
+                                                    <label>Telefono1 <small *ngIf="telefono2NoValido" class="form-text text-danger">Ingrese un número telefónico</small></label>
                                                     <input [class.is-invalid]="telefono2NoValido" formControlName="telefono2" name="telefono2" type="text" />
                                                 </div>
                                             </div>
                                             <div class="col-lg-6 col-md-6">
                                                 <div class="billing-info">
-                                                    <label>Telefono2(opcional) <small *ngIf="telefono3NoValido" class="form-text text-danger">Ingrese un número telefónico</small></label>
-                                                    <input [class.is-invalid]="telefono3NoValido" formControlName="telefono3" name="telefono3" type="text" />
+                                                    <label>Telefono2(opcional)</label>
+                                                    <input formControlName="telefono3" name="telefono3" type="text" />
                                                 </div>
                                             </div>
                                         </div>
@@ -133,8 +133,8 @@
                                         <div class="row">
                                             <div class="col-lg-6 col-md-6">
                                                 <div class="billing-info">
-                                                    <label>Departamento</label>
-                                                    <select formControlName="departamento" name="departamento" class="form-control">
+                                                    <label>Departamento <small *ngIf="departamentoNoValido" class="form-text text-danger">Seleccione un departamento</small></label>
+                                                    <select [class.is-invalid]="departamentoNoValido" formControlName="departamento" name="departamento" class="form-control">
                                                         <option value="0">(Seleccionar)</option>
                                                         <option *ngFor="let departamento of departamentos" [value]="departamento.departamento"> {{ departamento.departamento }} </option>
                                                     </select>
@@ -142,8 +142,8 @@
                                             </div>
                                             <div class="col-lg-6 col-md-6">
                                                 <div class="billing-info">
-                                                    <label>Provincia</label>
-                                                    <select formControlName="provincia" name="provincia" class="form-control">
+                                                    <label>Provincia <small *ngIf="provinciaNoValido" class="form-text text-danger">Seleccione una provincia</small></label>
+                                                    <select [class.is-invalid]="provinciaNoValido" formControlName="provincia" name="provincia" class="form-control">
                                                         <option value="0">(Seleccionar)</option>
                                                         <option *ngFor="let provincia of provincias" [value]="provincia.provincia"> {{ provincia.provincia }} </option>
                                                     </select>
@@ -151,8 +151,8 @@
                                             </div>
                                             <div class="col-lg-6 col-md-6">
                                                 <div class="billing-info">
-                                                    <label>Distrito</label>
-                                                    <select formControlName="distrito" name="distrito" class="form-control">
+                                                    <label>Distrito <small *ngIf="distritoNoValido" class="form-text text-danger">Seleccione un distrito</small></label>
+                                                    <select [class.is-invalid]="distritoNoValido" formControlName="distrito" name="distrito" class="form-control">
                                                         <option value="0">(Seleccionar)</option>
                                                         <option *ngFor="let distrito of distritos" [value]="distrito.codigo"> {{ distrito.distrito }} </option>
                                                     </select>
@@ -160,20 +160,20 @@
                                             </div>
                                             <div class="col-lg-6 col-md-6">
                                                 <div class="billing-info">
-                                                    <label>Dirección</label>
-                                                    <input formControlName="direccion" name="direccion" type="text" />
+                                                    <label>Dirección <small *ngIf="direccionNoValido" class="form-text text-danger">Ingrese una dirección</small></label>
+                                                    <input [class.is-invalid]="direccionNoValido" formControlName="direccion" name="direccion" type="text" />
                                                 </div>
                                             </div>
                                             <div class="col-lg-6 col-md-6">
                                                 <div class="billing-info">
-                                                    <label>Número</label>
-                                                    <input formControlName="numero" name="numero" type="text" />
+                                                    <label>Número <small *ngIf="numeroNoValido" class="form-text text-danger">Ingrese el número de la dirección</small></label>
+                                                    <input [class.is-invalid]="numeroNoValido" formControlName="numero" name="numero" type="text" />
                                                 </div>
                                             </div>
                                             <div class="col-lg-6 col-md-6">
                                                 <div class="billing-info">
-                                                    <label>Piso</label>
-                                                    <input formControlName="piso" name="piso" type="text" />
+                                                    <label>Piso <small *ngIf="pisoNoValido" class="form-text text-danger">Especifique el piso</small></label>
+                                                    <input [class.is-invalid]="pisoNoValido" formControlName="piso" name="piso" type="text" />
                                                 </div>
                                             </div>
                                             <div class="col-lg-12 col-md-12">

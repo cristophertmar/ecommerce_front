@@ -35,6 +35,7 @@ import { registerLocaleData } from '@angular/common';
 import localesPE from '@angular/common/locales/es-PE';
 import { SeguimientoPedidoComponent } from './management/seguimiento-pedido/seguimiento-pedido.component';
 import { SeguimientoEditarComponent } from './management/seguimiento-pedido/seguimiento-editar/seguimiento-editar.component';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 registerLocaleData(localesPE, 'es-Pe');
 
 @NgModule({
@@ -72,7 +73,8 @@ registerLocaleData(localesPE, 'es-Pe');
     BrowserAnimationsModule,
     NgxPaginationModule,
     NgxSpinnerModule,
-    SocialLoginModule
+    SocialLoginModule,
+    InfiniteScrollModule
   ],
   providers: [
     { provide: LOCALE_ID, useValue: 'es-Pe' },

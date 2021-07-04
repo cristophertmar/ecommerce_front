@@ -18,11 +18,13 @@ import { TipoService } from '../../services/tipo.service';
 export class TipoComponent implements OnInit {
 
   formulario: FormGroup;
+  form_busqueda: FormGroup;
 
   pagina_actual: number = 1;  
   
   categorias: Categoria[];
   subcategorias: Subcategoria[];
+  subcategorias_filtro: Subcategoria[]; 
 
   tipo: Tipo;
   tipos: Tipo[];
@@ -46,29 +48,52 @@ export class TipoComponent implements OnInit {
   ngOnInit(): void {
     this.listar_tipo();
     this.listar_categoria();
-    this.listar_subcategoria();
+    //this.listar_subcategoria();
+    this.categoria_listener();
   }
+
+  categoria_listener() {
+
+    this.formulario.get('id_categoria').valueChanges.subscribe((valor: number) => {
+      this.listar_subcategoria(valor);
+    });
+
+    this.form_busqueda.get('categoria').valueChanges.subscribe((valor: number) => {
+      this.listar_subcategoria(valor, true);
+    });
+  }
+
 
   listar_categoria() {
     this._categoriaService.listar_categoria()
     .subscribe((resp: any) => {
       this.categorias = resp.data;
-      this.categorias.unshift({
+      /* this.categorias.unshift({
         id: 0,
         nombre_categoria: '(Seleccionar)'
-      });
+      }); */
     });
   }
 
-  listar_subcategoria() {
-    this._subcategoriaService.listar_subcategoria()
+  listar_subcategoria(id_categoria: number, busqueda: boolean = false) {
+
+    this._subcategoriaService.listar_subcategoria(id_categoria)
     .subscribe((resp: any) => {
-      this.subcategorias = resp.data;
+      if(!busqueda) {
+        this.subcategorias = resp.data;
+      } else {
+        this.subcategorias_filtro = resp.data;
+      }
     });
   }
 
   listar_tipo() {
-    this._tipoService.listar_tipo()
+
+    const categoria: number = this.form_busqueda.value.categoria || 0;
+    const subcategoria: number = this.form_busqueda.value.subcategoria || 0;
+    const patron_busqueda: string = this.form_busqueda.value.patron_busqueda || '';
+
+    this._tipoService.listar_tipo(subcategoria, categoria, patron_busqueda)
     .subscribe((resp: any) => {
       this.tipos = resp.data;
     });
@@ -133,6 +158,9 @@ export class TipoComponent implements OnInit {
   pasar_validacion(): boolean {
     if(this.formulario.invalid){
       this._shared.alert_error('Llene correctamente el formulario');
+      Object.values( this.formulario.controls).forEach( control => {
+        control.markAsTouched();
+      });
       return false;
     }
     return true;
@@ -141,10 +169,22 @@ export class TipoComponent implements OnInit {
   crearFormulario(){
     this.formulario = new FormGroup({
         id: new FormControl(null),
-        id_categoria: new FormControl(0, [Validators.required]),
-        id_subcategoria: new FormControl(0, [Validators.required]),
+        id_categoria: new FormControl(0, [Validators.required, Validators.pattern('^(?!0).*$')]),
+        id_subcategoria: new FormControl(0, [Validators.required, Validators.pattern('^(?!0).*$')]),
         nombre_tipo: new FormControl(null, [Validators.required])
     });
+    this.form_busqueda = new FormGroup({
+      categoria: new FormControl(0, [Validators.required]),
+      subcategoria: new FormControl(0, [Validators.required]),
+      patron_busqueda: new FormControl('')
+    });
+  }
+
+  limpiar() {
+    this.form_busqueda.reset(
+      {categoria: 0, subcategoria: 0, patron_busqueda: ''}
+    );
+    this.listar_tipo();
   }
 
   setear_formulario(id: number, id_cate: number, id_subcate: number, nom: string) {
@@ -155,5 +195,19 @@ export class TipoComponent implements OnInit {
       nombre_tipo: nom
     })
   }
+
+  get categoriaNoValida() {
+    return this.formulario.get('id_categoria').invalid && this.formulario.get('id_categoria').touched;
+  }
+
+  get subcategoriaNoValida() {
+    return this.formulario.get('id_subcategoria').invalid && this.formulario.get('id_subcategoria').touched;
+  }
+
+  get tipoNoValido() {
+    return this.formulario.get('nombre_tipo').invalid && this.formulario.get('nombre_tipo').touched;
+  }
+
+
 
 }

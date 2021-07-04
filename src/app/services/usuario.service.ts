@@ -65,6 +65,9 @@ export class UsuarioService {
     localStorage.setItem('usuario', JSON.stringify(usuario));
     this.usuario = usuario;
     this.token = token;
+
+    /* console.log('guradar', usuario);
+    console.log('local', this.usuario); */
   }
 
   logout_usuario() {

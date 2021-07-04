@@ -12,8 +12,8 @@ export class CategoriaService {
     public _http: HttpClient
   ) { }
 
-  listar_categoria() {
-    const url = URL_SERVICIOS + 'api/categoria/listar';
+  listar_categoria(patron_busqueda = '') {
+    const url = URL_SERVICIOS + 'api/categoria/listar?patron_busqueda=' + patron_busqueda;
     return this._http.get(url);
   }
 

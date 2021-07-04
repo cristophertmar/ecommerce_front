@@ -20,7 +20,8 @@
         <div class="row">
             <div class="col-lg-9 order-lg-last col-md-12 order-md-first">
                 <!-- Shop Top Area Start -->
-                <div class="shop-top-bar d-flex">
+                <div class="shop-top-bar d-flex" infiniteScroll (scrolled)="onScrollDown()">
+
                     <!-- Left Side start -->
                     <div class="shop-tab nav d-flex">
                         <a class="active" href="#shop-1" data-toggle="tab">

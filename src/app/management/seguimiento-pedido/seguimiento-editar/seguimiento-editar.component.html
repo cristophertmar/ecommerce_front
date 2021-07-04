@@ -22,7 +22,7 @@
 <div class="mantenimiento-area" *ngIf="orden">
     <div style="width: 80%; margin: auto; height: 69vh; padding: 50px; padding-top: 20px;">
 
-        <form>
+        <form ngNativeValidate>
             <!-- <div *ngIf="editar" class="btn-group btn-group-sm" role="group" style="margin-bottom: 20px;">
                 <button type="button" class="btn btn-outline-success">Activo</button>
                 <button type="button" class="btn btn-outline-danger">Inactivo</button>
@@ -86,7 +86,7 @@
                                         <td class="text-center"> {{ prod.cantidad_compra }} </td>
                                         <td class="text-center"> {{ prod.subtotal | currency: 'PEN': 'symbol': '': 'es-PE' }} </td>
                                         <td>
-                                            <input style="padding: 0rem .25rem; height: 20px; width: 50%; margin: auto; font-size: 15px;" type="number" class="form-control form-control-sm" [value]="prod.cantidad_aprobada" (change)="modificar_cantidad(i, $event.target.value)">
+                                            <input style="padding: 0rem .25rem; height: 20px; width: 50%; margin: auto; font-size: 15px;" type="number" class="form-control form-control-sm" [value]="prod.cantidad_aprobada" (change)="modificar_cantidad(i, $event.target.value)" required min="0">
                                         </td>
                                         <td class="text-center"> {{ (prod.subtotal_aprobado) | currency: 'PEN': 'symbol': '': 'es-PE' }} </td>
                                     </tr>
