@@ -40,6 +40,7 @@
                     <table class="table table-striped" style="width: 100%; margin: auto;">
                         <thead>
                             <tr class="bg-primary" style="color: #fff;">
+                                <th>Código</th>
                                 <th>Descripción</th>
                                 <th>Descuento</th>
                                 <th>Desde</th>
@@ -50,6 +51,7 @@
                         </thead>
                         <tbody>
                             <tr *ngFor="let promocion of promociones | paginate: { itemsPerPage: 10, currentPage: pagina_actual }">
+                                <td> {{ obtener_codigo(promocion.id) }} </td>
                                 <td> {{ promocion.descripcion }} </td>
                                 <td> {{ obtener_procentaje(promocion.porcentaje) }}% </td>
                                 <td> {{ promocion.vigencia_inicio | date: 'dd/MM/yyyy' }} </td>

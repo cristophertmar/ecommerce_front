@@ -37,4 +37,9 @@ export class CategoriaService {
     return this._http.delete(url);
   }
 
+  verificar_categoria(id_categoria: number) {
+    const url = URL_SERVICIOS + 'api/categoria/verificar?id_categoria=' + id_categoria;
+    return this._http.get(url);
+  }
+
 }

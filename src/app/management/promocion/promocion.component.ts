@@ -59,6 +59,25 @@ export class PromocionComponent implements OnInit {
     });
   }
 
+  obtener_codigo(id: number): string {
+
+    let codigo: string = 'P';
+
+    const long_id = id.toString().length;
+    console.log(long_id);
+    
+    const repetidor: number = Number(5) - Number(long_id);
+
+    for(let i = 0; i < repetidor; i++ ) {
+        codigo += '0';
+    }
+
+    codigo += (id.toString());
+
+    return codigo;
+
+  }
+
   limpiar() {
     this.form_busqueda.reset({patron_busqueda: ''});
     this.listar_promocion();

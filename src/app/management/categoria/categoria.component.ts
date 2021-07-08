@@ -80,12 +80,21 @@ export class CategoriaComponent implements OnInit {
 
   eliminar_categoria(categoria: Categoria) {
     this._spinner.show();
-    this._categoriaService.eliminar_categoria(categoria.id)
-    .subscribe(resp => {
-      this.listar_categoria();
-      this._spinner.hide();
-      this._shared.alert_success('Categoría eliminada');
-    });
+    this._categoriaService.verificar_categoria(categoria.id)
+    .subscribe( (resp: any) => {
+        const existe: boolean = resp.data;
+        if(!existe) {
+          this._categoriaService.eliminar_categoria(categoria.id)
+          .subscribe(resp => {
+            this.listar_categoria();
+            this._spinner.hide();
+            this._shared.alert_success('Categoría eliminada');
+            return;
+          });
+        }
+        this._spinner.hide();
+        this._shared.alert_error('La categoría se encuentra asociada a un producto');
+    });    
   }
 
   habilitar_edicion(categoria: Categoria) {
