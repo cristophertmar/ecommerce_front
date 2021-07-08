@@ -32,6 +32,9 @@ export class SeguimientoEditarComponent implements OnInit {
     });   
   }
 
+  obtener_control(estado) {
+    return estado ? 'Sí' : 'No';
+  }
   obtener_orden(id: string) {
       this._ordenService.obtener_orden(id)
       .subscribe((resp: any) => {
@@ -56,7 +59,15 @@ export class SeguimientoEditarComponent implements OnInit {
       });
   }
 
-  modificar_cantidad(i: number, cantidad: number) {
+  modificar_cantidad(i: number, cantidad: number, control_stock: boolean, stock: number) {
+
+    if(control_stock && (cantidad > stock)) {
+      
+      cantidad = stock;
+      this.shared.alert_info('Para este producto no se puede superar la cantidad de stock');
+
+    }
+    
     this.orden.detalles[i].cantidad_aprobada = Number(cantidad);
     this.orden.detalles[i].subtotal_aprobado = (Number(cantidad) * this.orden.detalles[i].precio_unitario);
     this.parcial = this.obtener_parcialidad();

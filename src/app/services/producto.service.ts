@@ -95,5 +95,11 @@ export class ProductoService {
     return this._http.delete(url);
   }
 
+  listar_unidad_medida() {
+    const url = URL_SERVICIOS + 'api/producto/listar_unidad_medida';
+    return this._http.get(url);
+  }
+
+
 }
  

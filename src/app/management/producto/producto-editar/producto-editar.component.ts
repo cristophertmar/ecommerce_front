@@ -18,6 +18,7 @@ import { Promocion } from '../../../models/promocion.model';
 import { PromocionService } from '../../../services/promocion.service';
 import { URL_SERVICIOS } from 'src/app/config/config';
 import { Galeria } from '../../../models/galeria.model';
+import { UnidadMedida } from '../../../models/unidad_medidad.model';
 
 @Component({
   selector: 'app-producto-editar',
@@ -40,6 +41,8 @@ export class ProductoEditarComponent implements OnInit {
   producto: Producto;
   productos: Producto[];
   productos_asocionados: Producto[];
+
+  unidades: UnidadMedida[] = [];
 
   categorias: Categoria[];
   subcategorias: Subcategoria[];
@@ -82,6 +85,7 @@ export class ProductoEditarComponent implements OnInit {
     this.listar_categoria();
     this.listar_promocion();
     this.listar_marca();
+    this.listar_unidades();
     this._activatedRoute.params.subscribe( ({codigo}) => {
       if(codigo !== 'nuevo') {
         this.editar = true;
@@ -171,6 +175,13 @@ export class ProductoEditarComponent implements OnInit {
     });
   }
 
+  listar_unidades() {
+    this._productoService.listar_unidad_medida()
+    .subscribe((resp: any) => {
+      this.unidades = resp.data;      
+    });
+  }
+
   listar_producto() {
     const patron_busqueda = (document.getElementById("patron_busqueda") as HTMLInputElement).value || '';
     this._productoService.listar_producto(patron_busqueda)
@@ -232,8 +243,13 @@ export class ProductoEditarComponent implements OnInit {
     this.producto.descripcion_producto = this.formulario.get('descripcion_producto').value;
     this.producto.precio = Number(this.formulario.get('precio').value);
     this.producto.stock = Number(this.formulario.get('stock').value);
+    this.producto.id_unidad_medida = Number(this.formulario.get('id_unidad_medida').value);
     this.producto.producto_asociado = JSON.stringify(this.productos_asocionados);
     this.producto.estado = this.estado_producto;
+    this.producto.control_stock = this.formulario.get('control_stock').value === 'true' ? true : false;
+
+    console.log('this.producto.control_stock', this.producto.control_stock);
+
   }
 
   pasar_validacion(): boolean {
@@ -266,7 +282,9 @@ export class ProductoEditarComponent implements OnInit {
         id_promocion: new FormControl(0, [Validators.required]),
         descripcion_producto: new FormControl(null, [Validators.required]),
         precio: new FormControl(null, [Validators.required]),
-        stock: new FormControl(null, [Validators.required])
+        stock: new FormControl(null, [Validators.required]),
+        id_unidad_medida: new FormControl(0, [Validators.required, Validators.pattern('^(?!0).*$')]),
+        control_stock: new FormControl(true, [Validators.required])
     });
   }
 
@@ -310,6 +328,10 @@ export class ProductoEditarComponent implements OnInit {
     return this.formulario.get('stock').invalid && this.formulario.get('stock').touched;
   }
 
+  get unidadMedidaNoValido() {
+    return this.formulario.get('id_unidad_medida').invalid && this.formulario.get('id_unidad_medida').touched;
+  }
+
   setearFormulario() {
     this.formulario.setValue({
       id: this.producto.id,
@@ -323,7 +345,9 @@ export class ProductoEditarComponent implements OnInit {
       id_promocion: this.producto.id_promocion,
       descripcion_producto: this.producto.descripcion_producto,
       precio: this.producto.precio,
-      stock: this.producto.stock
+      stock: this.producto.stock,
+      id_unidad_medida: this.producto.id_unidad_medida,
+      control_stock: this.producto.control_stock
     });
   }
 

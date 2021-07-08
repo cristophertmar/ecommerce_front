@@ -24,7 +24,10 @@ export class Producto {
         public imagen_1?: string,
         public imagen_2?: string,
         public cantidad_comprar?: number,
-        public monto?: number
+        public monto?: number,
+        public id_unidad_medida?: number,
+        public unidad_medida?: string,
+        public control_stock?: boolean
     ) {}    
 
 }

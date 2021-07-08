@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { URL_SERVICIOS } from 'src/app/config/config';
+import { ScriptService } from 'src/app/services/script.service';
 import { ProductoService } from '../../services/producto.service';
 
 @Component({
@@ -13,14 +14,17 @@ export class CartComponent implements OnInit {
 
   constructor(
     public _productoService: ProductoService,
-    private _router: Router
-  ) { }
+    private _router: Router,
+    private _scriptService: ScriptService
+  ) {
+    this._scriptService.script_load(['vendor.min', 'plugins.min', 'main']);
+   }
 
   ngOnInit(): void {
+
   }
 
   modificar_cantidad(i: number) {
-    this._productoService.productos[i].cantidad_comprar = Number((document.getElementById("cantidad") as HTMLInputElement).value);
     this._productoService.productos[i].monto = (this._productoService.productos[i].cantidad_comprar * this._productoService.productos[i].precio);
     this._productoService.calcular_subtotal();
   }
@@ -42,6 +46,20 @@ export class CartComponent implements OnInit {
 
   retornar_lista() {
     this._router.navigate(['/productos']);
+  }
+
+  aumentar_cantidad(i: number) {
+    this._productoService.productos[i].cantidad_comprar += 1;
+    this.modificar_cantidad(i);
+  }
+
+  disminuir_cantidad(i: number) {
+    if(this._productoService.productos[i].cantidad_comprar != 1) {
+      this._productoService.productos[i].cantidad_comprar -= 1;
+    } else{
+      this._productoService.productos[i].cantidad_comprar = 1;
+    }    
+    this.modificar_cantidad(i);
   }
 
 }

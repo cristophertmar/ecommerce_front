@@ -124,6 +124,24 @@
                                 <input [class.is-invalid]="stockNoValido" formControlName="stock" name="stock" type="number" class="form-control form-control-sm" placeholder="Ingrese stock...">
                             </div>
                         </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Unidad de medida: <small *ngIf="unidadMedidaNoValido" class="form-text text-danger">Seleccione unidad de medida</small></label>
+                                <select [class.is-invalid]="unidadMedidaNoValido" class="form-control form-control-sm" formControlName="id_unidad_medida" name="id_unidad_medida">
+                                    <option value="0">(Seleccionar)</option>
+                                    <option *ngFor="let uni of unidades" [value]="uni.id"> {{ uni.nombre }} </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>¿Control de stock?:</label>
+                                <select class="form-control form-control-sm" formControlName="control_stock" name="control_stock">
+                                    <option value=true>Sí</option>
+                                    <option value=false>No</option>
+                                </select>
+                            </div>
+                        </div>
                         <div class="col-md-6" style="margin-top: 10px;">
                             <button type="button" class="btn btn-outline-primary btn-block" (click)="retornar_lista()">Regresar al listado</button>
                         </div>

@@ -61,7 +61,9 @@
                                     <td class="product-price-cart"><span class="amount">{{ prod.precio | currency: 'PEN': 'symbol': '': 'es-PE' }}</span></td>
                                     <td class="product-quantity">
                                         <div (click)="modificar_cantidad(i)" class="cart-plus-minus">
-                                            <input id="cantidad" class="cart-plus-minus-box" type="text" name="qtybutton" [value]="prod.cantidad_comprar" />
+                                            <div class="dec qtybutton" (click)="disminuir_cantidad(i)">-</div>
+                                            <input [id]="cantidad" class="cart-plus-minus-box" type="text" name="qtybutton" [value]="prod.cantidad_comprar" readonly />
+                                            <div class="inc qtybutton" (click)="aumentar_cantidad(i)">+</div>
                                         </div>
                                     </td>
                                     <td class="product-subtotal">{{ prod.monto | currency: 'PEN': 'symbol': '': 'es-PE' }}</td>

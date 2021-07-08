@@ -4,6 +4,7 @@ import { Usuario } from '../../../models/usuario.model';
 import { UsuarioService } from '../../../services/usuario.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { SharedService } from '../../../services/shared.service';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-usuario-editar',
@@ -19,7 +20,8 @@ export class UsuarioEditarComponent implements OnInit {
     private _usuarioService: UsuarioService,
     private _activatedRoute: ActivatedRoute,
     private shared: SharedService,
-    private _router: Router
+    private _router: Router,
+    private _spinner: NgxSpinnerService
   ) {
     this.crearFormulario();
     this.usuario = new Usuario();
@@ -50,16 +52,23 @@ export class UsuarioEditarComponent implements OnInit {
   enviar_aprobacion() {    
 
     if(this.pasar_validacion()) {
-
+  
       this.usuario.credito = Number(this.formulario.value.credito);
       this.usuario.tipo_credito = Number(this.formulario.value.tipo_credito);
       this.usuario.estado = Number(this.formulario.value.estado);
       /* console.log(this.usuario); */
+      this._spinner.show();
       this._usuarioService.actualizar_aprobar_usuario(this.usuario)
       .subscribe((resp: any) => {
+        this._spinner.hide();
         this.shared.alert_success('Enviado Satisfactoriamente');
         this.retornar_lista();
-      });
+      },
+      (error) => {
+        this._spinner.hide();
+      }
+      
+      );
     } 
 
   }

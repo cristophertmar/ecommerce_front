@@ -42,6 +42,8 @@
                             <tr class="bg-primary" style="color: #fff;">
                                 <th>Descripción</th>
                                 <th>Descuento</th>
+                                <th>Desde</th>
+                                <th>Hasta</th>
                                 <th>Estado</th>
                                 <th colspan="2"></th>
                             </tr>
@@ -50,6 +52,8 @@
                             <tr *ngFor="let promocion of promociones | paginate: { itemsPerPage: 10, currentPage: pagina_actual }">
                                 <td> {{ promocion.descripcion }} </td>
                                 <td> {{ obtener_procentaje(promocion.porcentaje) }}% </td>
+                                <td> {{ promocion.vigencia_inicio | date: 'dd/MM/yyyy' }} </td>
+                                <td> {{ promocion.vigencia_fin | date: 'dd/MM/yyyy' }} </td>
                                 <td>
                                     <span *ngIf="promocion.estado === true" class="badge badge-pill badge-success">Activo</span>
                                     <span *ngIf="promocion.estado === false" class="badge badge-pill badge-danger">Inactivo</span>
@@ -82,12 +86,18 @@
                             <div class="form-group">
                                 <label>Descripción: <small *ngIf="promocionNoValida" class="form-text text-danger">Ingrese una descripción</small></label>
                                 <input [class.is-invalid]="promocionNoValida" formControlName="descripcion" name="descripcion" type="text" class="form-control" placeholder="Ingrese descripción...">
-                                <!-- <small class="text-danger">Ingrese nombre de la categoría.</small> -->
                             </div>
                             <div class="form-group">
                                 <label>Descuento(%): <small *ngIf="descuentoNoValido" class="form-text text-danger">Ingrese descuento</small></label>
                                 <input [class.is-invalid]="descuentoNoValido" formControlName="porcentaje" name="porcentaje" type="number" class="form-control" placeholder="Ingrese porcentaje...">
-                                <!-- <small class="text-danger">Ingrese nombre de la categoría.</small> -->
+                            </div>
+                            <div class="form-group">
+                                <label>Vigencia inicio: <small *ngIf="vigenciaInicioNoValido" class="form-text text-danger">Ingrese fecha inicio</small></label>
+                                <input [class.is-invalid]="vigenciaInicioNoValido" formControlName="vigencia_inicio" name="vigencia_inicio" type="date" class="form-control" [min]="fecha_actual">
+                            </div>
+                            <div class="form-group">
+                                <label>Vigencia fin: <small *ngIf="vigenciaFinNoValido" class="form-text text-danger">Ingrese fecha fin</small></label>
+                                <input [class.is-invalid]="vigenciaFinNoValido" formControlName="vigencia_fin" name="vigencia_fin" type="date" class="form-control">
                             </div>
                             <button *ngIf="!editar" type="button" class="btn btn-primary btn-block" (click)="guardar_promocion()">Agregar promoción</button>
                             <button *ngIf="editar" type="button" class="btn btn-primary btn-block" (click)="actualizar_promocion()">Guardar cambios</button>

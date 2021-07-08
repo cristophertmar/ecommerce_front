@@ -6,6 +6,7 @@ import { UsuarioService } from 'src/app/services/usuario.service';
 import { SocialAuthService, SocialUser } from "angularx-social-login";
 import { FacebookLoginProvider, GoogleLoginProvider } from "angularx-social-login";
 import { SharedService } from '../../services/shared.service';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-account',
@@ -33,7 +34,8 @@ export class AccountComponent implements OnInit {
     public _usuarioService: UsuarioService,
     private _authService: SocialAuthService,
     public _router: Router,
-    private _shared: SharedService
+    private _shared: SharedService,
+    private _spinner: NgxSpinnerService
   ) {
     this.crearForm();
     this.accedido = false;
@@ -169,15 +171,20 @@ export class AccountComponent implements OnInit {
     this.usuario.proveedor = this.usuario_social.provider;
     
     }
-
     
-
+    this._spinner.show();
     this._usuarioService.login_usuario(this.usuario, recuerdame)
-    .subscribe(resp => {
-      console.log(resp);
+    .subscribe(
+      resp => {
+        this._spinner.hide();
       //this._router.navigate(['/mi-perfil']);
       // this.cerrar_sesion_social();
-    });
+      },
+      (error) => {
+        this._spinner.hide();
+      }
+    
+    );
 
   }
 
@@ -209,11 +216,19 @@ export class AccountComponent implements OnInit {
     usuario.telefono1 = this.forma_registro.value.celular;
     usuario.contrasena = this.forma_registro.value.password;
 
+    this._spinner.show();
     this._usuarioService.registro_usuario(usuario)
-    .subscribe( resp => {
-      // this._router.navigate(['/mi-perfil']);
-      this.forma_registro.reset();
-    });
+    .subscribe( 
+      (resp: any) => {
+        this.forma_registro.reset();
+        this._spinner.hide();
+        this._shared.alert_info('Confirmaremos la aprobación de su registro al correo: ' + resp.usuario.correo);
+      },
+      (error) => {
+        this._spinner.hide();
+      }
+    
+    );
   }
 
    // ***Validaciones************************************** //

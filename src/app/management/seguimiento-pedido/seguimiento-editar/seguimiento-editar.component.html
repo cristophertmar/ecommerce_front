@@ -72,22 +72,27 @@
                                 <thead>
                                     <tr>
                                         <th scope="col">Producto</th>
-                                        <th scope="col" class="text-center">Precio Uni.</th>
+                                        <th scope="col" class="text-center">Precio&nbsp;uni</th>
                                         <th scope="col" class="text-center">Cantidad</th>
                                         <th scope="col" class="text-center">Subtotal</th>
                                         <th scope="col" class="text-center">Cantidad Aprobada</th>
+                                        <th scope="col" class="text-center">Disponible</th>
+                                        <th scope="col" class="text-center">Control Stock?</th>
                                         <th scope="col" class="text-center">Subtotal Aprobado</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr *ngFor="let prod of orden.detalles; index as i">
                                         <td> {{ prod.nombre_producto }} </td>
-                                        <td class="text-center"> {{ prod.precio_unitario }} </td>
-                                        <td class="text-center"> {{ prod.cantidad_compra }} </td>
+                                        <td class="text-center"> {{ prod.precio_unitario | currency: 'PEN': 'symbol': '': 'es-PE' }} </td>
+                                        <td class="text-center"> {{ prod.cantidad_compra }}&nbsp;{{ prod.unidad_medida }} </td>
                                         <td class="text-center"> {{ prod.subtotal | currency: 'PEN': 'symbol': '': 'es-PE' }} </td>
                                         <td>
-                                            <input style="padding: 0rem .25rem; height: 20px; width: 50%; margin: auto; font-size: 15px;" type="number" class="form-control form-control-sm" [value]="prod.cantidad_aprobada" (change)="modificar_cantidad(i, $event.target.value)" required min="0">
+                                            <input style="padding: 0rem .25rem; height: 20px; width: 50%; margin: auto; font-size: 15px;" type="number" class="form-control form-control-sm" [value]="prod.cantidad_aprobada" (change)="modificar_cantidad(i, $event.target.value, prod.control_stock, prod.stock)"
+                                                required min="0">
                                         </td>
+                                        <td class="text-center"> {{ prod.stock }} </td>
+                                        <td class="text-center"> {{ obtener_control(prod.control_stock) }} </td>
                                         <td class="text-center"> {{ (prod.subtotal_aprobado) | currency: 'PEN': 'symbol': '': 'es-PE' }} </td>
                                     </tr>
                                 </tbody>

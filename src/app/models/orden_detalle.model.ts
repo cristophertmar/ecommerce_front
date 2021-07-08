@@ -9,6 +9,9 @@ export class OrdenDetalle {
         public cantidad_aprobada?: number,
         public subtotal_aprobado?: number,
 
+        public stock?: number,
+        public control_stock?: boolean,
+        public unidad_medida?: string
     ) {}
 
 }

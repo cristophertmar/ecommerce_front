@@ -11,6 +11,7 @@ import { DireccionEntrega } from '../../models/direccion_entrega.model';
 import { OrdenDetalle } from '../../models/orden_detalle.model';
 import { OrdenService } from '../../services/orden.service';
 import { Router } from '@angular/router';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-checkout',
@@ -34,7 +35,8 @@ export class CheckoutComponent implements OnInit {
     public _productoService: ProductoService,
     private _ordenService: OrdenService,
     private _shared: SharedService,
-    private _router: Router
+    private _router: Router,
+    private _spinner: NgxSpinnerService
   ) {
 
   }
@@ -206,16 +208,22 @@ export class CheckoutComponent implements OnInit {
 
     orden.detalles = detalles;
 
-    console.log('orden', orden);
+    /* console.log('orden', orden);
     console.log('estado', this.estado);
-    console.log('correo', this.formulario.value.correo);
-
+    console.log('correo', this.formulario.value.correo); */
+    this._spinner.show();
     this._ordenService.generar_orden(orden, this.estado, this.formulario.value.correo)
-    .subscribe((resp: any) => {
+    .subscribe(
+      (resp: any) => {
+      this._spinner.hide();
       this.limpiar_carrito();
       this._shared.alert_success(resp.message);
       this.retornar_lista();
-    })
+      },
+      (error) => {
+        this._spinner.hide();
+      }
+    )
   }
 
   retornar_lista() {

@@ -82,8 +82,11 @@ export class UsuarioService {
       map((resp: any) => {
         // console.log(resp);
         // this.guardarStorage( resp.token, resp.usuario );
-        this._shared.alert_info('Confirmaremos la aprobación de su registro al correo: ' + resp.usuario.correo);
-        return true;
+        return resp;
+      }),
+      catchError(err => {
+        this._shared.alert_error('El correo ingresado no es válido');
+        return throwError(err);
       })
     );
   }

@@ -1,10 +1,11 @@
 import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ProductoService } from '../../services/producto.service';
 import { Producto } from '../../models/producto.model';
 import { URL_SERVICIOS } from 'src/app/config/config';
 /* import { Subscription } from 'rxjs'; */
 import { SharedService } from '../../services/shared.service';
+import { ScriptService } from 'src/app/services/script.service';
 
 @Component({
   selector: 'app-shop-single',
@@ -23,10 +24,13 @@ export class ShopSingleComponent implements OnInit {
   constructor(
     private _productoService: ProductoService,
     private _activatedRoute: ActivatedRoute,
-    private _shared: SharedService
+    private _shared: SharedService,
+    private _scriptService: ScriptService,
+    private _router: Router
   ) {
     this.producto = {};
     this.productos_relacionados = [];
+    
   }
   
   ngOnInit(): void {
@@ -59,7 +63,7 @@ export class ShopSingleComponent implements OnInit {
         productos_asociados.forEach(prod => {
           this.obtener_producto_relacionado(prod.id)
         });
-        console.log(this.producto);
+        
     });
   }
 
@@ -67,6 +71,7 @@ export class ShopSingleComponent implements OnInit {
     this._productoService.obtener_producto(token)
     .subscribe((resp: any) => {
         this.productos_relacionados.push(resp.data);
+        this._scriptService.script_load(['main']);
     });
   }
 
@@ -116,5 +121,30 @@ export class ShopSingleComponent implements OnInit {
     this.producto.cantidad_comprar = Number((document.getElementById("cantidad") as HTMLInputElement).value);
     this.producto.monto = (this.producto.cantidad_comprar * this.producto.precio);
   }
+
+  aumentar_cantidad() {
+
+    let contador: number = Number((document.getElementById("cantidad") as HTMLInputElement).value);
+    contador += 1;
+    (document.getElementById("cantidad") as HTMLInputElement).value = contador.toString();
+    this.modificar_cantidad();
+  }
+
+  disminuir_cantidad() {
+    let contador: number = Number((document.getElementById("cantidad") as HTMLInputElement).value);
+    if(contador != 1) {
+      contador -= 1;
+    } else{
+      contador = 1;
+    }    
+    (document.getElementById("cantidad") as HTMLInputElement).value = contador.toString();
+    this.modificar_cantidad();
+  }
+
+  ver_producto(producto: Producto) {
+    this._router.navigate(['producto-detalle/' + producto.id ]);
+  }
+
+
 
 }

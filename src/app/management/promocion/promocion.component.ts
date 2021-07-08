@@ -25,6 +25,8 @@ export class PromocionComponent implements OnInit {
 
   editar: boolean;
 
+  fecha_actual: string = '';
+
   constructor(
     private _promocionService: PromocionService,
     private _shared: SharedService,
@@ -34,14 +36,20 @@ export class PromocionComponent implements OnInit {
     this.promociones = [];
     this.editar = false;
     this.estado_promocion = true;
+  }  
+
+  ngOnInit(): void {
+    this.listar_promocion();
+    this.obtener_fecha_actual();
+  }
+
+  obtener_fecha_actual() {
+    const today = new Date();
+    this.fecha_actual = today.getFullYear() + '-' + ('0' + (today.getMonth() + 1)).slice(-2) + '-' + ('0' + today.getDate()).slice(-2);
   }
 
   obtener_procentaje(cantidad: number): number {
     return cantidad * 100;
-  }
-
-  ngOnInit(): void {
-    this.listar_promocion();
   }
 
   listar_promocion() {
@@ -98,7 +106,7 @@ export class PromocionComponent implements OnInit {
     this.editar = true;
     this.promocion = promocion;
     this.estado_promocion = promocion.estado;
-    this.setear_formulario(promocion.id, promocion.descripcion, promocion.porcentaje);    
+    this.setear_formulario(promocion.id, promocion.descripcion, promocion.porcentaje, promocion.vigencia_inicio, promocion.vigencia_fin);    
   }
 
   cambiar_estado_producto(estado: boolean) {
@@ -113,9 +121,11 @@ export class PromocionComponent implements OnInit {
   obtener_datos_formulario() {
     this.promocion = new Promocion();
     this.promocion.id = this.formulario.get('id').value || 0;
-    this.promocion.descripcion =this.formulario.get('descripcion').value;
+    this.promocion.descripcion = this.formulario.get('descripcion').value;
     this.promocion.porcentaje =  (Number(this.formulario.get('porcentaje').value) / 100);
     this.promocion.estado = this.estado_promocion;
+    this.promocion.vigencia_inicio = this.formulario.get('vigencia_inicio').value;
+    this.promocion.vigencia_fin = this.formulario.get('vigencia_fin').value;
   }
 
   pasar_validacion(): boolean {
@@ -133,18 +143,22 @@ export class PromocionComponent implements OnInit {
     this.formulario = new FormGroup({
         id: new FormControl(null),
         descripcion: new FormControl(null, [Validators.required]),
-        porcentaje: new FormControl(null, [Validators.required])
+        porcentaje: new FormControl(null, [Validators.required]),
+        vigencia_inicio: new FormControl(null, [Validators.required]),
+        vigencia_fin: new FormControl(null, [Validators.required])
     });
     this.form_busqueda = new FormGroup({
       patron_busqueda: new FormControl('')
     });
   }
 
-  setear_formulario(id: number, desc: string, porcent: number) {
+  setear_formulario(id: number, desc: string, porcent: number, vigencia_inicio: string, vigencia_fin: string) {
     this.formulario.setValue({
       id: id,
       descripcion: desc,
-      porcentaje: this.obtener_procentaje(porcent)
+      porcentaje: this.obtener_procentaje(porcent),
+      vigencia_inicio: vigencia_inicio,
+      vigencia_fin: vigencia_fin
     })
   }
 
@@ -154,6 +168,14 @@ export class PromocionComponent implements OnInit {
 
   get descuentoNoValido() {
     return this.formulario.get('porcentaje').invalid && this.formulario.get('porcentaje').touched;
+  }
+
+  get vigenciaInicioNoValido() {
+    return this.formulario.get('vigencia_inicio').invalid && this.formulario.get('vigencia_inicio').touched;
+  }
+
+  get vigenciaFinNoValido() {
+    return this.formulario.get('vigencia_fin').invalid && this.formulario.get('vigencia_fin').touched;
   }
 
 }
