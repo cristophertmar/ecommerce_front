@@ -104,413 +104,136 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="section-title">
-                            <h2>Mejores Ofertas</h2>
+                            <h2>Productos Destacados</h2>
                         </div>
                     </div>
                 </div>
                 <div class="feature-slider-wrapper slider-nav-style-1">
                     <div class="slider-single-item">
 
-                        <article class="list-product text-center mb-30px">
+                        <article *ngFor="let prod of productos_destacados_1" class="list-product text-center mb-30px">
                             <div class="product-inner">
                                 <div class="img-block">
-                                    <a href="https://live.hasthemes.com/html/5/abelo-preview/abelo/single-product.html" class="thumbnail">
-                                        <img class="first-img" src="https://live.hasthemes.com/html/5/abelo-preview/abelo/assets/images/product-image/4.jpg" alt="" />
-                                        <img class="second-img" src="https://live.hasthemes.com/html/5/abelo-preview/abelo/assets/images/product-image/5.jpg" alt="" />
+                                    <a href="javascript:void(0)" (click)="ver_producto(prod)" class="thumbnail">
+                                        <img class="first-img" [src]="obtener_imagen(prod.imagen_1)" alt="" />
+                                        <img class="second-img" [src]="obtener_imagen(prod.imagen_2)" alt="" />
                                     </a>
                                     <div class="add-to-link">
                                         <ul>
                                             <li>
-                                                <a class="quick_view" href="#" data-link-action="quickview" title="Quick view" data-toggle="modal" data-target="#exampleModal">
+                                                <a class="quick_view" href="javascript:void(0)" (click)="ver_producto(prod)" title="Ver producto">
                                                     <i class="lnr lnr-magnifier"></i>
                                                 </a>
                                             </li>
                                             <li>
-                                                <a href="https://live.hasthemes.com/html/5/abelo-preview/abelo/wishlist.html" title="Add to Wishlist"><i class="lnr lnr-heart"></i></a>
-                                            </li>
-                                            <li>
-                                                <a href="https://live.hasthemes.com/html/5/abelo-preview/abelo/compare.html" title="Add to compare"><i class="lnr lnr-sync"></i></a>
+                                                <a href="javascript:void(0)" (click)="adicionar_favorito(producto)" title="Añadir a favoritos"><i class="lnr lnr-heart"></i></a>
                                             </li>
                                         </ul>
                                     </div>
                                 </div>
-                                <ul class="product-flag">
-                                    <li class="new">-12%</li>
+                                <ul *ngIf="prod.precio_original !== prod.precio" class="product-flag">
+                                    <li class="new">- {{ prod.descuento * 100 }}%</li>
                                 </ul>
                                 <div class="product-decs">
-                                    <a class="inner-link" href="https://live.hasthemes.com/html/5/abelo-preview/abelo/shop-4-column.html"><span>Hola1</span></a>
-                                    <h2><a href="https://live.hasthemes.com/html/5/abelo-preview/abelo/single-product.html" class="product-link">Edifier H840 Audiophile</a></h2>
+                                    <a class="inner-link" href="javascript:void(0)" (click)="ver_producto(prod)"><span> {{ prod.nombre_producto }} </span></a>
+                                    <h2><a href="javascript:void(0)" class="product-link"> {{ prod.nombre_marca }} </a></h2>
                                     <div class="pricing-meta">
                                         <ul>
-                                            <li class="old-price">$23.90</li>
-                                            <li class="current-price">$21.51</li>
+                                            <li *ngIf="prod.precio_original !== prod.precio" class="old-price">{{ prod.precio_original | currency: 'PEN': 'symbol': '': 'es-PE' }}</li>
+                                            <li class="current-price">{{ prod.precio | currency: 'PEN': 'symbol': '': 'es-PE' }}</li>
                                         </ul>
                                     </div>
                                 </div>
                                 <div class="cart-btn">
-                                    <a href="#" class="add-to-curt" title="Añadir al carrito">Añadir al carrito</a>
+                                    <a href="javascript:void(0)" (click)="adicionar_carrito(prod)" class="add-to-curt" title="Añadir al carrito">Añadir al carrito</a>
                                 </div>
                             </div>
                         </article>
 
-                        <article class="list-product text-center">
-                            <div class="product-inner">
-                                <div class="img-block">
-                                    <a href="https://live.hasthemes.com/html/5/abelo-preview/abelo/single-product.html" class="thumbnail">
-                                        <img class="first-img" src="https://live.hasthemes.com/html/5/abelo-preview/abelo/assets/images/product-image/6.jpg" alt="" />
-                                        <img class="second-img" src="https://live.hasthemes.com/html/5/abelo-preview/abelo/assets/images/product-image/7.jpg" alt="" />
-                                    </a>
-                                    <div class="add-to-link">
-                                        <ul>
-                                            <li>
-                                                <a class="quick_view" href="#" data-link-action="quickview" title="Quick view" data-toggle="modal" data-target="#exampleModal">
-                                                    <i class="lnr lnr-magnifier"></i>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="https://live.hasthemes.com/html/5/abelo-preview/abelo/wishlist.html" title="Add to Wishlist"><i class="lnr lnr-heart"></i></a>
-                                            </li>
-                                            <li>
-                                                <a href="https://live.hasthemes.com/html/5/abelo-preview/abelo/compare.html" title="Add to compare"><i class="lnr lnr-sync"></i></a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="product-decs">
-                                    <a class="inner-link" href="https://live.hasthemes.com/html/5/abelo-preview/abelo/shop-4-column.html"><span>Hola2</span></a>
-                                    <h2><a href="https://live.hasthemes.com/html/5/abelo-preview/abelo/single-product.html" class="product-link">Madden by Steve Madden</a></h2>
-                                    <div class="pricing-meta">
-                                        <ul>
-                                            <li class="current-price">$21.51</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="cart-btn">
-                                    <a href="#" class="add-to-curt" title="Añadir al carrito">Añadir al carrito</a>
-                                </div>
-                            </div>
-                        </article>
                     </div>
                     <div class="slider-single-item">
 
-                        <article class="list-product text-center mb-30px">
+                        <article *ngFor="let prod of productos_destacados_2" class="list-product text-center mb-30px">
                             <div class="product-inner">
                                 <div class="img-block">
-                                    <a href="https://live.hasthemes.com/html/5/abelo-preview/abelo/single-product.html" class="thumbnail">
-                                        <img class="first-img" src="https://live.hasthemes.com/html/5/abelo-preview/abelo/assets/images/product-image/8.jpg" alt="" />
-                                        <img class="second-img" src="https://live.hasthemes.com/html/5/abelo-preview/abelo/assets/images/product-image/9.jpg" alt="" />
+                                    <a href="javascript:void(0)" (click)="ver_producto(prod)" class="thumbnail">
+                                        <img class="first-img" [src]="obtener_imagen(prod.imagen_1)" alt="" />
+                                        <img class="second-img" [src]="obtener_imagen(prod.imagen_2)" alt="" />
                                     </a>
                                     <div class="add-to-link">
                                         <ul>
                                             <li>
-                                                <a class="quick_view" href="#" data-link-action="quickview" title="Quick view" data-toggle="modal" data-target="#exampleModal">
+                                                <a class="quick_view" href="javascript:void(0)" (click)="ver_producto(prod)" title="Ver producto">
                                                     <i class="lnr lnr-magnifier"></i>
                                                 </a>
                                             </li>
                                             <li>
-                                                <a href="https://live.hasthemes.com/html/5/abelo-preview/abelo/wishlist.html" title="Add to Wishlist"><i class="lnr lnr-heart"></i></a>
-                                            </li>
-                                            <li>
-                                                <a href="https://live.hasthemes.com/html/5/abelo-preview/abelo/compare.html" title="Add to compare"><i class="lnr lnr-sync"></i></a>
+                                                <a href="javascript:void(0)" (click)="adicionar_favorito(producto)" title="Añadir a favoritos"><i class="lnr lnr-heart"></i></a>
                                             </li>
                                         </ul>
                                     </div>
                                 </div>
+                                <ul *ngIf="prod.precio_original !== prod.precio" class="product-flag">
+                                    <li class="new">- {{ prod.descuento * 100 }}%</li>
+                                </ul>
                                 <div class="product-decs">
-                                    <a class="inner-link" href="https://live.hasthemes.com/html/5/abelo-preview/abelo/shop-4-column.html"><span>STUDIO DESIGN</span></a>
-                                    <h2><a href="https://live.hasthemes.com/html/5/abelo-preview/abelo/single-product.html" class="product-link">SoundBox Pro Portable</a></h2>
+                                    <a class="inner-link" href="javascript:void(0)" (click)="ver_producto(prod)"><span> {{ prod.nombre_producto }} </span></a>
+                                    <h2><a href="javascript:void(0)" class="product-link"> {{ prod.nombre_marca }} </a></h2>
                                     <div class="pricing-meta">
                                         <ul>
-                                            <li class="old-price">$23.90</li>
-                                            <li class="current-price">$21.51</li>
+                                            <li *ngIf="prod.precio_original !== prod.precio" class="old-price">{{ prod.precio_original | currency: 'PEN': 'symbol': '': 'es-PE' }}</li>
+                                            <li class="current-price">{{ prod.precio | currency: 'PEN': 'symbol': '': 'es-PE' }}</li>
                                         </ul>
                                     </div>
                                 </div>
                                 <div class="cart-btn">
-                                    <a href="#" class="add-to-curt" title="Añadir al carrito">Añadir al carrito</a>
+                                    <a href="javascript:void(0)" (click)="adicionar_carrito(prod)" class="add-to-curt" title="Añadir al carrito">Añadir al carrito</a>
                                 </div>
                             </div>
                         </article>
 
-                        <article class="list-product text-center">
-                            <div class="product-inner">
-                                <div class="img-block">
-                                    <a href="https://live.hasthemes.com/html/5/abelo-preview/abelo/single-product.html" class="thumbnail">
-                                        <img class="first-img" src="https://live.hasthemes.com/html/5/abelo-preview/abelo/assets/images/product-image/10.jpg" alt="" />
-                                        <img class="second-img" src="https://live.hasthemes.com/html/5/abelo-preview/abelo/assets/images/product-image/11.jpg" alt="" />
-                                    </a>
-                                    <div class="add-to-link">
-                                        <ul>
-                                            <li>
-                                                <a class="quick_view" href="#" data-link-action="quickview" title="Quick view" data-toggle="modal" data-target="#exampleModal">
-                                                    <i class="lnr lnr-magnifier"></i>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="https://live.hasthemes.com/html/5/abelo-preview/abelo/wishlist.html" title="Add to Wishlist"><i class="lnr lnr-heart"></i></a>
-                                            </li>
-                                            <li>
-                                                <a href="https://live.hasthemes.com/html/5/abelo-preview/abelo/compare.html" title="Add to compare"><i class="lnr lnr-sync"></i></a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <ul class="product-flag">
-                                    <li class="new">-12%</li>
-                                </ul>
-                                <div class="product-decs">
-                                    <a class="inner-link" href="https://live.hasthemes.com/html/5/abelo-preview/abelo/shop-4-column.html"><span>STUDIO DESIGN</span></a>
-                                    <h2><a href="https://live.hasthemes.com/html/5/abelo-preview/abelo/single-product.html" class="product-link">Wireless Stereo Speaker</a></h2>
-                                    <div class="pricing-meta">
-                                        <ul>
-                                            <li class="old-price">$23.90</li>
-                                            <li class="current-price">$21.51</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="cart-btn">
-                                    <a href="#" class="add-to-curt" title="Añadir al carrito">Añadir al carrito</a>
-                                </div>
-                            </div>
-                        </article>
                     </div>
                     <div class="slider-single-item">
 
-                        <article class="list-product text-center mb-30px">
+                        <article *ngFor="let prod of productos_destacados_3" class="list-product text-center mb-30px">
                             <div class="product-inner">
                                 <div class="img-block">
-                                    <a href="https://live.hasthemes.com/html/5/abelo-preview/abelo/single-product.html" class="thumbnail">
-                                        <img class="first-img" src="https://live.hasthemes.com/html/5/abelo-preview/abelo/assets/images/product-image/12.jpg" alt="" />
-                                        <img class="second-img" src="https://live.hasthemes.com/html/5/abelo-preview/abelo/assets/images/product-image/13.jpg" alt="" />
+                                    <a href="javascript:void(0)" (click)="ver_producto(prod)" class="thumbnail">
+                                        <img class="first-img" [src]="obtener_imagen(prod.imagen_1)" alt="" />
+                                        <img class="second-img" [src]="obtener_imagen(prod.imagen_2)" alt="" />
                                     </a>
                                     <div class="add-to-link">
                                         <ul>
                                             <li>
-                                                <a class="quick_view" href="#" data-link-action="quickview" title="Quick view" data-toggle="modal" data-target="#exampleModal">
+                                                <a class="quick_view" href="javascript:void(0)" (click)="ver_producto(prod)" title="Ver producto">
                                                     <i class="lnr lnr-magnifier"></i>
                                                 </a>
                                             </li>
                                             <li>
-                                                <a href="https://live.hasthemes.com/html/5/abelo-preview/abelo/wishlist.html" title="Add to Wishlist"><i class="lnr lnr-heart"></i></a>
-                                            </li>
-                                            <li>
-                                                <a href="https://live.hasthemes.com/html/5/abelo-preview/abelo/compare.html" title="Add to compare"><i class="lnr lnr-sync"></i></a>
+                                                <a href="javascript:void(0)" (click)="adicionar_favorito(producto)" title="Añadir a favoritos"><i class="lnr lnr-heart"></i></a>
                                             </li>
                                         </ul>
                                     </div>
                                 </div>
-                                <div class="product-decs">
-                                    <a class="inner-link" href="https://live.hasthemes.com/html/5/abelo-preview/abelo/shop-4-column.html"><span>GRAPHIC CORNER</span></a>
-                                    <h2><a href="https://live.hasthemes.com/html/5/abelo-preview/abelo/single-product.html" class="product-link">Naham WiFi HD 1080P</a></h2>
-                                    <div class="pricing-meta">
-                                        <ul>
-                                            <li class="current-price">$21.51</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="cart-btn">
-                                    <a href="#" class="add-to-curt" title="Añadir al carrito">Añadir al carrito</a>
-                                </div>
-                            </div>
-                        </article>
-
-                        <article class="list-product text-center">
-                            <div class="product-inner">
-                                <div class="img-block">
-                                    <a href="https://live.hasthemes.com/html/5/abelo-preview/abelo/single-product.html" class="thumbnail">
-                                        <img class="first-img" src="https://live.hasthemes.com/html/5/abelo-preview/abelo/assets/images/product-image/14.jpg" alt="" />
-                                        <img class="second-img" src="https://live.hasthemes.com/html/5/abelo-preview/abelo/assets/images/product-image/15.jpg" alt="" />
-                                    </a>
-                                    <div class="add-to-link">
-                                        <ul>
-                                            <li>
-                                                <a class="quick_view" href="#" data-link-action="quickview" title="Quick view" data-toggle="modal" data-target="#exampleModal">
-                                                    <i class="lnr lnr-magnifier"></i>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="https://live.hasthemes.com/html/5/abelo-preview/abelo/wishlist.html" title="Add to Wishlist"><i class="lnr lnr-heart"></i></a>
-                                            </li>
-                                            <li>
-                                                <a href="https://live.hasthemes.com/html/5/abelo-preview/abelo/compare.html" title="Add to compare"><i class="lnr lnr-sync"></i></a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="product-decs">
-                                    <a class="inner-link" href="https://live.hasthemes.com/html/5/abelo-preview/abelo/shop-4-column.html"><span>STUDIO DESIGN</span></a>
-                                    <h2><a href="https://live.hasthemes.com/html/5/abelo-preview/abelo/single-product.html" class="product-link">Sony WH-CH700N</a></h2>
-                                    <div class="pricing-meta">
-                                        <ul>
-                                            <li class="current-price">$21.51</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="cart-btn">
-                                    <a href="#" class="add-to-curt" title="Añadir al carrito">Añadir al carrito</a>
-                                </div>
-                            </div>
-                        </article>
-                    </div>
-                    <div class="slider-single-item">
-
-                        <article class="list-product text-center mb-30px">
-                            <div class="product-inner">
-                                <div class="img-block">
-                                    <a href="https://live.hasthemes.com/html/5/abelo-preview/abelo/single-product.html" class="thumbnail">
-                                        <img class="first-img" src="https://live.hasthemes.com/html/5/abelo-preview/abelo/assets/images/product-image/16.jpg" alt="" />
-                                        <img class="second-img" src="https://live.hasthemes.com/html/5/abelo-preview/abelo/assets/images/product-image/17.jpg" alt="" />
-                                    </a>
-                                    <div class="add-to-link">
-                                        <ul>
-                                            <li>
-                                                <a class="quick_view" href="#" data-link-action="quickview" title="Quick view" data-toggle="modal" data-target="#exampleModal">
-                                                    <i class="lnr lnr-magnifier"></i>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="https://live.hasthemes.com/html/5/abelo-preview/abelo/wishlist.html" title="Add to Wishlist"><i class="lnr lnr-heart"></i></a>
-                                            </li>
-                                            <li>
-                                                <a href="https://live.hasthemes.com/html/5/abelo-preview/abelo/compare.html" title="Add to compare"><i class="lnr lnr-sync"></i></a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="product-decs">
-                                    <a class="inner-link" href="https://live.hasthemes.com/html/5/abelo-preview/abelo/shop-4-column.html"><span>GRAPHIC CORNER</span></a>
-                                    <h2><a href="https://live.hasthemes.com/html/5/abelo-preview/abelo/single-product.html" class="product-link">Polk Audio T30 Speaker</a></h2>
-                                    <div class="pricing-meta">
-                                        <ul>
-                                            <li class="current-price">$21.51</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="cart-btn">
-                                    <a href="#" class="add-to-curt" title="Añadir al carrito">Añadir al carrito</a>
-                                </div>
-                            </div>
-                        </article>
-
-                        <article class="list-product text-center">
-                            <div class="product-inner">
-                                <div class="img-block">
-                                    <a href="https://live.hasthemes.com/html/5/abelo-preview/abelo/single-product.html" class="thumbnail">
-                                        <img class="first-img" src="https://live.hasthemes.com/html/5/abelo-preview/abelo/assets/images/product-image/18.jpg" alt="" />
-                                        <img class="second-img" src="https://live.hasthemes.com/html/5/abelo-preview/abelo/assets/images/product-image/19.jpg" alt="" />
-                                    </a>
-                                    <div class="add-to-link">
-                                        <ul>
-                                            <li>
-                                                <a class="quick_view" href="#" data-link-action="quickview" title="Quick view" data-toggle="modal" data-target="#exampleModal">
-                                                    <i class="lnr lnr-magnifier"></i>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="https://live.hasthemes.com/html/5/abelo-preview/abelo/wishlist.html" title="Add to Wishlist"><i class="lnr lnr-heart"></i></a>
-                                            </li>
-                                            <li>
-                                                <a href="https://live.hasthemes.com/html/5/abelo-preview/abelo/compare.html" title="Add to compare"><i class="lnr lnr-sync"></i></a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <ul class="product-flag">
+                                <ul *ngIf="prod.precio_original !== prod.precio" class="product-flag">
+                                    <li class="new">- {{ prod.descuento * 100 }}%</li>
                                 </ul>
                                 <div class="product-decs">
-                                    <a class="inner-link" href="https://live.hasthemes.com/html/5/abelo-preview/abelo/shop-4-column.html"><span>STUDIO DESIGN</span></a>
-                                    <h2><a href="https://live.hasthemes.com/html/5/abelo-preview/abelo/single-product.html" class="product-link">Silicon Sleeping Earbuds</a></h2>
+                                    <a class="inner-link" href="javascript:void(0)" (click)="ver_producto(prod)"><span> {{ prod.nombre_producto }} </span></a>
+                                    <h2><a href="javascript:void(0)" class="product-link"> {{ prod.nombre_marca }} </a></h2>
                                     <div class="pricing-meta">
                                         <ul>
-                                            <li class="current-price">$21.51</li>
+                                            <li *ngIf="prod.precio_original !== prod.precio" class="old-price">{{ prod.precio_original | currency: 'PEN': 'symbol': '': 'es-PE' }}</li>
+                                            <li class="current-price">{{ prod.precio | currency: 'PEN': 'symbol': '': 'es-PE' }}</li>
                                         </ul>
                                     </div>
                                 </div>
                                 <div class="cart-btn">
-                                    <a href="#" class="add-to-curt" title="Añadir al carrito">Añadir al carrito</a>
-                                </div>
-                            </div>
-                        </article>
-                    </div>
-                    <div class="slider-single-item">
-
-                        <article class="list-product text-center mb-30px">
-                            <div class="product-inner">
-                                <div class="img-block">
-                                    <a href="https://live.hasthemes.com/html/5/abelo-preview/abelo/single-product.html" class="thumbnail">
-                                        <img class="first-img" src="https://live.hasthemes.com/html/5/abelo-preview/abelo/assets/images/product-image/20.jpg" alt="" />
-                                        <img class="second-img" src="https://live.hasthemes.com/html/5/abelo-preview/abelo/assets/images/product-image/21.jpg" alt="" />
-                                    </a>
-                                    <div class="add-to-link">
-                                        <ul>
-                                            <li>
-                                                <a class="quick_view" href="#" data-link-action="quickview" title="Quick view" data-toggle="modal" data-target="#exampleModal">
-                                                    <i class="lnr lnr-magnifier"></i>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="https://live.hasthemes.com/html/5/abelo-preview/abelo/wishlist.html" title="Add to Wishlist"><i class="lnr lnr-heart"></i></a>
-                                            </li>
-                                            <li>
-                                                <a href="https://live.hasthemes.com/html/5/abelo-preview/abelo/compare.html" title="Add to compare"><i class="lnr lnr-sync"></i></a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <ul class="product-flag">
-                                </ul>
-                                <div class="product-decs">
-                                    <a class="inner-link" href="https://live.hasthemes.com/html/5/abelo-preview/abelo/shop-4-column.html"><span>STUDIO DESIGN</span></a>
-                                    <h2><a href="https://live.hasthemes.com/html/5/abelo-preview/abelo/single-product.html" class="product-link">Numkuda USB 2.0 Gamepad</a></h2>
-                                    <div class="pricing-meta">
-                                        <ul>
-                                            <li class="current-price">$21.51</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="cart-btn">
-                                    <a href="#" class="add-to-curt" title="Añadir al carrito">Añadir al carrito</a>
+                                    <a href="javascript:void(0)" (click)="adicionar_carrito(prod)" class="add-to-curt" title="Añadir al carrito">Añadir al carrito</a>
                                 </div>
                             </div>
                         </article>
 
-                        <article class="list-product text-center">
-                            <div class="product-inner">
-                                <div class="img-block">
-                                    <a href="https://live.hasthemes.com/html/5/abelo-preview/abelo/single-product.html" class="thumbnail">
-                                        <img class="first-img" src="https://live.hasthemes.com/html/5/abelo-preview/abelo/assets/images/product-image/4.jpg" alt="" />
-                                        <img class="second-img" src="https://live.hasthemes.com/html/5/abelo-preview/abelo/assets/images/product-image/5.jpg" alt="" />
-                                    </a>
-                                    <div class="add-to-link">
-                                        <ul>
-                                            <li>
-                                                <a class="quick_view" href="#" data-link-action="quickview" title="Quick view" data-toggle="modal" data-target="#exampleModal">
-                                                    <i class="lnr lnr-magnifier"></i>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="https://live.hasthemes.com/html/5/abelo-preview/abelo/wishlist.html" title="Add to Wishlist"><i class="lnr lnr-heart"></i></a>
-                                            </li>
-                                            <li>
-                                                <a href="https://live.hasthemes.com/html/5/abelo-preview/abelo/compare.html" title="Add to compare"><i class="lnr lnr-sync"></i></a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="product-decs">
-                                    <a class="inner-link" href="https://live.hasthemes.com/html/5/abelo-preview/abelo/shop-4-column.html"><span>STUDIO DESIGN</span></a>
-                                    <h2><a href="https://live.hasthemes.com/html/5/abelo-preview/abelo/single-product.html" class="product-link">TCL 49S5 49” 4K Ultra HD</a></h2>
-                                    <div class="pricing-meta">
-                                        <ul>
-                                            <li class="current-price">$21.51</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="cart-btn">
-                                    <a href="#" class="add-to-curt" title="Añadir al carrito">Añadir al carrito</a>
-                                </div>
-                            </div>
-                        </article>
                     </div>
                 </div>
             </div>
@@ -525,101 +248,226 @@
                 </div>
                 <div class="hot-deal-slider-wrapper slider-nav-style-1">
                     <div class="slider-single-item">
-
                         <article class="list-product text-center">
                             <div class="product-inner">
                                 <div class="img-block">
-                                    <a href="https://live.hasthemes.com/html/5/abelo-preview/abelo/single-product.html" class="thumbnail">
-                                        <img class="first-img" src="https://live.hasthemes.com/html/5/abelo-preview/abelo/assets/images/product-image/4.jpg" alt="" />
-                                        <img class="second-img" src="https://live.hasthemes.com/html/5/abelo-preview/abelo/assets/images/product-image/5.jpg" alt="" />
+                                    <a href="javascript:void(0)" (click)="ver_producto(productos_ofertas_1)" class="thumbnail">
+                                        <img class="first-img" [src]="obtener_imagen(productos_ofertas_1.imagen_1)" alt="" />
+                                        <img class="second-img" [src]="obtener_imagen(productos_ofertas_1.imagen_2)" alt="" />
                                     </a>
                                     <div class="add-to-link">
                                         <ul>
                                             <li>
-                                                <a class="quick_view" href="#" data-link-action="quickview" title="Quick view" data-toggle="modal" data-target="#exampleModal">
+                                                <a class="quick_view" href="javascript:void(0)" (click)="ver_producto(productos_ofertas_1)" title="Ver producto">
                                                     <i class="lnr lnr-magnifier"></i>
                                                 </a>
                                             </li>
                                             <li>
-                                                <a href="https://live.hasthemes.com/html/5/abelo-preview/abelo/wishlist.html" title="Add to Wishlist"><i class="lnr lnr-heart"></i></a>
-                                            </li>
-                                            <li>
-                                                <a href="https://live.hasthemes.com/html/5/abelo-preview/abelo/compare.html" title="Add to compare"><i class="lnr lnr-sync"></i></a>
+                                                <a href="javascript:void(0)" (click)="adicionar_favorito(productos_ofertas_1)" title="Añadir a favoritos"><i class="lnr lnr-heart"></i></a>
                                             </li>
                                         </ul>
                                     </div>
                                 </div>
-                                <ul class="product-flag">
-                                    <li class="new">-12%</li>
+                                <ul *ngIf="productos_ofertas_1.precio_original !== productos_ofertas_1.precio" class="product-flag">
+                                    <li class="new">- {{ productos_ofertas_1.descuento * 100 }}%</li>
                                 </ul>
                                 <div class="product-decs">
-                                    <a class="inner-link" href="https://live.hasthemes.com/html/5/abelo-preview/abelo/shop-4-column.html"><span>STUDIO DESIGN</span></a>
-                                    <h2><a href="https://live.hasthemes.com/html/5/abelo-preview/abelo/single-product.html" class="product-link">TCL 49S5 49” 4K Ultra HD</a></h2>
+                                    <a class="inner-link" href="javascript:void(0)" (click)="ver_producto(productos_ofertas_1)"><span> {{ productos_ofertas_1.nombre_producto }} </span></a>
+                                    <h2><a href="javascript:void(0)" class="product-link"> {{ productos_ofertas_1.nombre_marca }} </a></h2>
                                     <div class="pricing-meta">
                                         <ul>
-                                            <li class="old-price">$21.51</li>
-                                            <li class="current-price">$21.51</li>
+                                            <li *ngIf="productos_ofertas_1.precio_original !== productos_ofertas_1.precio" class="old-price">{{ productos_ofertas_1.precio_original | currency: 'PEN': 'symbol': '': 'es-PE' }}</li>
+                                            <li class="current-price">{{ productos_ofertas_1.precio | currency: 'PEN': 'symbol': '': 'es-PE' }}</li>
                                         </ul>
                                     </div>
                                 </div>
-                                <div class="availability-list in-stock">Availability: <span>300 In Stock</span></div>
-                                <div class="clockdiv">
+                                <div class="availability-list in-stock">Disponibles: <span>{{ productos_ofertas_1.stock }} en stock</span></div>
+                                <!-- <div class="clockdiv">
                                     <div data-countdown="2021/03/01"></div>
-                                </div>
+                                </div> -->
                                 <div class="cart-btn">
-                                    <a href="#" class="add-to-curt" title="Añadir al carrito">Añadir al carrito</a>
+                                    <a href="javascript:void(0)" (click)="adicionar_carrito(productos_ofertas_1)" class="add-to-curt" title="Añadir al carrito">Añadir al carrito</a>
                                 </div>
                             </div>
                         </article>
                     </div>
                     <div class="slider-single-item">
-
                         <article class="list-product text-center">
                             <div class="product-inner">
                                 <div class="img-block">
-                                    <a href="https://live.hasthemes.com/html/5/abelo-preview/abelo/single-product.html" class="thumbnail">
-                                        <img class="first-img" src="https://live.hasthemes.com/html/5/abelo-preview/abelo/assets/images/product-image/6.jpg" alt="" />
-                                        <img class="second-img" src="https://live.hasthemes.com/html/5/abelo-preview/abelo/assets/images/product-image/7.jpg" alt="" />
+                                    <a href="javascript:void(0)" (click)="ver_producto(productos_ofertas_2)" class="thumbnail">
+                                        <img class="first-img" [src]="obtener_imagen(productos_ofertas_2.imagen_1)" alt="" />
+                                        <img class="second-img" [src]="obtener_imagen(productos_ofertas_2.imagen_2)" alt="" />
                                     </a>
                                     <div class="add-to-link">
                                         <ul>
                                             <li>
-                                                <a class="quick_view" href="#" data-link-action="quickview" title="Quick view" data-toggle="modal" data-target="#exampleModal">
+                                                <a class="quick_view" href="javascript:void(0)" (click)="ver_producto(productos_ofertas_2)" title="Ver producto">
                                                     <i class="lnr lnr-magnifier"></i>
                                                 </a>
                                             </li>
                                             <li>
-                                                <a href="https://live.hasthemes.com/html/5/abelo-preview/abelo/wishlist.html" title="Add to Wishlist"><i class="lnr lnr-heart"></i></a>
-                                            </li>
-                                            <li>
-                                                <a href="https://live.hasthemes.com/html/5/abelo-preview/abelo/compare.html" title="Add to compare"><i class="lnr lnr-sync"></i></a>
+                                                <a href="javascript:void(0)" (click)="adicionar_favorito(productos_ofertas_2)" title="Añadir a favoritos"><i class="lnr lnr-heart"></i></a>
                                             </li>
                                         </ul>
                                     </div>
                                 </div>
-                                <ul class="product-flag">
-                                    <li class="new">-12%</li>
+                                <ul *ngIf="productos_ofertas_2.precio_original !== productos_ofertas_2.precio" class="product-flag">
+                                    <li class="new">- {{ productos_ofertas_2.descuento * 100 }}%</li>
                                 </ul>
                                 <div class="product-decs">
-                                    <a class="inner-link" href="https://live.hasthemes.com/html/5/abelo-preview/abelo/shop-4-column.html"><span>STUDIO DESIGN</span></a>
-                                    <h2><a href="https://live.hasthemes.com/html/5/abelo-preview/abelo/single-product.html" class="product-link">Polk Audio T30 Speaker</a></h2>
+                                    <a class="inner-link" href="javascript:void(0)" (click)="ver_producto(productos_ofertas_2)"><span> {{ productos_ofertas_2.nombre_producto }} </span></a>
+                                    <h2><a href="javascript:void(0)" class="product-link"> {{ productos_ofertas_2.nombre_marca }} </a></h2>
                                     <div class="pricing-meta">
                                         <ul>
-                                            <li class="old-price">$21.51</li>
-                                            <li class="current-price">$21.51</li>
+                                            <li *ngIf="productos_ofertas_2.precio_original !== productos_ofertas_2.precio" class="old-price">{{ productos_ofertas_2.precio_original | currency: 'PEN': 'symbol': '': 'es-PE' }}</li>
+                                            <li class="current-price">{{ productos_ofertas_2.precio | currency: 'PEN': 'symbol': '': 'es-PE' }}</li>
                                         </ul>
                                     </div>
                                 </div>
-                                <div class="availability-list in-stock">Availability: <span>300 In Stock</span></div>
-                                <div class="clockdiv">
+                                <div class="availability-list in-stock">Disponibles: <span>{{ productos_ofertas_2.stock }} en stock</span></div>
+                                <!-- <div class="clockdiv">
                                     <div data-countdown="2021/03/01"></div>
-                                </div>
+                                </div> -->
                                 <div class="cart-btn">
-                                    <a href="#" class="add-to-curt" title="Añadir al carrito">Añadir al carrito</a>
+                                    <a href="javascript:void(0)" (click)="adicionar_carrito(productos_ofertas_2)" class="add-to-curt" title="Añadir al carrito">Añadir al carrito</a>
                                 </div>
                             </div>
                         </article>
                     </div>
+                    <div class="slider-single-item">
+                        <article class="list-product text-center">
+                            <div class="product-inner">
+                                <div class="img-block">
+                                    <a href="javascript:void(0)" (click)="ver_producto(productos_ofertas_3)" class="thumbnail">
+                                        <img class="first-img" [src]="obtener_imagen(productos_ofertas_3.imagen_1)" alt="" />
+                                        <img class="second-img" [src]="obtener_imagen(productos_ofertas_3.imagen_2)" alt="" />
+                                    </a>
+                                    <div class="add-to-link">
+                                        <ul>
+                                            <li>
+                                                <a class="quick_view" href="javascript:void(0)" (click)="ver_producto(productos_ofertas_3)" title="Ver producto">
+                                                    <i class="lnr lnr-magnifier"></i>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="javascript:void(0)" (click)="adicionar_favorito(productos_ofertas_3)" title="Añadir a favoritos"><i class="lnr lnr-heart"></i></a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <ul *ngIf="productos_ofertas_3.precio_original !== productos_ofertas_3.precio" class="product-flag">
+                                    <li class="new">- {{ productos_ofertas_3.descuento * 100 }}%</li>
+                                </ul>
+                                <div class="product-decs">
+                                    <a class="inner-link" href="javascript:void(0)" (click)="ver_producto(productos_ofertas_3)"><span> {{ productos_ofertas_3.nombre_producto }} </span></a>
+                                    <h2><a href="javascript:void(0)" class="product-link"> {{ productos_ofertas_3.nombre_marca }} </a></h2>
+                                    <div class="pricing-meta">
+                                        <ul>
+                                            <li *ngIf="productos_ofertas_3.precio_original !== productos_ofertas_3.precio" class="old-price">{{ productos_ofertas_3.precio_original | currency: 'PEN': 'symbol': '': 'es-PE' }}</li>
+                                            <li class="current-price">{{ productos_ofertas_3.precio | currency: 'PEN': 'symbol': '': 'es-PE' }}</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="availability-list in-stock">Disponibles: <span>{{ productos_ofertas_3.stock }} en stock</span></div>
+                                <!-- <div class="clockdiv">
+                                    <div data-countdown="2021/03/01"></div>
+                                </div> -->
+                                <div class="cart-btn">
+                                    <a href="javascript:void(0)" (click)="adicionar_carrito(productos_ofertas_3)" class="add-to-curt" title="Añadir al carrito">Añadir al carrito</a>
+                                </div>
+                            </div>
+                        </article>
+                    </div>
+                    <div class="slider-single-item">
+                        <article class="list-product text-center">
+                            <div class="product-inner">
+                                <div class="img-block">
+                                    <a href="javascript:void(0)" (click)="ver_producto(productos_ofertas_4)" class="thumbnail">
+                                        <img class="first-img" [src]="obtener_imagen(productos_ofertas_4.imagen_1)" alt="" />
+                                        <img class="second-img" [src]="obtener_imagen(productos_ofertas_4.imagen_2)" alt="" />
+                                    </a>
+                                    <div class="add-to-link">
+                                        <ul>
+                                            <li>
+                                                <a class="quick_view" href="javascript:void(0)" (click)="ver_producto(productos_ofertas_4)" title="Ver producto">
+                                                    <i class="lnr lnr-magnifier"></i>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="javascript:void(0)" (click)="adicionar_favorito(productos_ofertas_4)" title="Añadir a favoritos"><i class="lnr lnr-heart"></i></a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <ul *ngIf="productos_ofertas_4.precio_original !== productos_ofertas_4.precio" class="product-flag">
+                                    <li class="new">- {{ productos_ofertas_4.descuento * 100 }}%</li>
+                                </ul>
+                                <div class="product-decs">
+                                    <a class="inner-link" href="javascript:void(0)" (click)="ver_producto(productos_ofertas_4)"><span> {{ productos_ofertas_4.nombre_producto }} </span></a>
+                                    <h2><a href="javascript:void(0)" class="product-link"> {{ productos_ofertas_4.nombre_marca }} </a></h2>
+                                    <div class="pricing-meta">
+                                        <ul>
+                                            <li *ngIf="productos_ofertas_4.precio_original !== productos_ofertas_4.precio" class="old-price">{{ productos_ofertas_4.precio_original | currency: 'PEN': 'symbol': '': 'es-PE' }}</li>
+                                            <li class="current-price">{{ productos_ofertas_4.precio | currency: 'PEN': 'symbol': '': 'es-PE' }}</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="availability-list in-stock">Disponibles: <span>{{ productos_ofertas_4.stock }} en stock</span></div>
+                                <!-- <div class="clockdiv">
+                                    <div data-countdown="2021/03/01"></div>
+                                </div> -->
+                                <div class="cart-btn">
+                                    <a href="javascript:void(0)" (click)="adicionar_carrito(productos_ofertas_4)" class="add-to-curt" title="Añadir al carrito">Añadir al carrito</a>
+                                </div>
+                            </div>
+                        </article>
+                    </div>
+                    <div class="slider-single-item">
+                        <article class="list-product text-center">
+                            <div class="product-inner">
+                                <div class="img-block">
+                                    <a href="javascript:void(0)" (click)="ver_producto(productos_ofertas_5)" class="thumbnail">
+                                        <img class="first-img" [src]="obtener_imagen(productos_ofertas_5.imagen_1)" alt="" />
+                                        <img class="second-img" [src]="obtener_imagen(productos_ofertas_5.imagen_2)" alt="" />
+                                    </a>
+                                    <div class="add-to-link">
+                                        <ul>
+                                            <li>
+                                                <a class="quick_view" href="javascript:void(0)" (click)="ver_producto(productos_ofertas_5)" title="Ver producto">
+                                                    <i class="lnr lnr-magnifier"></i>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="javascript:void(0)" (click)="adicionar_favorito(productos_ofertas_5)" title="Añadir a favoritos"><i class="lnr lnr-heart"></i></a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <ul *ngIf="productos_ofertas_5.precio_original !== productos_ofertas_5.precio" class="product-flag">
+                                    <li class="new">- {{ productos_ofertas_5.descuento * 100 }}%</li>
+                                </ul>
+                                <div class="product-decs">
+                                    <a class="inner-link" href="javascript:void(0)" (click)="ver_producto(productos_ofertas_5)"><span> {{ productos_ofertas_5.nombre_producto }} </span></a>
+                                    <h2><a href="javascript:void(0)" class="product-link"> {{ productos_ofertas_5.nombre_marca }} </a></h2>
+                                    <div class="pricing-meta">
+                                        <ul>
+                                            <li *ngIf="productos_ofertas_5.precio_original !== productos_ofertas_5.precio" class="old-price">{{ productos_ofertas_5.precio_original | currency: 'PEN': 'symbol': '': 'es-PE' }}</li>
+                                            <li class="current-price">{{ productos_ofertas_5.precio | currency: 'PEN': 'symbol': '': 'es-PE' }}</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="availability-list in-stock">Disponibles: <span>{{ productos_ofertas_5.stock }} en stock</span></div>
+                                <!-- <div class="clockdiv">
+                                    <div data-countdown="2021/03/01"></div>
+                                </div> -->
+                                <div class="cart-btn">
+                                    <a href="javascript:void(0)" (click)="adicionar_carrito(productos_ofertas_5)" class="add-to-curt" title="Añadir al carrito">Añadir al carrito</a>
+                                </div>
+                            </div>
+                        </article>
+                    </div>
+
                 </div>
             </div>
         </div>
@@ -654,87 +502,88 @@
         <div class="best-sell-area-wrapper slider-nav-style-1 slider-nav-style-4">
             <div class="single-slider-item">
 
-                <article class="list-product text-center">
+                <article *ngIf="productos_mayor_vendido_1" class="list-product text-center">
                     <div class="product-inner">
                         <div class="img-block">
-                            <a href="https://live.hasthemes.com/html/5/abelo-preview/abelo/single-product.html" class="thumbnail">
-                                <img class="first-img" src="https://live.hasthemes.com/html/5/abelo-preview/abelo/assets/images/product-image/6.jpg" alt="" />
-                                <img class="second-img" src="https://live.hasthemes.com/html/5/abelo-preview/abelo/assets/images/product-image/7.jpg" alt="" />
+                            <a href="javascript:void(0)" (click)="ver_producto(productos_mayor_vendido_1)" class="thumbnail">
+                                <img class="first-img" [src]="obtener_imagen(productos_mayor_vendido_1.imagen_1)" alt="" />
+                                <img class="second-img" [src]="obtener_imagen(productos_mayor_vendido_1.imagen_2)" alt="" />
                             </a>
                             <div class="add-to-link">
                                 <ul>
                                     <li>
-                                        <a class="quick_view" href="#" data-link-action="quickview" title="Quick view" data-toggle="modal" data-target="#exampleModal">
+                                        <a class="quick_view" href="javascript:void(0)" (click)="ver_producto(productos_mayor_vendido_1)" title="Ver producto">
                                             <i class="lnr lnr-magnifier"></i>
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="https://live.hasthemes.com/html/5/abelo-preview/abelo/wishlist.html" title="Add to Wishlist"><i class="lnr lnr-heart"></i></a>
-                                    </li>
-                                    <li>
-                                        <a href="https://live.hasthemes.com/html/5/abelo-preview/abelo/compare.html" title="Add to compare"><i class="lnr lnr-sync"></i></a>
+                                        <a href="javascript:void(0)" (click)="adicionar_favorito(productos_mayor_vendido_1)" title="Añadir a favoritos"><i class="lnr lnr-heart"></i></a>
                                     </li>
                                 </ul>
                             </div>
                         </div>
+                        <ul *ngIf="productos_mayor_vendido_1.precio_original !== productos_mayor_vendido_1.precio" class="product-flag">
+                            <li class="new">- {{ productos_mayor_vendido_1.descuento * 100 }}%</li>
+                        </ul>
                         <div class="product-decs">
-                            <a class="inner-link" href="https://live.hasthemes.com/html/5/abelo-preview/abelo/shop-4-column.html"><span>Graphic Corner</span></a>
-                            <h2><a href="https://live.hasthemes.com/html/5/abelo-preview/abelo/single-product.html" class="product-link">SoundBox Pro Portable</a></h2>
-                            <div class="availability-list in-stock">Availability: <span>900 In Stock</span></div>
-                            <p>Android 8.1 (Oreo), Hisilicon Kirin 710 (12 nm), Octa-core (4x2.2 GHz Cortex-A73 &amp; 4x1.7 GHz Cortex-A53), Mali-G51 MP4</p>
+                            <a class="inner-link" href="javascript:void(0)" (click)="ver_producto(productos_mayor_vendido_1)"><span> {{ productos_mayor_vendido_1.nombre_producto }} </span></a>
+                            <h2><a href="javascript:void(0)" class="product-link"> {{ productos_mayor_vendido_1.nombre_marca }} </a></h2>
+                            <div class="availability-list in-stock">Disponibles: <span>{{ productos_mayor_vendido_1.stock }} en stock</span></div>
+                            <!-- <p> {{ productos_mayor_vendido_1.descripcion_producto }} </p> -->
+                            <p> {{ (productos_mayor_vendido_1.descripcion_producto.length > 90)? (productos_mayor_vendido_1.descripcion_producto | slice:0:90)+'...':(productos_mayor_vendido_1.descripcion_producto) }}</p>
                             <div class="pricing-meta">
                                 <ul>
-                                    <li class="current-price">$29.51</li>
+                                    <li *ngIf="productos_mayor_vendido_1.precio_original !== productos_mayor_vendido_1.precio" class="old-price">{{ productos_mayor_vendido_1.precio_original | currency: 'PEN': 'symbol': '': 'es-PE' }}</li>
+                                    <li class="current-price">{{ productos_mayor_vendido_1.precio | currency: 'PEN': 'symbol': '': 'es-PE' }}</li>
                                 </ul>
                             </div>
                         </div>
                     </div>
                 </article>
 
-                <article class="list-product text-center">
+                <article *ngIf="productos_mayor_vendido_2" class="list-product text-center">
                     <div class="product-inner">
                         <div class="img-block">
-                            <a href="https://live.hasthemes.com/html/5/abelo-preview/abelo/single-product.html" class="thumbnail">
-                                <img class="first-img" src="https://live.hasthemes.com/html/5/abelo-preview/abelo/assets/images/product-image/8.jpg" alt="" />
-                                <img class="second-img" src="https://live.hasthemes.com/html/5/abelo-preview/abelo/assets/images/product-image/9.jpg" alt="" />
+                            <a href="javascript:void(0)" (click)="ver_producto(productos_mayor_vendido_2)" class="thumbnail">
+                                <img class="first-img" [src]="obtener_imagen(productos_mayor_vendido_2.imagen_1)" alt="" />
+                                <img class="second-img" [src]="obtener_imagen(productos_mayor_vendido_2.imagen_2)" alt="" />
                             </a>
                             <div class="add-to-link">
                                 <ul>
                                     <li>
-                                        <a class="quick_view" href="#" data-link-action="quickview" title="Quick view" data-toggle="modal" data-target="#exampleModal">
+                                        <a class="quick_view" href="javascript:void(0)" (click)="ver_producto(productos_mayor_vendido_2)" title="Ver producto">
                                             <i class="lnr lnr-magnifier"></i>
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="https://live.hasthemes.com/html/5/abelo-preview/abelo/wishlist.html" title="Add to Wishlist"><i class="lnr lnr-heart"></i></a>
-                                    </li>
-                                    <li>
-                                        <a href="https://live.hasthemes.com/html/5/abelo-preview/abelo/compare.html" title="Add to compare"><i class="lnr lnr-sync"></i></a>
+                                        <a href="javascript:void(0)" (click)="adicionar_favorito(productos_mayor_vendido_2)" title="Añadir a favoritos"><i class="lnr lnr-heart"></i></a>
                                     </li>
                                 </ul>
                             </div>
                         </div>
-                        <ul class="product-flag">
-                            <li class="new">-12%</li>
+                        <ul *ngIf="productos_mayor_vendido_2.precio_original !== productos_mayor_vendido_2.precio" class="product-flag">
+                            <li class="new">- {{ productos_mayor_vendido_2.descuento * 100 }}%</li>
                         </ul>
                         <div class="product-decs">
-                            <a class="inner-link" href="https://live.hasthemes.com/html/5/abelo-preview/abelo/shop-4-column.html"><span>STUDIO DESIGN</span></a>
-                            <h2><a href="https://live.hasthemes.com/html/5/abelo-preview/abelo/single-product.html" class="product-link">Wireless Stereo Speaker</a></h2>
-                            <div class="availability-list in-stock">Availability: <span>300 In Stock</span></div>
-                            <p>Galileo, and QZSS, Barometric Altimeter, Optical Heart Sensor, Accelerometer And Gyroscope, Ion-X Strengthened Glass</p>
+                            <a class="inner-link" href="javascript:void(0)" (click)="ver_producto(productos_mayor_vendido_2)"><span> {{ productos_mayor_vendido_2.nombre_producto }} </span></a>
+                            <h2><a href="javascript:void(0)" class="product-link"> {{ productos_mayor_vendido_2.nombre_marca }} </a></h2>
+                            <div class="availability-list in-stock">Disponibles: <span>{{ productos_mayor_vendido_2.stock }} en stock</span></div>
+                            <!-- <p> {{ productos_mayor_vendido_2.descripcion_producto }} </p> -->
+                            <p> {{ (productos_mayor_vendido_2.descripcion_producto.length > 90)? (productos_mayor_vendido_2.descripcion_producto | slice:0:90)+'...':(productos_mayor_vendido_2.descripcion_producto) }}</p>
                             <div class="pricing-meta">
                                 <ul>
-                                    <li class="old-price">$25.51</li>
-                                    <li class="current-price">$21.51</li>
+                                    <li *ngIf="productos_mayor_vendido_2.precio_original !== productos_mayor_vendido_2.precio" class="old-price">{{ productos_mayor_vendido_2.precio_original | currency: 'PEN': 'symbol': '': 'es-PE' }}</li>
+                                    <li class="current-price">{{ productos_mayor_vendido_2.precio | currency: 'PEN': 'symbol': '': 'es-PE' }}</li>
                                 </ul>
                             </div>
                         </div>
                     </div>
                 </article>
+
             </div>
             <div class="single-slider-item">
 
-                <article class="list-product text-center">
+                <article *ngIf="productos_mayor_vendido_3" class="list-product text-center">
                     <div class="product-inner">
                         <div class="img-block">
                             <a href="https://live.hasthemes.com/html/5/abelo-preview/abelo/single-product.html" class="thumbnail">
@@ -775,7 +624,7 @@
                     </div>
                 </article>
 
-                <article class="list-product text-center">
+                <article *ngIf="productos_mayor_vendido_4" class="list-product text-center">
                     <div class="product-inner">
                         <div class="img-block">
                             <a href="https://live.hasthemes.com/html/5/abelo-preview/abelo/single-product.html" class="thumbnail">
@@ -811,167 +660,9 @@
                         </div>
                     </div>
                 </article>
+
             </div>
-            <div class="single-slider-item">
 
-                <article class="list-product text-center">
-                    <div class="product-inner">
-                        <div class="img-block">
-                            <a href="https://live.hasthemes.com/html/5/abelo-preview/abelo/single-product.html" class="thumbnail">
-                                <img class="first-img" src="https://live.hasthemes.com/html/5/abelo-preview/abelo/assets/images/product-image/6.jpg" alt="" />
-                                <img class="second-img" src="https://live.hasthemes.com/html/5/abelo-preview/abelo/assets/images/product-image/7.jpg" alt="" />
-                            </a>
-                            <div class="add-to-link">
-                                <ul>
-                                    <li>
-                                        <a class="quick_view" href="#" data-link-action="quickview" title="Quick view" data-toggle="modal" data-target="#exampleModal">
-                                            <i class="lnr lnr-magnifier"></i>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="https://live.hasthemes.com/html/5/abelo-preview/abelo/wishlist.html" title="Add to Wishlist"><i class="lnr lnr-heart"></i></a>
-                                    </li>
-                                    <li>
-                                        <a href="https://live.hasthemes.com/html/5/abelo-preview/abelo/compare.html" title="Add to compare"><i class="lnr lnr-sync"></i></a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="product-decs">
-                            <a class="inner-link" href="https://live.hasthemes.com/html/5/abelo-preview/abelo/shop-4-column.html"><span>Graphic Corner</span></a>
-                            <h2><a href="https://live.hasthemes.com/html/5/abelo-preview/abelo/single-product.html" class="product-link">SoundBox Pro Portable</a></h2>
-                            <div class="availability-list in-stock">Availability: <span>900 In Stock</span></div>
-                            <p>Android 8.1 (Oreo), Hisilicon Kirin 710 (12 nm), Octa-core (4x2.2 GHz Cortex-A73 &amp; 4x1.7 GHz Cortex-A53), Mali-G51 MP4</p>
-                            <div class="pricing-meta">
-                                <ul>
-                                    <li class="current-price">$29.51</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </article>
-
-                <article class="list-product text-center">
-                    <div class="product-inner">
-                        <div class="img-block">
-                            <a href="https://live.hasthemes.com/html/5/abelo-preview/abelo/single-product.html" class="thumbnail">
-                                <img class="first-img" src="https://live.hasthemes.com/html/5/abelo-preview/abelo/assets/images/product-image/8.jpg" alt="" />
-                                <img class="second-img" src="https://live.hasthemes.com/html/5/abelo-preview/abelo/assets/images/product-image/9.jpg" alt="" />
-                            </a>
-                            <div class="add-to-link">
-                                <ul>
-                                    <li>
-                                        <a class="quick_view" href="#" data-link-action="quickview" title="Quick view" data-toggle="modal" data-target="#exampleModal">
-                                            <i class="lnr lnr-magnifier"></i>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="https://live.hasthemes.com/html/5/abelo-preview/abelo/wishlist.html" title="Add to Wishlist"><i class="lnr lnr-heart"></i></a>
-                                    </li>
-                                    <li>
-                                        <a href="https://live.hasthemes.com/html/5/abelo-preview/abelo/compare.html" title="Add to compare"><i class="lnr lnr-sync"></i></a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                        <ul class="product-flag">
-                            <li class="new">-12%</li>
-                        </ul>
-                        <div class="product-decs">
-                            <a class="inner-link" href="https://live.hasthemes.com/html/5/abelo-preview/abelo/shop-4-column.html"><span>STUDIO DESIGN</span></a>
-                            <h2><a href="https://live.hasthemes.com/html/5/abelo-preview/abelo/single-product.html" class="product-link">Wireless Stereo Speaker</a></h2>
-                            <div class="availability-list in-stock">Availability: <span>300 In Stock</span></div>
-                            <p>Galileo, and QZSS, Barometric Altimeter, Optical Heart Sensor, Accelerometer And Gyroscope, Ion-X Strengthened Glass</p>
-                            <div class="pricing-meta">
-                                <ul>
-                                    <li class="old-price">$25.51</li>
-                                    <li class="current-price">$21.51</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </article>
-            </div>
-            <div class="single-slider-item">
-
-                <article class="list-product text-center">
-                    <div class="product-inner">
-                        <div class="img-block">
-                            <a href="https://live.hasthemes.com/html/5/abelo-preview/abelo/single-product.html" class="thumbnail">
-                                <img class="first-img" src="https://live.hasthemes.com/html/5/abelo-preview/abelo/assets/images/product-image/15.jpg" alt="" />
-                                <img class="second-img" src="https://live.hasthemes.com/html/5/abelo-preview/abelo/assets/images/product-image/16.jpg" alt="" />
-                            </a>
-                            <div class="add-to-link">
-                                <ul>
-                                    <li>
-                                        <a class="quick_view" href="#" data-link-action="quickview" title="Quick view" data-toggle="modal" data-target="#exampleModal">
-                                            <i class="lnr lnr-magnifier"></i>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="https://live.hasthemes.com/html/5/abelo-preview/abelo/wishlist.html" title="Add to Wishlist"><i class="lnr lnr-heart"></i></a>
-                                    </li>
-                                    <li>
-                                        <a href="https://live.hasthemes.com/html/5/abelo-preview/abelo/compare.html" title="Add to compare"><i class="lnr lnr-sync"></i></a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                        <ul class="product-flag">
-                            <li class="new">-12%</li>
-                        </ul>
-                        <div class="product-decs">
-                            <a class="inner-link" href="https://live.hasthemes.com/html/5/abelo-preview/abelo/shop-4-column.html"><span>STUDIO DESIGN</span></a>
-                            <h2><a href="https://live.hasthemes.com/html/5/abelo-preview/abelo/single-product.html" class="product-link">Polk Audio T30 Speaker</a></h2>
-                            <div class="availability-list in-stock">Availability: <span>1200 In Stock</span></div>
-                            <p>Dimensions (W x H x D): TV without stand: 43.7" x 25.3" x 3", TV with stand: 43.7" x 27.7" x 8.5"</p>
-                            <div class="pricing-meta">
-                                <ul>
-                                    <li class="old-price">$21.51</li>
-                                    <li class="current-price">$21.51</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </article>
-
-                <article class="list-product text-center">
-                    <div class="product-inner">
-                        <div class="img-block">
-                            <a href="https://live.hasthemes.com/html/5/abelo-preview/abelo/single-product.html" class="thumbnail">
-                                <img class="first-img" src="https://live.hasthemes.com/html/5/abelo-preview/abelo/assets/images/product-image/11.jpg" alt="" />
-                                <img class="second-img" src="https://live.hasthemes.com/html/5/abelo-preview/abelo/assets/images/product-image/12.jpg" alt="" />
-                            </a>
-                            <div class="add-to-link">
-                                <ul>
-                                    <li>
-                                        <a class="quick_view" href="#" data-link-action="quickview" title="Quick view" data-toggle="modal" data-target="#exampleModal">
-                                            <i class="lnr lnr-magnifier"></i>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="https://live.hasthemes.com/html/5/abelo-preview/abelo/wishlist.html" title="Add to Wishlist"><i class="lnr lnr-heart"></i></a>
-                                    </li>
-                                    <li>
-                                        <a href="https://live.hasthemes.com/html/5/abelo-preview/abelo/compare.html" title="Add to compare"><i class="lnr lnr-sync"></i></a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="product-decs">
-                            <a class="inner-link" href="https://live.hasthemes.com/html/5/abelo-preview/abelo/shop-4-column.html"><span>STUDIO DESIGN</span></a>
-                            <h2><a href="https://live.hasthemes.com/html/5/abelo-preview/abelo/single-product.html" class="product-link">Sony WH-CH700N</a></h2>
-                            <div class="availability-list in-stock">Availability: <span>300 In Stock</span></div>
-                            <p>Android 8.1 (Oreo), Hisilicon Kirin 710 (12 nm), Octa-core (4x2.2 GHz Cortex-A73 &amp; 4x1.7 GHz Cortex-A53), Mali-G51 MP4</p>
-                            <div class="pricing-meta">
-                                <ul>
-                                    <li class="current-price">$21.51</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </article>
-            </div>
         </div>
     </div>
 </div>
@@ -982,17 +673,17 @@
         <div class="row">
             <div class="col-md-6 col-lg-6 ">
                 <div class="banner-wrapper">
-                    <a href="https://live.hasthemes.com/html/5/abelo-preview/abelo/shop-4-column.html"><img src="https://live.hasthemes.com/html/5/abelo-preview/abelo/assets/images/banner-image/2.jpg" alt="" /></a>
+                    <a href="javascript:void(0)"><img src="https://live.hasthemes.com/html/5/abelo-preview/abelo/assets/images/banner-image/2.jpg" alt="" /></a>
                 </div>
             </div>
             <div class="col-md-3 col-lg-3">
                 <div class="banner-wrapper">
-                    <a href="https://live.hasthemes.com/html/5/abelo-preview/abelo/shop-4-column.html"><img src="https://live.hasthemes.com/html/5/abelo-preview/abelo/assets/images/banner-image/3.jpg" alt="" /></a>
+                    <a href="javascript:void(0)"><img src="https://live.hasthemes.com/html/5/abelo-preview/abelo/assets/images/banner-image/3.jpg" alt="" /></a>
                 </div>
             </div>
             <div class="col-md-3 col-lg-3">
                 <div class="banner-wrapper">
-                    <a href="https://live.hasthemes.com/html/5/abelo-preview/abelo/shop-4-column.html"><img src="https://live.hasthemes.com/html/5/abelo-preview/abelo/assets/images/banner-image/4.jpg" alt="" /></a>
+                    <a href="javascript:void(0)"><img src="https://live.hasthemes.com/html/5/abelo-preview/abelo/assets/images/banner-image/4.jpg" alt="" /></a>
                 </div>
             </div>
         </div>
@@ -1008,7 +699,7 @@
                 <div class="section-title">
                     <h2>Recién llegados</h2>
                     <!-- Nav tabs -->
-                    <ul class="nav nav-tabs sub-category">
+                    <!-- <ul class="nav nav-tabs sub-category">
                         <li class="nav-item">
                             <a class="nav-link active" data-toggle="tab" href="#tab-1">Home Audio</a>
                         </li>
@@ -1018,7 +709,7 @@
                         <li class="nav-item">
                             <a class="nav-link" data-toggle="tab" href="#tab-3">Cameras</a>
                         </li>
-                    </ul>
+                    </ul> -->
                     <!-- Nav tabs -->
                 </div>
             </div>
@@ -1034,252 +725,212 @@
                         <article class="list-product text-center">
                             <div class="product-inner">
                                 <div class="img-block">
-                                    <a href="https://live.hasthemes.com/html/5/abelo-preview/abelo/single-product.html" class="thumbnail">
-                                        <img class="first-img" src="https://live.hasthemes.com/html/5/abelo-preview/abelo/assets/images/product-image/4.jpg" alt="" />
-                                        <img class="second-img" src="https://live.hasthemes.com/html/5/abelo-preview/abelo/assets/images/product-image/5.jpg" alt="" />
+                                    <a href="javascript:void(0)" (click)="ver_producto(productos_nuevo_1)" class="thumbnail">
+                                        <img class="first-img" [src]="obtener_imagen(productos_nuevo_1.imagen_1)" alt="" />
+                                        <img class="second-img" [src]="obtener_imagen(productos_nuevo_1.imagen_2)" alt="" />
                                     </a>
                                     <div class="add-to-link">
                                         <ul>
                                             <li>
-                                                <a class="quick_view" href="#" data-link-action="quickview" title="Quick view" data-toggle="modal" data-target="#exampleModal">
+                                                <a class="quick_view" href="javascript:void(0)" (click)="ver_producto(productos_nuevo_1)" data-link-action="quickview" title="Ver producto">
                                                     <i class="lnr lnr-magnifier"></i>
                                                 </a>
                                             </li>
                                             <li>
-                                                <a href="https://live.hasthemes.com/html/5/abelo-preview/abelo/wishlist.html" title="Add to Wishlist"><i class="lnr lnr-heart"></i></a>
-                                            </li>
-                                            <li>
-                                                <a href="https://live.hasthemes.com/html/5/abelo-preview/abelo/compare.html" title="Add to compare"><i class="lnr lnr-sync"></i></a>
+                                                <a href="javascript:void(0)" (click)="adicionar_favorito(productos_nuevo_1)" title="Añadir a favoritos"><i class="lnr lnr-heart"></i></a>
                                             </li>
                                         </ul>
                                     </div>
                                 </div>
-                                <ul class="product-flag">
-                                    <li class="new">-12%</li>
+                                <ul *ngIf="productos_nuevo_1.precio_original !== productos_nuevo_1.precio" class="product-flag">
+                                    <li class="new">- {{ productos_nuevo_1.descuento * 100 }}%</li>
                                 </ul>
                                 <div class="product-decs">
-                                    <a class="inner-link" href="https://live.hasthemes.com/html/5/abelo-preview/abelo/shop-4-column.html"><span>STUDIO DESIGN</span></a>
-                                    <h2><a href="https://live.hasthemes.com/html/5/abelo-preview/abelo/single-product.html" class="product-link">Edifier H840 Audiophile</a></h2>
+                                    <a class="inner-link" href="javascript:void(0)" (click)="ver_producto(productos_nuevo_1)"><span> {{ productos_nuevo_1.nombre_producto }} </span></a>
+                                    <h2><a href="javascript:void(0)" class="product-link">  {{ productos_nuevo_1.nombre_marca }}  </a></h2>
                                     <div class="pricing-meta">
                                         <ul>
-                                            <li class="old-price">$23.90</li>
-                                            <li class="current-price">$21.51</li>
+                                            <li *ngIf="productos_nuevo_1.precio_original !== productos_nuevo_1.precio" class="old-price">{{ productos_nuevo_1.precio_original | currency: 'PEN': 'symbol': '': 'es-PE' }}</li>
+                                            <li class="current-price">{{ productos_nuevo_1.precio | currency: 'PEN': 'symbol': '': 'es-PE' }}</li>
                                         </ul>
                                     </div>
                                 </div>
                                 <div class="cart-btn">
-                                    <a href="#" class="add-to-curt" title="Añadir al carrito">Añadir al carrito</a>
+                                    <a href="javascript:void(0)" (click)="adicionar_carrito(productos_nuevo_1)" class="add-to-curt" title="Añadir al carrito">Añadir al carrito</a>
                                 </div>
                             </div>
                         </article>
+
                     </div>
                     <div class="slider-single-item">
 
                         <article class="list-product text-center">
                             <div class="product-inner">
                                 <div class="img-block">
-                                    <a href="https://live.hasthemes.com/html/5/abelo-preview/abelo/single-product.html" class="thumbnail">
-                                        <img class="first-img" src="https://live.hasthemes.com/html/5/abelo-preview/abelo/assets/images/product-image/8.jpg" alt="" />
-                                        <img class="second-img" src="https://live.hasthemes.com/html/5/abelo-preview/abelo/assets/images/product-image/9.jpg" alt="" />
+                                    <a href="javascript:void(0)" (click)="ver_producto(productos_nuevo_2)" class="thumbnail">
+                                        <img class="first-img" [src]="obtener_imagen(productos_nuevo_2.imagen_1)" alt="" />
+                                        <img class="second-img" [src]="obtener_imagen(productos_nuevo_2.imagen_2)" alt="" />
                                     </a>
                                     <div class="add-to-link">
                                         <ul>
                                             <li>
-                                                <a class="quick_view" href="#" data-link-action="quickview" title="Quick view" data-toggle="modal" data-target="#exampleModal">
+                                                <a class="quick_view" href="javascript:void(0)" (click)="ver_producto(productos_nuevo_2)" data-link-action="quickview" title="Ver producto">
                                                     <i class="lnr lnr-magnifier"></i>
                                                 </a>
                                             </li>
                                             <li>
-                                                <a href="https://live.hasthemes.com/html/5/abelo-preview/abelo/wishlist.html" title="Add to Wishlist"><i class="lnr lnr-heart"></i></a>
-                                            </li>
-                                            <li>
-                                                <a href="https://live.hasthemes.com/html/5/abelo-preview/abelo/compare.html" title="Add to compare"><i class="lnr lnr-sync"></i></a>
+                                                <a href="javascript:void(0)" (click)="adicionar_favorito(productos_nuevo_2)" title="Añadir a favoritos"><i class="lnr lnr-heart"></i></a>
                                             </li>
                                         </ul>
                                     </div>
                                 </div>
-                                <div class="product-decs">
-                                    <a class="inner-link" href="https://live.hasthemes.com/html/5/abelo-preview/abelo/shop-4-column.html"><span>STUDIO DESIGN</span></a>
-                                    <h2><a href="https://live.hasthemes.com/html/5/abelo-preview/abelo/single-product.html" class="product-link">SoundBox Pro Portable</a></h2>
-                                    <div class="pricing-meta">
-                                        <ul>
-                                            <li class="old-price">$23.90</li>
-                                            <li class="current-price">$21.51</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="cart-btn">
-                                    <a href="#" class="add-to-curt" title="Añadir al carrito">Añadir al carrito</a>
-                                </div>
-                            </div>
-                        </article>
-                    </div>
-                    <div class="slider-single-item">
-
-                        <article class="list-product text-center">
-                            <div class="product-inner">
-                                <div class="img-block">
-                                    <a href="https://live.hasthemes.com/html/5/abelo-preview/abelo/single-product.html" class="thumbnail">
-                                        <img class="first-img" src="https://live.hasthemes.com/html/5/abelo-preview/abelo/assets/images/product-image/12.jpg" alt="" />
-                                        <img class="second-img" src="https://live.hasthemes.com/html/5/abelo-preview/abelo/assets/images/product-image/13.jpg" alt="" />
-                                    </a>
-                                    <div class="add-to-link">
-                                        <ul>
-                                            <li>
-                                                <a class="quick_view" href="#" data-link-action="quickview" title="Quick view" data-toggle="modal" data-target="#exampleModal">
-                                                    <i class="lnr lnr-magnifier"></i>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="https://live.hasthemes.com/html/5/abelo-preview/abelo/wishlist.html" title="Add to Wishlist"><i class="lnr lnr-heart"></i></a>
-                                            </li>
-                                            <li>
-                                                <a href="https://live.hasthemes.com/html/5/abelo-preview/abelo/compare.html" title="Add to compare"><i class="lnr lnr-sync"></i></a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="product-decs">
-                                    <a class="inner-link" href="https://live.hasthemes.com/html/5/abelo-preview/abelo/shop-4-column.html"><span>GRAPHIC CORNER</span></a>
-                                    <h2><a href="https://live.hasthemes.com/html/5/abelo-preview/abelo/single-product.html" class="product-link">Naham WiFi HD 1080P</a></h2>
-                                    <div class="pricing-meta">
-                                        <ul>
-                                            <li class="current-price">$21.51</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="cart-btn">
-                                    <a href="#" class="add-to-curt" title="Añadir al carrito">Añadir al carrito</a>
-                                </div>
-                            </div>
-                        </article>
-                    </div>
-                    <div class="slider-single-item">
-
-                        <article class="list-product text-center">
-                            <div class="product-inner">
-                                <div class="img-block">
-                                    <a href="https://live.hasthemes.com/html/5/abelo-preview/abelo/single-product.html" class="thumbnail">
-                                        <img class="first-img" src="https://live.hasthemes.com/html/5/abelo-preview/abelo/assets/images/product-image/16.jpg" alt="" />
-                                        <img class="second-img" src="https://live.hasthemes.com/html/5/abelo-preview/abelo/assets/images/product-image/17.jpg" alt="" />
-                                    </a>
-                                    <div class="add-to-link">
-                                        <ul>
-                                            <li>
-                                                <a class="quick_view" href="#" data-link-action="quickview" title="Quick view" data-toggle="modal" data-target="#exampleModal">
-                                                    <i class="lnr lnr-magnifier"></i>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="https://live.hasthemes.com/html/5/abelo-preview/abelo/wishlist.html" title="Add to Wishlist"><i class="lnr lnr-heart"></i></a>
-                                            </li>
-                                            <li>
-                                                <a href="https://live.hasthemes.com/html/5/abelo-preview/abelo/compare.html" title="Add to compare"><i class="lnr lnr-sync"></i></a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="product-decs">
-                                    <a class="inner-link" href="https://live.hasthemes.com/html/5/abelo-preview/abelo/shop-4-column.html"><span>GRAPHIC CORNER</span></a>
-                                    <h2><a href="https://live.hasthemes.com/html/5/abelo-preview/abelo/single-product.html" class="product-link">Polk Audio T30 Speaker</a></h2>
-                                    <div class="pricing-meta">
-                                        <ul>
-                                            <li class="current-price">$21.51</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="cart-btn">
-                                    <a href="#" class="add-to-curt" title="Añadir al carrito">Añadir al carrito</a>
-                                </div>
-                            </div>
-                        </article>
-                    </div>
-                    <div class="slider-single-item">
-
-                        <article class="list-product text-center">
-                            <div class="product-inner">
-                                <div class="img-block">
-                                    <a href="https://live.hasthemes.com/html/5/abelo-preview/abelo/single-product.html" class="thumbnail">
-                                        <img class="first-img" src="https://live.hasthemes.com/html/5/abelo-preview/abelo/assets/images/product-image/20.jpg" alt="" />
-                                        <img class="second-img" src="https://live.hasthemes.com/html/5/abelo-preview/abelo/assets/images/product-image/21.jpg" alt="" />
-                                    </a>
-                                    <div class="add-to-link">
-                                        <ul>
-                                            <li>
-                                                <a class="quick_view" href="#" data-link-action="quickview" title="Quick view" data-toggle="modal" data-target="#exampleModal">
-                                                    <i class="lnr lnr-magnifier"></i>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="https://live.hasthemes.com/html/5/abelo-preview/abelo/wishlist.html" title="Add to Wishlist"><i class="lnr lnr-heart"></i></a>
-                                            </li>
-                                            <li>
-                                                <a href="https://live.hasthemes.com/html/5/abelo-preview/abelo/compare.html" title="Add to compare"><i class="lnr lnr-sync"></i></a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <ul class="product-flag">
+                                <ul *ngIf="productos_nuevo_2.precio_original !== productos_nuevo_2.precio" class="product-flag">
+                                    <li class="new">- {{ productos_nuevo_2.descuento * 100 }}%</li>
                                 </ul>
                                 <div class="product-decs">
-                                    <a class="inner-link" href="https://live.hasthemes.com/html/5/abelo-preview/abelo/shop-4-column.html"><span>STUDIO DESIGN</span></a>
-                                    <h2><a href="https://live.hasthemes.com/html/5/abelo-preview/abelo/single-product.html" class="product-link">Numkuda USB 2.0 Gamepad</a></h2>
+                                    <a class="inner-link" href="javascript:void(0)" (click)="ver_producto(productos_nuevo_2)"><span> {{ productos_nuevo_2.nombre_producto }} </span></a>
+                                    <h2><a href="javascript:void(0)" class="product-link">  {{ productos_nuevo_2.nombre_marca }}  </a></h2>
                                     <div class="pricing-meta">
                                         <ul>
-                                            <li class="current-price">$21.51</li>
+                                            <li *ngIf="productos_nuevo_2.precio_original !== productos_nuevo_2.precio" class="old-price">{{ productos_nuevo_2.precio_original | currency: 'PEN': 'symbol': '': 'es-PE' }}</li>
+                                            <li class="current-price">{{ productos_nuevo_2.precio | currency: 'PEN': 'symbol': '': 'es-PE' }}</li>
                                         </ul>
                                     </div>
                                 </div>
                                 <div class="cart-btn">
-                                    <a href="#" class="add-to-curt" title="Añadir al carrito">Añadir al carrito</a>
+                                    <a href="javascript:void(0)" (click)="adicionar_carrito(productos_nuevo_2)" class="add-to-curt" title="Añadir al carrito">Añadir al carrito</a>
                                 </div>
                             </div>
                         </article>
+
                     </div>
                     <div class="slider-single-item">
 
                         <article class="list-product text-center">
                             <div class="product-inner">
                                 <div class="img-block">
-                                    <a href="https://live.hasthemes.com/html/5/abelo-preview/abelo/single-product.html" class="thumbnail">
-                                        <img class="first-img" src="https://live.hasthemes.com/html/5/abelo-preview/abelo/assets/images/product-image/19.jpg" alt="" />
-                                        <img class="second-img" src="https://live.hasthemes.com/html/5/abelo-preview/abelo/assets/images/product-image/20.jpg" alt="" />
+                                    <a href="javascript:void(0)" (click)="ver_producto(productos_nuevo_3)" class="thumbnail">
+                                        <img class="first-img" [src]="obtener_imagen(productos_nuevo_3.imagen_1)" alt="" />
+                                        <img class="second-img" [src]="obtener_imagen(productos_nuevo_3.imagen_2)" alt="" />
                                     </a>
                                     <div class="add-to-link">
                                         <ul>
                                             <li>
-                                                <a class="quick_view" href="#" data-link-action="quickview" title="Quick view" data-toggle="modal" data-target="#exampleModal">
+                                                <a class="quick_view" href="javascript:void(0)" (click)="ver_producto(productos_nuevo_3)" data-link-action="quickview" title="Ver producto">
                                                     <i class="lnr lnr-magnifier"></i>
                                                 </a>
                                             </li>
                                             <li>
-                                                <a href="https://live.hasthemes.com/html/5/abelo-preview/abelo/wishlist.html" title="Add to Wishlist"><i class="lnr lnr-heart"></i></a>
-                                            </li>
-                                            <li>
-                                                <a href="https://live.hasthemes.com/html/5/abelo-preview/abelo/compare.html" title="Add to compare"><i class="lnr lnr-sync"></i></a>
+                                                <a href="javascript:void(0)" (click)="adicionar_favorito(productos_nuevo_3)" title="Añadir a favoritos"><i class="lnr lnr-heart"></i></a>
                                             </li>
                                         </ul>
                                     </div>
                                 </div>
-                                <ul class="product-flag">
-                                    <li class="new">-12%</li>
+                                <ul *ngIf="productos_nuevo_3.precio_original !== productos_nuevo_3.precio" class="product-flag">
+                                    <li class="new">- {{ productos_nuevo_3.descuento * 100 }}%</li>
                                 </ul>
                                 <div class="product-decs">
-                                    <a class="inner-link" href="https://live.hasthemes.com/html/5/abelo-preview/abelo/shop-4-column.html"><span>STUDIO DESIGN</span></a>
-                                    <h2><a href="https://live.hasthemes.com/html/5/abelo-preview/abelo/single-product.html" class="product-link">Silicon Sleeping Earbuds</a></h2>
+                                    <a class="inner-link" href="javascript:void(0)" (click)="ver_producto(productos_nuevo_3)"><span> {{ productos_nuevo_3.nombre_producto }} </span></a>
+                                    <h2><a href="javascript:void(0)" class="product-link">  {{ productos_nuevo_3.nombre_marca }}  </a></h2>
                                     <div class="pricing-meta">
                                         <ul>
-                                            <li class="old-price">$23.90</li>
-                                            <li class="current-price">$21.51</li>
+                                            <li *ngIf="productos_nuevo_3.precio_original !== productos_nuevo_3.precio" class="old-price">{{ productos_nuevo_3.precio_original | currency: 'PEN': 'symbol': '': 'es-PE' }}</li>
+                                            <li class="current-price">{{ productos_nuevo_3.precio | currency: 'PEN': 'symbol': '': 'es-PE' }}</li>
                                         </ul>
                                     </div>
                                 </div>
                                 <div class="cart-btn">
-                                    <a href="#" class="add-to-curt" title="Añadir al carrito">Añadir al carrito</a>
+                                    <a href="javascript:void(0)" (click)="adicionar_carrito(productos_nuevo_3)" class="add-to-curt" title="Añadir al carrito">Añadir al carrito</a>
                                 </div>
                             </div>
                         </article>
+
                     </div>
+                    <div class="slider-single-item">
+
+                        <article class="list-product text-center">
+                            <div class="product-inner">
+                                <div class="img-block">
+                                    <a href="javascript:void(0)" (click)="ver_producto(productos_nuevo_4)" class="thumbnail">
+                                        <img class="first-img" [src]="obtener_imagen(productos_nuevo_4.imagen_1)" alt="" />
+                                        <img class="second-img" [src]="obtener_imagen(productos_nuevo_4.imagen_2)" alt="" />
+                                    </a>
+                                    <div class="add-to-link">
+                                        <ul>
+                                            <li>
+                                                <a class="quick_view" href="javascript:void(0)" (click)="ver_producto(productos_nuevo_4)" data-link-action="quickview" title="Ver producto">
+                                                    <i class="lnr lnr-magnifier"></i>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="javascript:void(0)" (click)="adicionar_favorito(productos_nuevo_4)" title="Añadir a favoritos"><i class="lnr lnr-heart"></i></a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <ul *ngIf="productos_nuevo_4.precio_original !== productos_nuevo_4.precio" class="product-flag">
+                                    <li class="new">- {{ productos_nuevo_4.descuento * 100 }}%</li>
+                                </ul>
+                                <div class="product-decs">
+                                    <a class="inner-link" href="javascript:void(0)" (click)="ver_producto(productos_nuevo_4)"><span> {{ productos_nuevo_4.nombre_producto }} </span></a>
+                                    <h2><a href="javascript:void(0)" class="product-link">  {{ productos_nuevo_4.nombre_marca }}  </a></h2>
+                                    <div class="pricing-meta">
+                                        <ul>
+                                            <li *ngIf="productos_nuevo_4.precio_original !== productos_nuevo_4.precio" class="old-price">{{ productos_nuevo_4.precio_original | currency: 'PEN': 'symbol': '': 'es-PE' }}</li>
+                                            <li class="current-price">{{ productos_nuevo_4.precio | currency: 'PEN': 'symbol': '': 'es-PE' }}</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="cart-btn">
+                                    <a href="javascript:void(0)" (click)="adicionar_carrito(productos_nuevo_4)" class="add-to-curt" title="Añadir al carrito">Añadir al carrito</a>
+                                </div>
+                            </div>
+                        </article>
+
+                    </div>
+                    <div class="slider-single-item">
+
+                        <article class="list-product text-center">
+                            <div class="product-inner">
+                                <div class="img-block">
+                                    <a href="javascript:void(0)" (click)="ver_producto(productos_nuevo_5)" class="thumbnail">
+                                        <img class="first-img" [src]="obtener_imagen(productos_nuevo_5.imagen_1)" alt="" />
+                                        <img class="second-img" [src]="obtener_imagen(productos_nuevo_5.imagen_2)" alt="" />
+                                    </a>
+                                    <div class="add-to-link">
+                                        <ul>
+                                            <li>
+                                                <a class="quick_view" href="javascript:void(0)" (click)="ver_producto(productos_nuevo_5)" data-link-action="quickview" title="Ver producto">
+                                                    <i class="lnr lnr-magnifier"></i>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="javascript:void(0)" (click)="adicionar_favorito(productos_nuevo_5)" title="Añadir a favoritos"><i class="lnr lnr-heart"></i></a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <ul *ngIf="productos_nuevo_5.precio_original !== productos_nuevo_5.precio" class="product-flag">
+                                    <li class="new">- {{ productos_nuevo_5.descuento * 100 }}%</li>
+                                </ul>
+                                <div class="product-decs">
+                                    <a class="inner-link" href="javascript:void(0)" (click)="ver_producto(productos_nuevo_5)"><span> {{ productos_nuevo_5.nombre_producto }} </span></a>
+                                    <h2><a href="javascript:void(0)" class="product-link">  {{ productos_nuevo_5.nombre_marca }}  </a></h2>
+                                    <div class="pricing-meta">
+                                        <ul>
+                                            <li *ngIf="productos_nuevo_5.precio_original !== productos_nuevo_5.precio" class="old-price">{{ productos_nuevo_5.precio_original | currency: 'PEN': 'symbol': '': 'es-PE' }}</li>
+                                            <li class="current-price">{{ productos_nuevo_5.precio | currency: 'PEN': 'symbol': '': 'es-PE' }}</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="cart-btn">
+                                    <a href="javascript:void(0)" (click)="adicionar_carrito(productos_nuevo_5)" class="add-to-curt" title="Añadir al carrito">Añadir al carrito</a>
+                                </div>
+                            </div>
+                        </article>
+
+                    </div>
+
                 </div>
                 <!-- Arrivel slider end -->
             </div>

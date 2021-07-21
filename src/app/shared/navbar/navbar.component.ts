@@ -74,8 +74,16 @@ export class NavbarComponent implements OnInit {
     seleccion ? this._productoService.patron_busqueda = '' : this._productoService.patron_busqueda = ((document.getElementById('patron_busqueda') as HTMLInputElement).value)
 
     this._productoService.id_categoria$.emit(this.id_categoria);
-    this._router.navigate(['/productos']);
-    
+    this._router.navigate(['/productos']);    
+  }
+
+  ver_producto(producto: Producto) {
+    this._router.navigate(['producto-detalle/' + producto.id ]);
+  }
+
+  eliminar_favorito(i: number) {
+    this._productoService.favoritos.splice(i, 1);
+    this._productoService.guardar_favorito_local(this._productoService.favoritos);
   }
 
 

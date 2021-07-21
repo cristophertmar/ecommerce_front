@@ -1,0 +1,60 @@
+<!-- Breadcrumb Area Start -->
+<div class="breadcrumb-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="breadcrumb-content">
+                    <ul class="nav">
+                        <li><a href="/">Home</a></li>
+                        <li><a class="default-cursor" href="javascript:void(0)">Mantenimiento</a></li>
+                        <li class="default-cursor">Precio de productos</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Breadcrumb Area End-->
+
+<div class="mantenimiento-area">
+    <div class="container" style="height: 69vh; padding: 50px;">
+        <div style="margin-top: 10px;" class="row">
+            <div class="col-md-12">
+                <div style="min-height: 500px;">
+
+                    <form>
+                        <input type="file" name="fileUpload" id="file-upload" accept=".xls,.xlsx" (change)="fileUpload($event)">
+                    </form>
+
+                    <!--  {{ data | json }} -->
+                    <br>
+                    <br>
+                    <button *ngIf="data.length > 0" type="button" class="btn btn-primary" (click)="cargar_precios()">Cargar documento</button>
+                    <hr *ngIf="no_actualizados.length > 0">
+                    <div *ngIf="no_actualizados.length > 0" style="max-width: 500px;">
+                        <h5>Productos que no se cargaron:</h5>
+                        <br>
+                        <table class="table table-sm">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Código</th>
+                                    <th scope="col">Precio</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let item of no_actualizados">
+                                    <td> {{ item.codigo }} </td>
+                                    <td> {{ item.precio }} </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+
+
+            </div>
+        </div>
+
+    </div>
+</div>

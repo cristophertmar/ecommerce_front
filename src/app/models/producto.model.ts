@@ -27,7 +27,10 @@ export class Producto {
         public monto?: number,
         public id_unidad_medida?: number,
         public unidad_medida?: string,
-        public control_stock?: boolean
+        public control_stock?: boolean,
+        public nombre_marca?: string,
+        public precio_proveedor?: number,
+        public procentaje_proveedor?: number
     ) {}    
 
 }

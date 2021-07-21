@@ -3,6 +3,7 @@ import { URL_SERVICIOS } from '../config/config';
 import { HttpClient } from '@angular/common/http';
 import { Producto } from '../models/producto.model';
 import { FiltroTienda } from '../models/filtro_tienda.model';
+import { ExcelPrecio } from '../models/excel_precio.model';
 
 @Injectable({
   providedIn: 'root'
@@ -11,6 +12,8 @@ export class ProductoService {
 
   /* carrito$ = new EventEmitter<Producto[]>(); */
   productos: Producto[];
+  favoritos: Producto[] = [];
+
   subtotal: number = 0;
   id_categoria: number = 0;
   patron_busqueda: string = '';
@@ -23,6 +26,7 @@ export class ProductoService {
     this.productos = [];
     this.cargar_carrito_local();
     this.cargar_categoria_local();
+    this.cargar_favorito_local();
   }
 
   cargar_carrito_local() {
@@ -39,6 +43,20 @@ export class ProductoService {
     localStorage.removeItem('carrito');
     localStorage.setItem('carrito', JSON.stringify(carrito));
     this.cargar_carrito_local();
+  }
+
+  cargar_favorito_local() {
+    if (localStorage.getItem('favoritos'))  {
+      this.favoritos = JSON.parse(localStorage.getItem('favoritos'));
+    } else {
+      this.favoritos = []
+    }
+  }
+
+  guardar_favorito_local(favoritos: Producto[]) {
+    localStorage.removeItem('favoritos');
+    localStorage.setItem('favoritos', JSON.stringify(favoritos));
+    this.cargar_favorito_local();
   }
 
   guardar_categoria(id_categoria: number) {
@@ -90,6 +108,11 @@ export class ProductoService {
     return this._http.put(url, producto);
   }
 
+  actualizar_producto_precio(excels: ExcelPrecio[]) {
+    const url = URL_SERVICIOS + 'api/producto/actualizar_precio';
+    return this._http.put(url, excels);
+  }
+
   eliminar_imagen(id: number) {
     const url = URL_SERVICIOS + 'api/producto/imagen_eliminar?id=' + id;
     return this._http.delete(url);
@@ -97,6 +120,11 @@ export class ProductoService {
 
   listar_unidad_medida() {
     const url = URL_SERVICIOS + 'api/producto/listar_unidad_medida';
+    return this._http.get(url);
+  }
+
+  listar_mayor_vendido() {
+    const url = URL_SERVICIOS + 'api/producto/listar_prod_mayor_vendido';
     return this._http.get(url);
   }
 

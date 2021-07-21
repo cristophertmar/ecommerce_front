@@ -25,7 +25,7 @@
                         <!--Cart info Start -->
                         <div class="header-tools d-flex">
                             <div class="cart-info d-flex align-self-center">
-                                <a id="items_favoritos" [attr.data-before]="0" href="#offcanvas-wishlist" class="heart offcanvas-toggle"><i class="lnr lnr-heart"></i><span>Favoritos</span></a>
+                                <a id="items_favoritos" [attr.data-before]="_productoService.favoritos.length" href="#offcanvas-wishlist" class="heart offcanvas-toggle"><i class="lnr lnr-heart"></i><span>Favoritos</span></a>
                                 <a id="items_carrito" [attr.data-before]="_productoService.productos.length" href="#offcanvas-cart" class="bag offcanvas-toggle"><i class="lnr lnr-cart"></i><span>Carrito</span></a>
                             </div>
                         </div>
@@ -87,7 +87,11 @@
                                     <li><a href="javascript:void(0)" [routerLink]="['/mantenimiento/marca']">Marca</a></li>
                                     <li><a href="javascript:void(0)" [routerLink]="['/mantenimiento/promocion']">Promoción</a></li>
                                     <li><a href="javascript:void(0)" [routerLink]="['/mantenimiento/producto']">Producto</a></li>
+                                    <li><a href="javascript:void(0)" [routerLink]="['/mantenimiento/productos-destacados']">Productos Destacados</a></li>
+                                    <li><a href="javascript:void(0)" [routerLink]="['/mantenimiento/mejores-ofertas']">Mejores Ofertas</a></li>
+                                    <li><a href="javascript:void(0)" [routerLink]="['/mantenimiento/precio-producto']">Precio Producto</a></li>
                                     <li><a href="javascript:void(0)" [routerLink]="['/mantenimiento/usuario']">Usuario</a></li>
+                                    <li><a href="javascript:void(0)" [routerLink]="['/mantenimiento/proveedor']">Proveedor</a></li>
                                     <li><a href="javascript:void(0)" [routerLink]="['/mantenimiento/seguimiento-pedido']">Seguimiento Pedido</a></li>
                                 </ul>
                             </li>
@@ -265,42 +269,33 @@
 <div id="offcanvas-wishlist" class="offcanvas offcanvas-wishlist">
     <div class="inner">
         <div class="head">
-            <span class="title">Wishlist</span>
+            <span class="title">Favoritos</span>
             <button class="offcanvas-close">×</button>
         </div>
         <div class="body customScroll">
-            <ul class="minicart-product-list">
-                <li>
-                    <a href="https://live.hasthemes.com/html/5/abelo-preview/abelo/single-product.html" class="image"><img src="https://live.hasthemes.com/html/5/abelo-preview/abelo/assets/images/product-image/1.jpg" alt="Cart product Image"></a>
-                    <div class="content">
-                        <a href="https://live.hasthemes.com/html/5/abelo-preview/abelo/single-product.html" class="title">Walnut Cutting Board</a>
-                        <span class="quantity-price">1 x <span class="amount">$100.00</span></span>
-                        <a href="#" class="remove">×</a>
-                    </div>
-                </li>
-                <li>
-                    <a href="https://live.hasthemes.com/html/5/abelo-preview/abelo/single-product.html" class="image"><img src="https://live.hasthemes.com/html/5/abelo-preview/abelo/assets/images/product-image/2.jpg" alt="Cart product Image"></a>
-                    <div class="content">
-                        <a href="https://live.hasthemes.com/html/5/abelo-preview/abelo/single-product.html" class="title">Lucky Wooden Elephant</a>
-                        <span class="quantity-price">1 x <span class="amount">$35.00</span></span>
-                        <a href="#" class="remove">×</a>
-                    </div>
-                </li>
-                <li>
-                    <a href="https://live.hasthemes.com/html/5/abelo-preview/abelo/single-product.html" class="image"><img src="https://live.hasthemes.com/html/5/abelo-preview/abelo/assets/images/product-image/3.jpg" alt="Cart product Image"></a>
-                    <div class="content">
-                        <a href="https://live.hasthemes.com/html/5/abelo-preview/abelo/single-product.html" class="title">Fish Cut Out Set</a>
-                        <span class="quantity-price">1 x <span class="amount">$9.00</span></span>
-                        <a href="#" class="remove">×</a>
-                    </div>
-                </li>
-            </ul>
+            <div *ngIf="_productoService.favoritos.length === 0" style="width: 250px; margin: auto; text-align: center;">
+                <img src="assets/images/carrito.svg" width="100%">
+                <h4>Su lista de favoritos está vacía</h4>
+            </div>
+            <div *ngIf="_productoService.favoritos.length > 0" class="body customScroll">
+                <ul class="minicart-product-list">
+                    <li *ngFor="let favorito of _productoService.favoritos; index as i">
+                        <a href="javascript:void(0)" (click)="ver_producto(favorito)" class="image"><img [src]="obtener_imagen(favorito.imagen_1)" alt="Cart product Image"></a>
+                        <div class="content">
+                            <a href="javascript:void(0)" (click)="ver_producto(favorito)" class="title"> {{ favorito.nombre_producto }} </a>
+                            <span class="quantity-price">1 x <span class="amount"> {{ favorito.precio | currency: 'PEN': 'symbol': '': 'es-PE' }} </span></span>
+                            <a href="javascript:void(0)" (click)="eliminar_favorito(i)" class="remove">×</a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
         </div>
-        <div class="foot">
+        <!-- <div class="foot">
             <div class="buttons">
                 <a href="https://live.hasthemes.com/html/5/abelo-preview/abelo/wishlist.html" class="btn btn-dark btn-hover-primary mt-30px">view wishlist</a>
             </div>
-        </div>
+        </div> -->
     </div>
 </div>
 <!-- OffCanvas Wishlist End -->
@@ -319,9 +314,9 @@
         <div *ngIf="_productoService.productos.length > 0" class="body customScroll">
             <ul class="minicart-product-list">
                 <li *ngFor="let prod of _productoService.productos; index as i">
-                    <a href="javacript:void(0)" class="image"><img [src]="obtener_imagen(prod.imagen_1)" alt="Cart product Image"></a>
+                    <a href="javacript:void(0)" (click)="ver_producto(prod)" class="image"><img [src]="obtener_imagen(prod.imagen_1)" alt="Cart product Image"></a>
                     <div class="content">
-                        <a href="https://live.hasthemes.com/html/5/abelo-preview/abelo/single-product.html" class="title"> {{ prod.nombre_producto }} </a>
+                        <a href="javascript:void(0)" (click)="ver_producto(prod)" class="title"> {{ prod.nombre_producto }} </a>
                         <span class="quantity-price">{{ prod.cantidad_comprar }} x <span class="amount"> {{ prod.precio | currency: 'PEN': 'symbol': '': 'es-PE' }} </span></span>
                         <a href="javascript:void(0)" (click)="eliminar_item(i)" class="remove">×</a>
                     </div>

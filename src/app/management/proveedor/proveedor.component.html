@@ -1,0 +1,227 @@
+<ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff" type="ball-scale-ripple" [fullScreen]="true">
+    <p style="color: white"> cargando... </p>
+</ngx-spinner>
+<!-- Breadcrumb Area Start -->
+<div class="breadcrumb-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="breadcrumb-content">
+                    <ul class="nav">
+                        <li><a href="/">Home</a></li>
+                        <li><a class="default-cursor" href="javascript:void(0)">Mantenimiento</a></li>
+                        <li class="default-cursor">Tipo de Producto</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Breadcrumb Area End-->
+<div class="mantenimiento-area">
+    <div style="width: 80%; margin: auto; height: 69vh; padding: 50px;">
+
+        <div class="row">
+            <div class="col-md-7">
+                <div style="min-height: 500px;">
+                    <form autocomplete="off" [formGroup]="form_busqueda" (ngSubmit)="listar_proveedor()" style="width: 100%; margin-bottom: 20px; padding: 20px 25px; background: #f6f6f6; border-radius: 5px;">
+                        <div class="row">
+                            <div class="col-md-9">
+                                <input formControlName="patron_busqueda" name="patron_busqueda" id="patron_busqueda" type="text" placeholder="Buscar por ruc o razón social..." class="form-control form-control-sm">
+                            </div>
+                            <div class="col-md-3">
+                                <div class="row">
+                                    <div class="col">
+                                        <button type="button" (click)="limpiar()" class="btn btn-outline-primary btn-block btn-sm">Limpiar</button>
+                                    </div>
+                                    <div class="col">
+                                        <button type="submit" class="btn btn-outline-primary btn-block btn-sm">Buscar</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </form>
+                    <table class="table table-striped" style="width: 100%; margin: auto;">
+                        <thead>
+                            <tr class="bg-primary" style="color: #fff;">
+                                <th>Ruc</th>
+                                <th>Razón Social</th>
+                                <th colspan="2"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let prov of proveedores | paginate: { itemsPerPage: 10, currentPage: pagina_actual }">
+                                <td> {{ prov.ruc }} </td>
+                                <td> {{ prov.razon_social }} </td>
+                                <td><a href="javascript:void(0)" (click)="habilitar_edicion(prov)">Modificar</a></td>
+                                <td><a href="javascript:void(0)" (click)="eliminar_proveedor(prov)">Eliminar</a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div *ngIf="proveedores.length > 0" class="text-center">
+                    <pagination-controls previousLabel="Anterior" nextLabel="Siguiente" (pageChange)="pagina_actual = $event"></pagination-controls>
+                </div>
+            </div>
+            <div class="col-md-5">
+                <div class="card" style="width: 100%; margin: auto;">
+                    <div class="card-body">
+                        <h5 class="card-title">Editar Proveedor</h5>
+                        <a href="javascript:void(0)" (click)="habilitar_nuevo_registro()" class="card-link">Crear Proveedor</a>
+
+                        <form style="margin-top: 20px; margin-bottom: 20px;" autocomplete="off" [formGroup]="formulario">
+                            <div class="form-group ocultar">
+                                <label>Id:</label>
+                                <input formControlName="id" name="id" type="number" class="form-control" placeholder="Id...">
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Ruc:</label>
+                                        <input formControlName="ruc" name="ruc" type="number" class="form-control" placeholder="Ingrese Ruc...">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Razón social:</label>
+                                        <input formControlName="razon_social" name="razon_social" type="text" class="form-control" placeholder="Ingrese razón social...">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Departamento:</label>
+                                        <select formControlName="departamento" name="departamento" class="form-control">
+                                            <option value="0">(Seleccionar)</option>
+                                            <option *ngFor="let departamento of departamentos" [value]="departamento.departamento"> {{ departamento.departamento }} </option>                                
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Provincia:</label>
+                                        <select formControlName="provincia" name="provincia" class="form-control">
+                                            <option value="0">(Seleccionar)</option>
+                                            <option *ngFor="let provincia of provincias" [value]="provincia.provincia"> {{ provincia.provincia }} </option>                                         
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Distrito:</label>
+                                        <select formControlName="distrito" name="distrito" class="form-control">
+                                            <option value="0">(Seleccionar)</option>
+                                            <option *ngFor="let distrito of distritos" [value]="distrito | json"> {{ distrito.distrito }} </option>                                           
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Dirección:</label>
+                                        <input formControlName="direccion" name="direccion" type="text" class="form-control" placeholder="Ingrese dirección...">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Celular:</label>
+                                        <input formControlName="celular" name="celular" type="number" class="form-control" placeholder="Ingrese celular...">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Teléfono:</label>
+                                        <input formControlName="telefono" name="telefono" type="number" class="form-control" placeholder="Ingrese teléfono...">
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label>Página web:</label>
+                                        <input formControlName="pagina_web" name="pagina_web" type="text" class="form-control" placeholder="Ingrese url...">
+                                    </div>
+                                </div>
+                            </div>
+                            <a href="javascript:void(0)" (click)="reset_form_contacto()" class="card-link" data-toggle="modal" data-target="#mdl_contacto">[+] Agregar contacto</a>
+
+                            <div *ngIf="contactos.length > 0" style="margin-top: 20px; margin-bottom: 20px; width: 70%;">
+                                <table class="table table-borderless table-sm">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Nombre</th>
+                                            <th scope="col">Cargo</th>
+                                            <th scope="col" colspan="2" class="text-center"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let contacto of contactos; index as i">
+                                            <td> {{ contacto.nombre }} </td>
+                                            <td> {{ contacto.cargo }} </td>
+                                            <td class="text-center">
+                                                <a href="javascript:void(0)" (click)="editar_contacto(i)" class="card-link" data-toggle="modal" data-target="#mdl_contacto">Editar</a>
+                                            </td>
+                                            <td class="text-center">
+                                                <a href="javascript:void(0)" (click)="eliminar_contacto(i)" class="card-link">Eliminar</a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <div style="margin-top: 15px;">
+                                <button *ngIf="!editar" type="button" class="btn btn-primary btn-block" (click)="guardar_proveedor()">Agregar Proveedor</button>
+                                <button *ngIf="editar" type="button" class="btn btn-primary btn-block" (click)="actualizar_proveedor()">Guardar cambios</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="mdl_contacto" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <form autocomplete="off" [formGroup]="form_contacto" class="modal-dialog modal-dialog-centered modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Agregar Contacto</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Nombre:</label>
+                            <input formControlName="nombre" name="nombre" type="text" class="form-control" placeholder="Ingrese cargo...">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Cargo:</label>
+                            <input formControlName="cargo" name="cargo" type="text" class="form-control" placeholder="Ingrese cargo...">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Celular:</label>
+                            <input formControlName="celular" name="celular" type="text" class="form-control" placeholder="Ingrese celular...">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Correo:</label>
+                            <input formControlName="correo" name="correo" type="text" class="form-control" placeholder="Ingrese correo...">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button #btn_cerrar type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                <button *ngIf="!edicion_contacto" type="submit" class="btn btn-primary" (click)="agregar_contacto()">Guardar cambios</button>
+                <button *ngIf="edicion_contacto" type="submit" class="btn btn-primary" (click)="actualizar_contacto()">Actualizar cambios</button>
+            </div>
+        </div>
+    </form>
+</div>

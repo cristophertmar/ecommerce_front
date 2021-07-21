@@ -24,6 +24,10 @@ import { SeguimientoEditarComponent } from './management/seguimiento-pedido/segu
 // Guards
 import { AccountGuard } from './guards/account.guard';
 import { AdminGuard } from './guards/admin.guard';
+import { ProductoDestacadoComponent } from './management/producto-destacado/producto-destacado.component';
+import { MejorOfertaComponent } from './management/mejor-oferta/mejor-oferta.component';
+import { ProveedorComponent } from './management/proveedor/proveedor.component';
+import { ProductoPrecioComponent } from './management/producto-precio/producto-precio.component';
 
 const routes: Routes = [
   { path: 'inicio', component: HomeComponent },
@@ -42,8 +46,12 @@ const routes: Routes = [
   { path: 'mantenimiento/marca', component: MarcaComponent, canActivate: [AccountGuard, AdminGuard] },
   { path: 'mantenimiento/promocion', component: PromocionComponent, canActivate: [AccountGuard, AdminGuard] },
   { path: 'mantenimiento/producto', component: ProductoComponent, canActivate: [AccountGuard, AdminGuard] },
+  { path: 'mantenimiento/productos-destacados', component: ProductoDestacadoComponent, canActivate: [AccountGuard, AdminGuard] },
+  { path: 'mantenimiento/mejores-ofertas', component: MejorOfertaComponent, canActivate: [AccountGuard, AdminGuard] },
   { path: 'mantenimiento/usuario', component: UsuarioComponent, canActivate: [AccountGuard, AdminGuard] },
+  { path: 'mantenimiento/proveedor', component: ProveedorComponent, canActivate: [AccountGuard, AdminGuard] },
   { path: 'mantenimiento/seguimiento-pedido', component: SeguimientoPedidoComponent, canActivate: [AccountGuard, AdminGuard] },
+  { path: 'mantenimiento/precio-producto', component: ProductoPrecioComponent, canActivate: [AccountGuard, AdminGuard] },
 
   { path: 'mantenimiento/producto/:codigo', component: ProductoEditarComponent, canActivate: [AccountGuard, AdminGuard] },
   { path: 'mantenimiento/usuario/:ruc', component: UsuarioEditarComponent, canActivate: [AccountGuard, AdminGuard] },

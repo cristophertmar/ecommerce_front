@@ -86,6 +86,9 @@ export class ProductoEditarComponent implements OnInit {
     this.listar_promocion();
     this.listar_marca();
     this.listar_unidades();
+    this.listener_precio_proveedor();
+    this.listener_procentaje_ganancia();
+    this.listener_precio_venta();
     this._activatedRoute.params.subscribe( ({codigo}) => {
       if(codigo !== 'nuevo') {
         this.editar = true;
@@ -241,12 +244,14 @@ export class ProductoEditarComponent implements OnInit {
     this.producto.nombre_producto = this.formulario.get('nombre_producto').value;
     this.producto.id_promocion = Number(this.formulario.get('id_promocion').value);
     this.producto.descripcion_producto = this.formulario.get('descripcion_producto').value;
-    this.producto.precio = Number(this.formulario.get('precio').value);
+    this.producto.precio = (Number(document.getElementsByName('precio')[0]['value'])) //Number(this.formulario.get('precio').value);
     this.producto.stock = Number(this.formulario.get('stock').value);
     this.producto.id_unidad_medida = Number(this.formulario.get('id_unidad_medida').value);
     this.producto.producto_asociado = JSON.stringify(this.productos_asocionados);
     this.producto.estado = this.estado_producto;
     this.producto.control_stock = this.formulario.get('control_stock').value === 'true' ? true : false;
+    this.producto.precio_proveedor = this.formulario.get('precio_proveedor').value;
+    this.producto.procentaje_proveedor = Number(this.formulario.get('porcentaje_ganancia').value) / 100;
 
     console.log('this.producto.control_stock', this.producto.control_stock);
 
@@ -268,6 +273,25 @@ export class ProductoEditarComponent implements OnInit {
     return true;
   }
 
+  listener_precio_proveedor() {
+    this.formulario.controls['precio_proveedor'].valueChanges.subscribe(precio_proveedor => {   
+      document.getElementsByName('precio')[0]['value'] = (Number(precio_proveedor) * ( 1 + (Number(this.formulario.get('porcentaje_ganancia').value) / 100))).toFixed(2);
+    });
+  }
+
+  listener_procentaje_ganancia() {
+    this.formulario.controls['porcentaje_ganancia'].valueChanges.subscribe(porcentaje_ganancia => {
+      const precio_proveedor: number = Number(this.formulario.get('precio_proveedor').value) || 0;
+      document.getElementsByName('precio')[0]['value'] = (Number(precio_proveedor) * ( 1 + (Number(porcentaje_ganancia) / 100))).toFixed(2);
+    });
+  }
+
+  listener_precio_venta() {
+    this.formulario.controls['precio'].valueChanges.subscribe(precio_venta => {
+      document.getElementsByName('precio_proveedor')[0]['value'] = (Number(precio_venta) / ( 1 + (Number(this.formulario.get('porcentaje_ganancia').value) / 100))).toFixed(2);
+    });
+  }
+
 
   crearFormulario(){
     this.formulario = new FormGroup({
@@ -281,11 +305,21 @@ export class ProductoEditarComponent implements OnInit {
         nombre_producto: new FormControl(null, [Validators.required]),
         id_promocion: new FormControl(0, [Validators.required]),
         descripcion_producto: new FormControl(null, [Validators.required]),
-        precio: new FormControl(null, [Validators.required]),
+        precio_proveedor: new FormControl(null, [Validators.required]),
+        porcentaje_ganancia: new FormControl(null, [Validators.required, Validators.pattern('^(?!0).*$')]),
+        precio: new FormControl(null, [Validators.required, Validators.pattern('^(?!0).*$')]),
         stock: new FormControl(null, [Validators.required]),
         id_unidad_medida: new FormControl(0, [Validators.required, Validators.pattern('^(?!0).*$')]),
         control_stock: new FormControl(true, [Validators.required])
     });
+  }
+
+  get precioProveedorNoValido() {
+    return this.formulario.get('precio_proveedor').invalid && this.formulario.get('precio_proveedor').touched;
+  }
+
+  get porcentajeGananciaNoValido() {
+    return this.formulario.get('porcentaje_ganancia').invalid && this.formulario.get('porcentaje_ganancia').touched;
   }
 
   get codigo_fabricanteNoValido() {
@@ -344,6 +378,8 @@ export class ProductoEditarComponent implements OnInit {
       nombre_producto: this.producto.nombre_producto,
       id_promocion: this.producto.id_promocion,
       descripcion_producto: this.producto.descripcion_producto,
+      precio_proveedor: this.producto.precio_proveedor,
+      porcentaje_ganancia: Number(this.producto.procentaje_proveedor) * 100,
       precio: this.producto.precio,
       stock: this.producto.stock,
       id_unidad_medida: this.producto.id_unidad_medida,

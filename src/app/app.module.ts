@@ -36,6 +36,10 @@ import localesPE from '@angular/common/locales/es-PE';
 import { SeguimientoPedidoComponent } from './management/seguimiento-pedido/seguimiento-pedido.component';
 import { SeguimientoEditarComponent } from './management/seguimiento-pedido/seguimiento-editar/seguimiento-editar.component';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { ProductoDestacadoComponent } from './management/producto-destacado/producto-destacado.component';
+import { MejorOfertaComponent } from './management/mejor-oferta/mejor-oferta.component';
+import { ProveedorComponent } from './management/proveedor/proveedor.component';
+import { ProductoPrecioComponent } from './management/producto-precio/producto-precio.component';
 registerLocaleData(localesPE, 'es-Pe');
 
 @NgModule({
@@ -62,7 +66,11 @@ registerLocaleData(localesPE, 'es-Pe');
     PromocionComponent,
     UsuarioEditarComponent,
     SeguimientoPedidoComponent,
-    SeguimientoEditarComponent
+    SeguimientoEditarComponent,
+    ProductoDestacadoComponent,
+    MejorOfertaComponent,
+    ProveedorComponent,
+    ProductoPrecioComponent
   ],
   imports: [
     BrowserModule,

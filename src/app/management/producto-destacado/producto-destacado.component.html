@@ -1,0 +1,76 @@
+<!-- Breadcrumb Area Start -->
+<div class="breadcrumb-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="breadcrumb-content">
+                    <ul class="nav">
+                        <li><a href="/">Home</a></li>
+                        <li><a class="default-cursor" href="javascript:void(0)">Mantenimiento</a></li>
+                        <li class="default-cursor">Productos Destacados</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Breadcrumb Area End-->
+
+<div class="mantenimiento-area">
+    <div class="container" style="height: 69vh; padding: 50px;">
+        <div style="margin-top: 10px;" class="row">
+            <div class="col-md-12">
+                <div style="min-height: 500px;">
+                    <div class="row">
+                        <div class="col-md-10" style="padding-left: 15px;">
+                            <input #patron_busqueda id="patron_busqueda" type="text" class="form-control form-control-sm" placeholder="Buscar producto por nombre o código...">
+                        </div>
+                        <div class="col-md-2" style="padding-left: 0px;">
+                            <button (click)="listar_producto(patron_busqueda.value)" type="button" class="btn btn-outline-primary btn-block btn-sm">Buscar</button>
+                        </div>
+                        <div class="col-md-6">
+                            <div style="background-color: #fff; height: 220px; border-radius: 5px; padding: 8px 10px; margin-top: 12px;">
+                                <select class="custom-select" size="9">
+                                    <option selected>Seleccione producto a destacar</option>
+                                    <option *ngFor="let prod of productos" class="pointer" (click)="asociar_producto(prod)" > {{ prod.nombre_producto }} </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div style="background-color: #fff; height: 220px; border-radius: 5px; padding: 8px 10px; margin-top: 12px;">
+                                <table class="table table-striped table-sm">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Producto</th>
+                                            <th scope="col" class="text-center">Eliminar</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let prod of productos_asocionados; index as i">
+                                            <td> {{ prod.nombre_producto }} </td>
+                                            <td class="text-center">
+                                                <span class="pointer delete-icon" (click)="eliminar_asociacion_producto(i)">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" focusable="false" width="1em" height="1em" style="-ms-transform: rotate(360deg); -webkit-transform: rotate(360deg); transform: rotate(360deg);" preserveAspectRatio="xMidYMid meet"
+                                                    viewBox="0 0 512 512"><path d="M289.94 256l95-95A24 24 0 0 0 351 127l-95 95l-95-95a24 24 0 0 0-34 34l95 95l-95 95a24 24 0 1 0 34 34l95-95l95 95a24 24 0 0 0 34-34z" fill="#266CFB"/></svg>
+                                                </span>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <br><br>
+                            <div class="row">
+                                <div class="col-md-6"></div>
+                                <div class="col-md-6">
+                                    <button type="button" class="btn btn-primary btn-block" (click)="guardar_cambios()">Guardar Cambios</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

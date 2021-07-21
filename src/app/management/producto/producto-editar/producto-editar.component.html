@@ -33,7 +33,7 @@
                 <button type="button" class="btn" (click)="cambiar_estado_producto(false)" [class.btn-outline-danger]="estado_producto" [class.btn-danger]="!estado_producto">Inactivo</button>
             </div>
 
-            <div style="height: 20px;" *ngIf="!editar"></div>
+            <div style="height: 5px;" *ngIf="!editar"></div>
             <div class="row">
                 <div class="col md-6">
                     <div class="row">
@@ -114,8 +114,20 @@
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label>Precio: <small *ngIf="precioNoValido" class="form-text text-danger">Ingrese un precio</small></label>
-                                <input [class.is-invalid]="precioNoValido" formControlName="precio" name="precio" type="number" class="form-control form-control-sm" placeholder="Ingrese precio...">
+                                <label>Precio Proveedor: <small *ngIf="precioProveedorNoValido" class="form-text text-danger">Ingrese precio del proveedor</small></label>
+                                <input [class.is-invalid]="precioProveedorNoValido" formControlName="precio_proveedor" name="precio_proveedor" type="number" class="form-control form-control-sm" placeholder="Ingrese precio del proveedor...">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Porcentaje de ganancia (%): <small *ngIf="porcentajeGananciaNoValido" class="form-text text-danger">Ingrese porcentaje de ganancia</small></label>
+                                <input [class.is-invalid]="porcentajeGananciaNoValido" formControlName="porcentaje_ganancia" name="porcentaje_ganancia" type="number" class="form-control form-control-sm" placeholder="Ingrese porcentaje(%)...">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Precio de venta: <small *ngIf="precioNoValido" class="form-text text-danger">Ingrese un precio</small></label>
+                                <input [class.is-invalid]="precioNoValido" formControlName="precio" name="precio" type="number" class="form-control form-control-sm" placeholder="Ingrese precio de venta...">
                             </div>
                         </div>
                         <div class="col-md-6">

@@ -63,7 +63,7 @@ export class ShopSingleComponent implements OnInit {
         productos_asociados.forEach(prod => {
           this.obtener_producto_relacionado(prod.id)
         });
-        
+        console.log(this.producto);
     });
   }
 
@@ -79,9 +79,16 @@ export class ShopSingleComponent implements OnInit {
     return URL_SERVICIOS + ruta;
   }
 
-  adicionar_carrito() {   
+  adicionar_favorito(producto: Producto) {
 
-    console.log(this._productoService.productos);
+    let favoritos: Producto[] = [];
+    favoritos.push(producto);
+
+    this._productoService.guardar_favorito_local(favoritos);
+    this._shared.alert_toast_success('Añadido a favoritos');
+  }
+
+  adicionar_carrito() {
 
     this.modificar_cantidad();
 
@@ -93,7 +100,6 @@ export class ShopSingleComponent implements OnInit {
       this._productoService.guardar_carrito_local(carrito_temp);
       return;
     }
-
 
     this._productoService.productos.forEach(producto => {
 
