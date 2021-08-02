@@ -12,8 +12,8 @@ export class SubCategoriaService {
     public _http: HttpClient
   ) { }
 
-  listar_subcategoria(id_categoria: number = 0, patron_busqueda: string = '') {
-    const url = URL_SERVICIOS + 'api/subcategoria/listar?id_categoria=' + id_categoria + '&patron_busqueda=' + patron_busqueda;
+  listar_subcategoria(id_categoria: number = 0, patron_busqueda: string = '', estado = true) {
+    const url = URL_SERVICIOS + 'api/subcategoria/listar?id_categoria=' + id_categoria + '&patron_busqueda=' + patron_busqueda + '&estado=' + estado;
     return this._http.get(url);
   }
 

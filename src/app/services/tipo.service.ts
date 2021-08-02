@@ -13,8 +13,8 @@ export class TipoService {
   ) { }
 
 
-  listar_tipo(id_subcategoria: number = 0, id_categoria: number = 0, patron_busqueda: string = '') {
-    const url = URL_SERVICIOS + 'api/tipo/listar?id_subcategoria='+ id_subcategoria + '&id_categoria=' + id_categoria + '&patron_busqueda=' + patron_busqueda;
+  listar_tipo(id_subcategoria: number = 0, id_categoria: number = 0, patron_busqueda: string = '', estado = true) {
+    const url = URL_SERVICIOS + 'api/tipo/listar?id_subcategoria='+ id_subcategoria + '&id_categoria=' + id_categoria + '&patron_busqueda=' + patron_busqueda + '&estado=' + estado;
     return this._http.get(url);
   }
 

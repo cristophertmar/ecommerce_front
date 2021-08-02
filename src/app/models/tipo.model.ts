@@ -8,7 +8,8 @@ export class Tipo {
         public nombre_sub_categoria?: string,
         public nombre_tipo?: string,
         public checked?: boolean,
-        public index?: number
+        public index?: number,
+        public estado?: boolean
     ) {}
 
 }

@@ -21,6 +21,8 @@ export class CategoriaComponent implements OnInit {
   categorias: Categoria[];
   editar: boolean;
 
+  estado_entidad: boolean;
+
   constructor(
     private _categoriaService: CategoriaService,
     private _shared: SharedService,
@@ -42,7 +44,7 @@ export class CategoriaComponent implements OnInit {
 
   listar_categoria() {
     this._spinner.show();
-    this._categoriaService.listar_categoria(this.form_busqueda.value.patron_busqueda || '')
+    this._categoriaService.listar_categoria(this.form_busqueda.value.patron_busqueda || '', false)
     .subscribe((resp: any) => {
       this.categorias = resp.data;
       this._spinner.hide();
@@ -97,9 +99,14 @@ export class CategoriaComponent implements OnInit {
     });    
   }
 
+  cambiar_estado_entidad(estado: boolean) {
+    this.estado_entidad = estado;
+  }
+
   habilitar_edicion(categoria: Categoria) {
     this.editar = true;
     this.setear_formulario(categoria.id, categoria.nombre_categoria);    
+    this.estado_entidad = categoria.estado;
   }
 
   habilitar_nuevo_registro() {
@@ -111,6 +118,7 @@ export class CategoriaComponent implements OnInit {
     this.categoria = new Categoria();
     this.categoria.id = this.formulario.get('id').value || 0;
     this.categoria.nombre_categoria = this.formulario.get('nombre_categoria').value;
+    this.categoria.estado = this.estado_entidad;
   }
 
   pasar_validacion(): boolean {

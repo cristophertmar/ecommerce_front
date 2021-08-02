@@ -41,18 +41,24 @@
                         <thead>
                             <tr class="bg-primary" style="color: #fff;">
                                 <th>Nombre categoría</th>
+                                <th>Estado</th>
                                 <th colspan="2"></th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr *ngFor="let categoria of categorias | paginate: { itemsPerPage: 10, currentPage: pagina_actual }">
                                 <td> {{ categoria.nombre_categoria }} </td>
+                                <td>
+                                    <span *ngIf="categoria.estado === true" class="badge badge-pill badge-success">Activo</span>
+                                    <span *ngIf="categoria.estado === false" class="badge badge-pill badge-danger">Inactivo</span>
+                                </td>
                                 <td><a href="javascript:void(0)" (click)="habilitar_edicion(categoria)">Modificar</a></td>
                                 <td><a href="javascript:void(0)" (click)="eliminar_categoria(categoria)">Eliminar</a></td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
+                <br><br>
                 <div class="text-center">
                     <pagination-controls previousLabel="Anterior" nextLabel="Siguiente" (pageChange)="pagina_actual = $event"></pagination-controls>
                 </div>
@@ -63,6 +69,10 @@
                         <h5 class="card-title">Editar Categoría</h5>
                         <a href="javascript:void(0)" class="card-link" (click)="habilitar_nuevo_registro()">Crear categoría</a>
                         <form style="margin-top: 20px; margin-bottom: 20px;" autocomplete="off" [formGroup]="formulario">
+                            <div *ngIf="editar" class="btn-group btn-group-sm" role="group" style="margin-bottom: 20px;">
+                                <button type="button" class="btn" (click)="cambiar_estado_entidad(true)" [class.btn-outline-success]="!estado_entidad" [class.btn-success]="estado_entidad">Activo</button>
+                                <button type="button" class="btn" (click)="cambiar_estado_entidad(false)" [class.btn-outline-danger]="estado_entidad" [class.btn-danger]="!estado_entidad">Inactivo</button>
+                            </div>
                             <div class="form-group ocultar">
                                 <label>Id:</label>
                                 <input formControlName="id" name="id" type="number" class="form-control" placeholder="Id...">

@@ -31,6 +31,8 @@ export class TipoComponent implements OnInit {
 
   editar: boolean;
 
+  estado_entidad: boolean;
+
   constructor(
     private _categoriaService: CategoriaService,
     private _subcategoriaService: SubCategoriaService,
@@ -93,7 +95,7 @@ export class TipoComponent implements OnInit {
     const subcategoria: number = this.form_busqueda.value.subcategoria || 0;
     const patron_busqueda: string = this.form_busqueda.value.patron_busqueda || '';
 
-    this._tipoService.listar_tipo(subcategoria, categoria, patron_busqueda)
+    this._tipoService.listar_tipo(subcategoria, categoria, patron_busqueda, false)
     .subscribe((resp: any) => {
       this.tipos = resp.data;
     });
@@ -139,7 +141,8 @@ export class TipoComponent implements OnInit {
 
   habilitar_edicion(tipo: Tipo) {
     this.editar = true;
-    this.setear_formulario(tipo.id, tipo.id_categoria, tipo.id_subcategoria, tipo.nombre_tipo);    
+    this.setear_formulario(tipo.id, tipo.id_categoria, tipo.id_subcategoria, tipo.nombre_tipo);
+    this.estado_entidad = tipo.estado;
   }
 
   habilitar_nuevo_registro() {
@@ -153,6 +156,11 @@ export class TipoComponent implements OnInit {
     this.tipo.id_categoria = Number(this.formulario.get('id_categoria').value);
     this.tipo.id_subcategoria = Number(this.formulario.get('id_subcategoria').value);
     this.tipo.nombre_tipo = this.formulario.get('nombre_tipo').value;
+    this.tipo.estado = this.estado_entidad;
+  }
+
+  cambiar_estado_entidad(estado: boolean) {
+    this.estado_entidad = estado;
   }
 
   pasar_validacion(): boolean {

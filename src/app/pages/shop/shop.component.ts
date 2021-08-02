@@ -258,6 +258,15 @@ export class ShopComponent implements OnInit, OnDestroy {
     
   }
 
+  adicionar_favorito(producto: Producto) {
+
+    let favoritos: Producto[] = [];
+    favoritos.push(producto);
+
+    this._productoService.guardar_favorito_local(favoritos);
+    this._shared.alert_toast_success('Añadido a favoritos');
+  }
+
   onScrollDown() {
     /* console.log('Down...'); */
     if(this.pagina < this.pagina_final) {

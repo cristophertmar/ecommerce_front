@@ -24,6 +24,8 @@ export class SubCategoriaComponent implements OnInit {
   categorias: Categoria[];
   editar: boolean;
 
+  estado_entidad: boolean;
+
   constructor(
     private _categoriaService: CategoriaService,
     private _subcategoriaService: SubCategoriaService,
@@ -55,7 +57,7 @@ export class SubCategoriaComponent implements OnInit {
     const categoria: number = Number(this.form_busqueda.value.categoria || 0);
     const patron_busqueda: string = this.form_busqueda.value.patron_busqueda || '';
 
-    this._subcategoriaService.listar_subcategoria(categoria, patron_busqueda)
+    this._subcategoriaService.listar_subcategoria(categoria, patron_busqueda, false)
     .subscribe((resp: any) => {
       this.subcategorias = resp.data;
     });
@@ -104,6 +106,7 @@ export class SubCategoriaComponent implements OnInit {
     console.log(subcategoria);
     this.editar = true;
     this.setear_formulario(subcategoria.id, subcategoria.id_categoria, subcategoria.nombre_sub_categoria);    
+    this.estado_entidad = subcategoria.estado;
   }
 
   habilitar_nuevo_registro() {
@@ -116,6 +119,7 @@ export class SubCategoriaComponent implements OnInit {
     this.subcategoria.id = this.formulario.get('id').value || 0;
     this.subcategoria.id_categoria = Number(this.formulario.get('id_categoria').value);
     this.subcategoria.nombre_sub_categoria = this.formulario.get('nombre_subcategoria').value;
+    this.subcategoria.estado = this.estado_entidad;
   }
 
   pasar_validacion(): boolean {
@@ -139,6 +143,10 @@ export class SubCategoriaComponent implements OnInit {
       categoria: new FormControl(0, [Validators.required]),
       patron_busqueda: new FormControl('')
     });
+  }
+
+  cambiar_estado_entidad(estado: boolean) {
+    this.estado_entidad = estado;
   }
 
   limpiar() {

@@ -47,6 +47,7 @@
                             <tr class="bg-primary" style="color: #fff;">
                                 <th>Nombre categoría</th>
                                 <th>Nombre subcategoría</th>
+                                <th>Estado</th>
                                 <th colspan="2"></th>
                             </tr>
                         </thead>
@@ -54,6 +55,10 @@
                             <tr *ngFor="let subcategoria of subcategorias | paginate: { itemsPerPage: 10, currentPage: pagina_actual }">
                                 <td> {{ subcategoria.nombre_categoria }} </td>
                                 <td> {{ subcategoria.nombre_sub_categoria }} </td>
+                                <td>
+                                    <span *ngIf="subcategoria.estado === true" class="badge badge-pill badge-success">Activo</span>
+                                    <span *ngIf="subcategoria.estado === false" class="badge badge-pill badge-danger">Inactivo</span>
+                                </td>
                                 <td><a href="javascript:void(0)" (click)="habilitar_edicion(subcategoria)">Modificar</a></td>
                                 <td><a href="javascript:void(0)" (click)="eliminar_subcategoria(subcategoria)">Eliminar</a></td>
                             </tr>
@@ -72,6 +77,10 @@
                         <a href="javascript:void(0)" (click)="habilitar_nuevo_registro()" class="card-link">Crear subcategoría</a>
 
                         <form style="margin-top: 20px; margin-bottom: 20px;" autocomplete="off" [formGroup]="formulario">
+                            <div *ngIf="editar" class="btn-group btn-group-sm" role="group" style="margin-bottom: 20px;">
+                                <button type="button" class="btn" (click)="cambiar_estado_entidad(true)" [class.btn-outline-success]="!estado_entidad" [class.btn-success]="estado_entidad">Activo</button>
+                                <button type="button" class="btn" (click)="cambiar_estado_entidad(false)" [class.btn-outline-danger]="estado_entidad" [class.btn-danger]="!estado_entidad">Inactivo</button>
+                            </div>
                             <div class="form-group ocultar">
                                 <label>Id:</label>
                                 <input formControlName="id" name="id" type="number" class="form-control" placeholder="Id...">
