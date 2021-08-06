@@ -26,10 +26,11 @@
                         <input type="file" name="fileUpload" id="file-upload" accept=".xls,.xlsx" (change)="fileUpload($event)">
                     </form>
 
-                    <!--  {{ data | json }} -->
+                    <!-- {{ data | json }} -->
                     <br>
                     <br>
-                    <button *ngIf="data.length > 0" type="button" class="btn btn-primary" (click)="cargar_precios()">Cargar documento</button>
+                    <!-- *ngIf="data.length > 0" -->
+                    <button *ngIf="valido" type="button" class="btn btn-primary" (click)="cargar_precios()">Cargar documento</button>
                     <hr *ngIf="no_actualizados.length > 0">
                     <div *ngIf="no_actualizados.length > 0" style="max-width: 500px;">
                         <h5>Productos que no se cargaron:</h5>
@@ -38,13 +39,15 @@
                             <thead>
                                 <tr>
                                     <th scope="col">Código</th>
+                                    <th scope="col">Descripción</th>
                                     <th scope="col">Precio</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr *ngFor="let item of no_actualizados">
                                     <td> {{ item.codigo }} </td>
-                                    <td> {{ item.precio }} </td>
+                                    <td> {{ item.descripcion }} </td>
+                                    <td> {{ item.precio | currency: 'PEN': 'symbol': '': 'es-PE' }} </td>
                                 </tr>
                             </tbody>
                         </table>

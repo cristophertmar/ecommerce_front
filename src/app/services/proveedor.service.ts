@@ -30,5 +30,10 @@ export class ProveedorService {
     return this._http.delete(url);
   }
 
+  verificar_proveedor(ruc: string) {
+    const url = URL_SERVICIOS + 'api/proveedor/verificar?ruc=' + ruc;
+    return this._http.get(url);
+  }
+
 
 }

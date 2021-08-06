@@ -5,6 +5,7 @@ import { OrdenService } from '../../../services/orden.service';
 import { Orden } from '../../../models/orden.model';
 import { OrdenCambio } from '../../../models/orden_cambio.model';
 import { SharedService } from '../../../services/shared.service';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-seguimiento-editar',
@@ -23,7 +24,8 @@ export class SeguimientoEditarComponent implements OnInit {
     private _ordenService: OrdenService,
     private _activatedRoute: ActivatedRoute,
     private shared: SharedService,
-    private _router: Router
+    private _router: Router,
+    private _spinner: NgxSpinnerService
   ) { }
 
   ngOnInit(): void {
@@ -99,14 +101,14 @@ export class SeguimientoEditarComponent implements OnInit {
     orden_cambio.id = this.orden.id;
     orden_cambio.estado = Number(this.estado);
     orden_cambio.detalles = this.orden.detalles;
-
-    console.log(orden_cambio);
-
+    this._spinner.show();
     this._ordenService.cambiar_estado_orden(orden_cambio, this.orden.usuario_entrega_obj.correo)
     .subscribe(resp => {
-        this.shared.alert_toast_success('Guardado exitosamente');
-        this.retornar_lista();
+      this._spinner.hide();
+      this.shared.alert_toast_success('Guardado exitosamente');
+      this.retornar_lista();
     });
+    
   }
 
   cambiar_estado(estado: number) {
@@ -115,14 +117,19 @@ export class SeguimientoEditarComponent implements OnInit {
     orden.id = this.orden.id;
     orden.estado = Number(estado);
     orden.detalles = [];
-
+    this._spinner.show();
     this._ordenService.cambiar_estado_orden(orden, this.orden.usuario_entrega_obj.correo)
     .subscribe(resp => {
         console.log(resp);
+        this._spinner.hide();
         this.shared.alert_success('Guardado exitosamente');
         this.retornar_lista();
     });
   }
+
+  /* validar_recaptcha() {
+    return true;
+  } */
 
   retornar_lista() {
     this._router.navigate(['/mantenimiento/seguimiento-pedido']);

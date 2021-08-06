@@ -108,8 +108,8 @@ export class ProductoService {
     return this._http.put(url, producto);
   }
 
-  actualizar_producto_precio(excels: ExcelPrecio[]) {
-    const url = URL_SERVICIOS + 'api/producto/actualizar_precio';
+  actualizar_producto_precio(excels: ExcelPrecio[], id_proveedor: number) {
+    const url = URL_SERVICIOS + 'api/producto/actualizar_precio?id_proveedor=' + id_proveedor;
     return this._http.put(url, excels);
   }
 

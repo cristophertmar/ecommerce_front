@@ -138,14 +138,20 @@
                     </div>
 
                     <div class="row">
+                        <!-- <div class="col-md-12" style="text-align: left;">
+                            <br><br><br>
+                            <img style="width: 40%;" src="http://cdn2.dineroenimagen.com/media/dinero/que-es-captcha.jpg" alt="">
+                        </div> -->
                         <div class="col-md-6"></div>
                         <div class="col-md-6">
                             <div class="row" style="margin-top: 20px;">
+
                                 <div class="col md-6">
                                     <div style="margin-top: 10px;">
                                         <button (click)="retornar_lista()" type="button" class="btn btn-outline-primary btn-block">Regresar al listado</button>
                                     </div>
                                 </div>
+
                                 <div class="col md-6" *ngIf="orden.estado === 'Pendiente'">
                                     <div style="margin-top: 10px;">
                                         <button (click)="guardar_cambios()" type="button" class="btn btn-primary btn-block">Guardar Cambios</button>
@@ -164,6 +170,7 @@
                             </div>
                         </div>
                     </div>
+
 
                 </div>
             </div>
